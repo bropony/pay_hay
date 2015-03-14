@@ -11,9 +11,9 @@ public class SLoginReturn{
 
 	public SLoginReturn(){
 		userId = 0;
-		nickname = 0;
+		nickname = "";
 		avatar = new byte[0];
-		sessionKey = 0;
+		sessionKey = "";
 	}
 	public void read(SerializeStream __is){
 		userId = __is.read(userId);

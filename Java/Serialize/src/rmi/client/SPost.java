@@ -18,11 +18,11 @@ public class SPost{
 
 	public SPost(){
 		postId = 0;
-		title = 0;
-		content = 0;
+		title = "";
+		content = "";
 		authorUserId = 0;
-		authorAccount = 0;
-		authorNickname = 0;
+		authorAccount = "";
+		authorNickname = "";
 		imgIdList = new int[0];
 		postDt = new Date();
 		likes = 0;

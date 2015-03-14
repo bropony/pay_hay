@@ -1,8 +1,8 @@
 import rmi.client.RmiClient;
-import rmi.client.STest;
+import rmi.client.SLoginReturn;
 import rmi.SerializeStream;
-//import rmi.SOhGood;
 import rmi.RmiManager;
+import rmi.Logger;
 
 import java.util.Date;
 import java.net.URI;
@@ -16,7 +16,7 @@ public class Serialize {
 		
 		URI serverURI = null;
 		try{
-			serverURI = new URI("ws://192.168.3.24:9600");
+			serverURI = new URI("ws://192.168.1.111:9600");
 		}
 		catch(Exception e)
 		{
@@ -27,52 +27,29 @@ public class Serialize {
 		RmiManager.initInstance(serverURI);
 		RmiManager.instance().connect();
 		
-		RmiClient.UploadImageCallback upCb = new RmiClient.UploadImageCallback() {
+		RmiClient.SignupCallback signupCB = new RmiClient.SignupCallback() {
 			
 			@Override
 			public void onTimeout() {
-				System.out.println("timeout");
+				Logger.log("Signup", "Timeout");
 				
 			}
 			
 			@Override
-			public void onResponse(String fileName) {
-				System.out.println("Response: " + fileName);
+			public void onResponse(SLoginReturn userInfo) {
+				Logger.log("Signup Response", "UserId: " + userInfo.userId, "SessionKey: " + userInfo.sessionKey);
 				
 			}
 			
 			@Override
 			public void onError(String what, int code) {
-				System.out.println("What: " + what);
+				Logger.log("signup error", "what: " + what, "code: " + code);
 				
 			}
 		};
 		
-		Path path = Paths.get("D:\\Cocos2dx\\cocos2d-js-v3.2\\samples\\js-tests\\res\\CloseNormal.png");
-		
-		try{
-			byte[] bb = Files.readAllBytes(path);
-			
-			for (int i = 0; i < 4; i++){
-				System.out.print(Integer.toHexString(bb[i]) + " ");
-			}
-			System.out.println();
-			RmiClient.uploadImage(upCb, bb);
-		}catch(Exception e){
-			e.printStackTrace();
-		}
-		
-		path = Paths.get("F:\\doc\\年会照片\\况壁群\\DCIM\\100CANON\\_MG_3009.JPG");
-		try{
-			byte[] bb = Files.readAllBytes(path);
-			for (int i = 0; i < 4; i++){
-				System.out.print(Integer.toHexString(bb[i]) + " ");
-			}
-			System.out.println();
-			RmiClient.uploadImage(upCb, bb);
-		}catch(Exception e){
-			e.printStackTrace();
-		}
+		String account = "test1";
+		RmiClient.signup(signupCB, account, account, account);
 		
 		RmiManager.instance().join();
 	}
