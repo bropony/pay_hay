@@ -16,7 +16,7 @@ public class Serialize {
 		
 		URI serverURI = null;
 		try{
-			serverURI = new URI("ws://192.168.1.111:9600");
+			serverURI = new URI("ws://112.74.102.141:9600");
 		}
 		catch(Exception e)
 		{
