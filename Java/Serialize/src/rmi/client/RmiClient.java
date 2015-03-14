@@ -107,7 +107,7 @@ public class RmiClient{
 			RmiManager.instance().invoke(clientCB__, __msgIdBase, __os);
 		}
 
-		public static void uploadPostImg(UploadPostImgCallback clientCB__, byte[] img){
+		public static void uploadPostImg(UploadPostImgCallback clientCB__, byte[] img, String descrpt){
 			SerializeStream __os = new SerializeStream();
 			__os.startToWrite();
 
@@ -116,6 +116,7 @@ public class RmiClient{
 			__os.write(31);
 
 			__os.write(img);
+			__os.write(descrpt);
 
 			RmiManager.instance().invoke(clientCB__, __msgIdBase, __os);
 		}
