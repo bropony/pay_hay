@@ -8,6 +8,7 @@ module Message
         {
             struct TStructConfig
             {
+                int id;
                 string name;
                 int type;
                 string fields;
