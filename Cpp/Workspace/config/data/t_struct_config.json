@@ -2,23 +2,23 @@
 [
 	
 	{
-		"fields" : "short",
-		"id" : 1,
-		"name" : "SeqShort",
-		"type" : 2
-	},
-	
-	{
-		"fields" : "long",
-		"id" : 2,
-		"name" : "SeqLong",
-		"type" : 2
-	},
-	
-	{
 		"fields" : "int",
-		"id" : 3,
+		"id" : 1,
 		"name" : "SeqInt",
+		"type" : 2
+	},
+	
+	{
+		"fields" : "string",
+		"id" : 2,
+		"name" : "SeqString",
+		"type" : 2
+	},
+	
+	{
+		"fields" : "date",
+		"id" : 3,
+		"name" : "SeqDate",
 		"type" : 2
 	},
 	
@@ -30,30 +30,58 @@
 	},
 	
 	{
-		"fields" : "string",
+		"fields" : "byte",
 		"id" : 5,
-		"name" : "SeqString",
+		"name" : "SeqByte",
 		"type" : 2
 	},
 	
 	{
-		"fields" : "s:SeqShort#l:SeqLong#i:SeqInt#b:SeqBool#ss:SeqString",
+		"fields" : "short",
 		"id" : 6,
-		"name" : "STest",
-		"type" : 1
-	},
-	
-	{
-		"fields" : "SeqInt",
-		"id" : 7,
-		"name" : "SeqSeqInt",
+		"name" : "SeqShort",
 		"type" : 2
 	},
 	
 	{
-		"fields" : "st:STest#ilist:SeqSeqInt",
+		"fields" : "double",
+		"id" : 7,
+		"name" : "SeqDouble",
+		"type" : 2
+	},
+	
+	{
+		"fields" : "long",
 		"id" : 8,
-		"name" : "SGoo",
+		"name" : "SeqLong",
+		"type" : 2
+	},
+	
+	{
+		"fields" : "image",
+		"id" : 9,
+		"name" : "SeqImage",
+		"type" : 2
+	},
+	
+	{
+		"fields" : "userId:int#nickname:string#avatar:image#sessionKey:string",
+		"id" : 100,
+		"name" : "SLoginReturn",
 		"type" : 1
+	},
+	
+	{
+		"fields" : "postId:int#title:string#content:string#authorUserId:int#authorAccount:string#authorNickname:string#imgIdList:SeqInt#postDt:date#likes:int#dislikes:int#comments:int",
+		"id" : 101,
+		"name" : "SPost",
+		"type" : 1
+	},
+	
+	{
+		"fields" : "SPost",
+		"id" : 102,
+		"name" : "SeqPost",
+		"type" : 2
 	}
 ]

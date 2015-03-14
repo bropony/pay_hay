@@ -2,30 +2,81 @@
 [
 	
 	{
-		"event" : "test",
-		"eventId" : 12,
-		"inParams" : "dt:date",
-		"outParams" : "testOut:date"
+		"event" : "login",
+		"eventId" : 1,
+		"inParams" : "account:string#passwd:string",
+		"outParams" : "userInfo:SLoginReturn"
 	},
 	
 	{
-		"event" : "showError",
-		"eventId" : 13,
-		"inParams" : "dt:date",
-		"outParams" : "out:string"
+		"event" : "signup",
+		"eventId" : 2,
+		"inParams" : "account:string#passwd:string#nickname:string",
+		"outParams" : "userInfo:SLoginReturn"
 	},
 	
 	{
-		"event" : "uploadImage",
-		"eventId" : 14,
-		"inParams" : "img:image",
-		"outParams" : "fileName:string"
+		"event" : "changeAvatar",
+		"eventId" : 3,
+		"inParams" : "sessionKey:string#avatar:image"
 	},
 	
 	{
-		"event" : "echo",
-		"eventId" : 15,
-		"inParams" : "input:STest",
-		"outParams" : "output:STest"
+		"event" : "getPosts",
+		"eventId" : 20,
+		"inParams" : "lastPostId:int#forNew:bool#requestNum:int",
+		"outParams" : "postList:SeqPost"
+	},
+	
+	{
+		"event" : "getImage",
+		"eventId" : 21,
+		"inParams" : "imgId:int",
+		"outParams" : "img:image"
+	},
+	
+	{
+		"event" : "getMyPosts",
+		"eventId" : 22,
+		"inParams" : "sessionKey:string#lastPostId:int",
+		"outParams" : "postList:SeqPost"
+	},
+	
+	{
+		"event" : "startPost",
+		"eventId" : 30,
+		"inParams" : "sessionKey:string#title:string#content:string"
+	},
+	
+	{
+		"event" : "uploadPostImg",
+		"eventId" : 31,
+		"inParams" : "sessionKey:string#img:image#descrpt:string",
+		"outParams" : "imgId:int"
+	},
+	
+	{
+		"event" : "endPost",
+		"eventId" : 32,
+		"inParams" : "sessionKey:string",
+		"outParams" : "postId:int"
+	},
+	
+	{
+		"event" : "likePost",
+		"eventId" : 40,
+		"inParams" : "sessionKey:string#postId:int"
+	},
+	
+	{
+		"event" : "dislikePost",
+		"eventId" : 41,
+		"inParams" : "sessionKey:string#postId:int"
+	},
+	
+	{
+		"event" : "commentPost",
+		"eventId" : 42,
+		"inParams" : "sessionKey:string#postId:int#comments:string"
 	}
 ]
