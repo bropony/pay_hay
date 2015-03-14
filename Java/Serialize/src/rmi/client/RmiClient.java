@@ -361,13 +361,16 @@ public class RmiClient{
 	public static abstract class UploadPostImgCallback extends RmiCallbackBase {
 		public UploadPostImgCallback(){}
 
-		public abstract void onResponse();
+		public abstract void onResponse(int imgId);
 		public abstract void onError(String what, int code);
 		public abstract void onTimeout();
 
 		@Override
 		public void __onResponse(SerializeStream __is){
-			onResponse();
+			int imgId = 0;
+			imgId = __is.read(imgId);
+
+			onResponse(imgId);
 		}
 
 		@Override
