@@ -90,7 +90,7 @@ void CRmiServerImpl::getImage(int imgId, const CGetImageCallbackPtr & getImageCB
 
 }
 
-void CRmiServerImpl::getMyPosts(std::string & sessionKey, const CGetMyPostsCallbackPtr & getMyPostsCB)
+void CRmiServerImpl::getMyPosts(std::string & sessionKey, int lastPostId, const CGetMyPostsCallbackPtr & getMyPostsCB)
 {
 
 }

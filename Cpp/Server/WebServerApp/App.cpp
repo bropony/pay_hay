@@ -12,8 +12,8 @@
 #include "Config/GameDataLoader.h"
 #include "Helper/PublicConfig.h"
 #include "User/UserManager.h"
-#include "Core/MessageHandler.h"
-#include "Core/EventHandlerImpl.h"
+#include "Rmi/RmiIncoming.h"
+#include "Rmi/RmiServerImpl.h"
 #include "Resource/PostManager.h"
 #include "Resource/ImageManager.h"
 #include "Resource/CommentManager.h"
@@ -40,9 +40,11 @@ void Application::initWebSocket()
 		cdf::CWebsocketServer::instance()->setDocRoot(CPublicConfig::instance()->getDocRoot());
 	}
 
-	cg::CMassageHandlerPtr msgHandler = new cg::CMassageHandler();
-	msgHandler->setEventHandler(new CEventHandlerImpl());
-	cdf::CWebsocketServer::instance()->setMessageHandler(msgHandler);
+	//cg::CMassageHandlerPtr msgHandler = new cg::CMassageHandler();
+	//msgHandler->setEventHandler(new CEventHandlerImpl());
+	Rmi::CRmiIncomingPtr rmiIncoming = new Rmi::CRmiIncoming();
+	rmiIncoming->setRmiServer(new Rmi::CRmiServerImpl());
+	cdf::CWebsocketServer::instance()->setMessageHandler(rmiIncoming);
 }
 
 void Application::initThreadFun()
