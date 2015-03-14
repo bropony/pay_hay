@@ -6,25 +6,25 @@ import java.util.Date;
 public class ListReader{
 	private ListReader(){}
 
-	public static int[][] read(SerializeStream __is, int[][] res){
+	public static SPost[] read(SerializeStream __is, SPost[] res){
 		int size = __is.readInt();
-		res = new int[size][];
+		res = new SPost[size];
 
 		for (int i = 0; i < size; ++i){
-			int[] val = null;
-			val = __is.read(val);
+			SPost val = new SPost();
+			val.read(__is);
 			res[i] = val;
 		}
 
 		return res;
 	}
 
-	public static void write(SerializeStream __os, int[][] v){
+	public static void write(SerializeStream __os, SPost[] v){
 		int size = v.length;
 		__os.write(size);
 
 		for (int i = 0; i < size; i++){
-			__os.write(v[i]);
+			v[i].write(__os);
 		}
 	}
 
