@@ -14,6 +14,7 @@ public class SPost{
 	public Date postDt;
 	public int likes;
 	public int dislikes;
+	public int comments;
 
 	public SPost(){
 		postId = 0;
@@ -26,6 +27,7 @@ public class SPost{
 		postDt = new Date();
 		likes = 0;
 		dislikes = 0;
+		comments = 0;
 	}
 	public void read(SerializeStream __is){
 		postId = __is.read(postId);
@@ -38,6 +40,7 @@ public class SPost{
 		postDt = __is.read(postDt);
 		likes = __is.read(likes);
 		dislikes = __is.read(dislikes);
+		comments = __is.read(comments);
 	}
 	public void write(SerializeStream __os){
 		__os.write(postId);
@@ -50,6 +53,7 @@ public class SPost{
 		__os.write(postDt);
 		__os.write(likes);
 		__os.write(dislikes);
+		__os.write(comments);
 	}
 }
 
