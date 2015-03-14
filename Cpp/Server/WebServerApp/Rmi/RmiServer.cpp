@@ -3,12 +3,12 @@
 
 using namespace Rmi;
 
-CTestCallback::CTestCallback(const cdf::CWSContextPtr & context, int msgId)
+CLoginCallback::CLoginCallback(const cdf::CWSContextPtr & context, int msgId)
 :CRmiCallbackBase(context, msgId)
 {
 }
 
-void CTestCallback::response(cdf::CDateTime & testOut)
+void CLoginCallback::response(SLoginReturn & userInfo)
 {
 	cdf::CSimpleSerializer __os;
 	__os.startToWrite();
@@ -16,18 +16,18 @@ void CTestCallback::response(cdf::CDateTime & testOut)
 	__os.write(_msgId);
 	__os.write(true);
 
-	__os.write(testOut);
+	userInfo.__write(__os);
 
 	__response(__os);
 }
 
 
-CShowErrorCallback::CShowErrorCallback(const cdf::CWSContextPtr & context, int msgId)
+CSignupCallback::CSignupCallback(const cdf::CWSContextPtr & context, int msgId)
 :CRmiCallbackBase(context, msgId)
 {
 }
 
-void CShowErrorCallback::response(std::string & out)
+void CSignupCallback::response(SLoginReturn & userInfo)
 {
 	cdf::CSimpleSerializer __os;
 	__os.startToWrite();
@@ -35,18 +35,18 @@ void CShowErrorCallback::response(std::string & out)
 	__os.write(_msgId);
 	__os.write(true);
 
-	__os.write(out);
+	userInfo.__write(__os);
 
 	__response(__os);
 }
 
 
-CUploadImageCallback::CUploadImageCallback(const cdf::CWSContextPtr & context, int msgId)
+CChangeAvatarCallback::CChangeAvatarCallback(const cdf::CWSContextPtr & context, int msgId)
 :CRmiCallbackBase(context, msgId)
 {
 }
 
-void CUploadImageCallback::response(std::string & fileName)
+void CChangeAvatarCallback::response()
 {
 	cdf::CSimpleSerializer __os;
 	__os.startToWrite();
@@ -54,18 +54,17 @@ void CUploadImageCallback::response(std::string & fileName)
 	__os.write(_msgId);
 	__os.write(true);
 
-	__os.write(fileName);
 
 	__response(__os);
 }
 
 
-CEchoCallback::CEchoCallback(const cdf::CWSContextPtr & context, int msgId)
+CGetPostsCallback::CGetPostsCallback(const cdf::CWSContextPtr & context, int msgId)
 :CRmiCallbackBase(context, msgId)
 {
 }
 
-void CEchoCallback::response(STest & output)
+void CGetPostsCallback::response(SeqPost & postList)
 {
 	cdf::CSimpleSerializer __os;
 	__os.startToWrite();
@@ -73,46 +72,311 @@ void CEchoCallback::response(STest & output)
 	__os.write(_msgId);
 	__os.write(true);
 
-	output.__write(__os);
+	::Rmi::__write(__os, postList, SeqPost__U__());
 
 	__response(__os);
 }
 
 
-void CRmiServer::__test(cdf::CSimpleSerializer & __is, int __msgId, const cdf::CWSContextPtr & context)
+CGetImageCallback::CGetImageCallback(const cdf::CWSContextPtr & context, int msgId)
+:CRmiCallbackBase(context, msgId)
 {
-	cdf::CDateTime dt;
-	__is.read(dt);
-
-	CTestCallbackPtr __cb = new CTestCallback(context, __msgId);
-	test(dt, __cb);
 }
 
-void CRmiServer::__showError(cdf::CSimpleSerializer & __is, int __msgId, const cdf::CWSContextPtr & context)
+void CGetImageCallback::response(std::string & img)
 {
-	cdf::CDateTime dt;
-	__is.read(dt);
+	cdf::CSimpleSerializer __os;
+	__os.startToWrite();
 
-	CShowErrorCallbackPtr __cb = new CShowErrorCallback(context, __msgId);
-	showError(dt, __cb);
+	__os.write(_msgId);
+	__os.write(true);
+
+	__os.write(img);
+
+	__response(__os);
 }
 
-void CRmiServer::__uploadImage(cdf::CSimpleSerializer & __is, int __msgId, const cdf::CWSContextPtr & context)
+
+CGetMyPostsCallback::CGetMyPostsCallback(const cdf::CWSContextPtr & context, int msgId)
+:CRmiCallbackBase(context, msgId)
 {
+}
+
+void CGetMyPostsCallback::response(SeqPost & postList)
+{
+	cdf::CSimpleSerializer __os;
+	__os.startToWrite();
+
+	__os.write(_msgId);
+	__os.write(true);
+
+	::Rmi::__write(__os, postList, SeqPost__U__());
+
+	__response(__os);
+}
+
+
+CStartPostCallback::CStartPostCallback(const cdf::CWSContextPtr & context, int msgId)
+:CRmiCallbackBase(context, msgId)
+{
+}
+
+void CStartPostCallback::response()
+{
+	cdf::CSimpleSerializer __os;
+	__os.startToWrite();
+
+	__os.write(_msgId);
+	__os.write(true);
+
+
+	__response(__os);
+}
+
+
+CUploadPostImgCallback::CUploadPostImgCallback(const cdf::CWSContextPtr & context, int msgId)
+:CRmiCallbackBase(context, msgId)
+{
+}
+
+void CUploadPostImgCallback::response(int imgId)
+{
+	cdf::CSimpleSerializer __os;
+	__os.startToWrite();
+
+	__os.write(_msgId);
+	__os.write(true);
+
+	__os.write(imgId);
+
+	__response(__os);
+}
+
+
+CEndPostCallback::CEndPostCallback(const cdf::CWSContextPtr & context, int msgId)
+:CRmiCallbackBase(context, msgId)
+{
+}
+
+void CEndPostCallback::response(int postId)
+{
+	cdf::CSimpleSerializer __os;
+	__os.startToWrite();
+
+	__os.write(_msgId);
+	__os.write(true);
+
+	__os.write(postId);
+
+	__response(__os);
+}
+
+
+CLikePostCallback::CLikePostCallback(const cdf::CWSContextPtr & context, int msgId)
+:CRmiCallbackBase(context, msgId)
+{
+}
+
+void CLikePostCallback::response()
+{
+	cdf::CSimpleSerializer __os;
+	__os.startToWrite();
+
+	__os.write(_msgId);
+	__os.write(true);
+
+
+	__response(__os);
+}
+
+
+CDislikePostCallback::CDislikePostCallback(const cdf::CWSContextPtr & context, int msgId)
+:CRmiCallbackBase(context, msgId)
+{
+}
+
+void CDislikePostCallback::response()
+{
+	cdf::CSimpleSerializer __os;
+	__os.startToWrite();
+
+	__os.write(_msgId);
+	__os.write(true);
+
+
+	__response(__os);
+}
+
+
+CCommentPostCallback::CCommentPostCallback(const cdf::CWSContextPtr & context, int msgId)
+:CRmiCallbackBase(context, msgId)
+{
+}
+
+void CCommentPostCallback::response()
+{
+	cdf::CSimpleSerializer __os;
+	__os.startToWrite();
+
+	__os.write(_msgId);
+	__os.write(true);
+
+
+	__response(__os);
+}
+
+
+void CRmiServer::__login(cdf::CSimpleSerializer & __is, int __msgId, const cdf::CWSContextPtr & context)
+{
+	std::string account;
+	__is.read(account);
+
+	std::string passwd;
+	__is.read(passwd);
+
+	CLoginCallbackPtr __cb = new CLoginCallback(context, __msgId);
+	login(account, passwd, __cb);
+}
+
+void CRmiServer::__signup(cdf::CSimpleSerializer & __is, int __msgId, const cdf::CWSContextPtr & context)
+{
+	std::string account;
+	__is.read(account);
+
+	std::string passwd;
+	__is.read(passwd);
+
+	std::string nickname;
+	__is.read(nickname);
+
+	CSignupCallbackPtr __cb = new CSignupCallback(context, __msgId);
+	signup(account, passwd, nickname, __cb);
+}
+
+void CRmiServer::__changeAvatar(cdf::CSimpleSerializer & __is, int __msgId, const cdf::CWSContextPtr & context)
+{
+	std::string sessionKey;
+	__is.read(sessionKey);
+
+	std::string avatar;
+	__is.read(avatar);
+
+	CChangeAvatarCallbackPtr __cb = new CChangeAvatarCallback(context, __msgId);
+	changeAvatar(sessionKey, avatar, __cb);
+}
+
+void CRmiServer::__getPosts(cdf::CSimpleSerializer & __is, int __msgId, const cdf::CWSContextPtr & context)
+{
+	int lastPostId = 0;
+	__is.read(lastPostId);
+
+	bool forNew = false;
+	__is.read(forNew);
+
+	int requestNum = 0;
+	__is.read(requestNum);
+
+	CGetPostsCallbackPtr __cb = new CGetPostsCallback(context, __msgId);
+	getPosts(lastPostId, forNew, requestNum, __cb);
+}
+
+void CRmiServer::__getImage(cdf::CSimpleSerializer & __is, int __msgId, const cdf::CWSContextPtr & context)
+{
+	int imgId = 0;
+	__is.read(imgId);
+
+	CGetImageCallbackPtr __cb = new CGetImageCallback(context, __msgId);
+	getImage(imgId, __cb);
+}
+
+void CRmiServer::__getMyPosts(cdf::CSimpleSerializer & __is, int __msgId, const cdf::CWSContextPtr & context)
+{
+	std::string sessionKey;
+	__is.read(sessionKey);
+
+	int lastPostId = 0;
+	__is.read(lastPostId);
+
+	CGetMyPostsCallbackPtr __cb = new CGetMyPostsCallback(context, __msgId);
+	getMyPosts(sessionKey, lastPostId, __cb);
+}
+
+void CRmiServer::__startPost(cdf::CSimpleSerializer & __is, int __msgId, const cdf::CWSContextPtr & context)
+{
+	std::string sessionKey;
+	__is.read(sessionKey);
+
+	std::string title;
+	__is.read(title);
+
+	std::string content;
+	__is.read(content);
+
+	CStartPostCallbackPtr __cb = new CStartPostCallback(context, __msgId);
+	startPost(sessionKey, title, content, __cb);
+}
+
+void CRmiServer::__uploadPostImg(cdf::CSimpleSerializer & __is, int __msgId, const cdf::CWSContextPtr & context)
+{
+	std::string sessionKey;
+	__is.read(sessionKey);
+
 	std::string img;
 	__is.read(img);
 
-	CUploadImageCallbackPtr __cb = new CUploadImageCallback(context, __msgId);
-	uploadImage(img, __cb);
+	std::string descrpt;
+	__is.read(descrpt);
+
+	CUploadPostImgCallbackPtr __cb = new CUploadPostImgCallback(context, __msgId);
+	uploadPostImg(sessionKey, img, descrpt, __cb);
 }
 
-void CRmiServer::__echo(cdf::CSimpleSerializer & __is, int __msgId, const cdf::CWSContextPtr & context)
+void CRmiServer::__endPost(cdf::CSimpleSerializer & __is, int __msgId, const cdf::CWSContextPtr & context)
 {
-	STest input;
-	input.__read(__is);
+	std::string sessionKey;
+	__is.read(sessionKey);
 
-	CEchoCallbackPtr __cb = new CEchoCallback(context, __msgId);
-	echo(input, __cb);
+	CEndPostCallbackPtr __cb = new CEndPostCallback(context, __msgId);
+	endPost(sessionKey, __cb);
+}
+
+void CRmiServer::__likePost(cdf::CSimpleSerializer & __is, int __msgId, const cdf::CWSContextPtr & context)
+{
+	std::string sessionKey;
+	__is.read(sessionKey);
+
+	int postId = 0;
+	__is.read(postId);
+
+	CLikePostCallbackPtr __cb = new CLikePostCallback(context, __msgId);
+	likePost(sessionKey, postId, __cb);
+}
+
+void CRmiServer::__dislikePost(cdf::CSimpleSerializer & __is, int __msgId, const cdf::CWSContextPtr & context)
+{
+	std::string sessionKey;
+	__is.read(sessionKey);
+
+	int postId = 0;
+	__is.read(postId);
+
+	CDislikePostCallbackPtr __cb = new CDislikePostCallback(context, __msgId);
+	dislikePost(sessionKey, postId, __cb);
+}
+
+void CRmiServer::__commentPost(cdf::CSimpleSerializer & __is, int __msgId, const cdf::CWSContextPtr & context)
+{
+	std::string sessionKey;
+	__is.read(sessionKey);
+
+	int postId = 0;
+	__is.read(postId);
+
+	std::string comments;
+	__is.read(comments);
+
+	CCommentPostCallbackPtr __cb = new CCommentPostCallback(context, __msgId);
+	commentPost(sessionKey, postId, comments, __cb);
 }
 
 void CRmiServer::__call(cdf::CSimpleSerializer & __is, const cdf::CWSContextPtr & context)
@@ -134,17 +398,41 @@ void CRmiServer::__call(cdf::CSimpleSerializer & __is, const cdf::CWSContextPtr 
 	{
 		switch (__eventId)
 		{
-		case 12:
-			__test(__is, __msgId, context);
+		case 1:
+			__login(__is, __msgId, context);
 			break;
-		case 13:
-			__showError(__is, __msgId, context);
+		case 2:
+			__signup(__is, __msgId, context);
 			break;
-		case 14:
-			__uploadImage(__is, __msgId, context);
+		case 3:
+			__changeAvatar(__is, __msgId, context);
 			break;
-		case 15:
-			__echo(__is, __msgId, context);
+		case 20:
+			__getPosts(__is, __msgId, context);
+			break;
+		case 21:
+			__getImage(__is, __msgId, context);
+			break;
+		case 22:
+			__getMyPosts(__is, __msgId, context);
+			break;
+		case 30:
+			__startPost(__is, __msgId, context);
+			break;
+		case 31:
+			__uploadPostImg(__is, __msgId, context);
+			break;
+		case 32:
+			__endPost(__is, __msgId, context);
+			break;
+		case 40:
+			__likePost(__is, __msgId, context);
+			break;
+		case 41:
+			__dislikePost(__is, __msgId, context);
+			break;
+		case 42:
+			__commentPost(__is, __msgId, context);
 			break;
 		default:
 			WebServerApp::CErrorCodeManager::throwException("Error_NotRegisterdRmiCall");

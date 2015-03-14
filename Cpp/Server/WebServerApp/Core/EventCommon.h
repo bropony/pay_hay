@@ -19,6 +19,15 @@ namespace WebServerApp
 		const int imgMsgId = 100000;
 	}
 
+	namespace ImageType
+	{
+		enum IMAGETYPE
+		{
+			POST = 1,
+			AVATAR = 2,
+		};
+	}
+
 	namespace EventKey
 	{
 		const std::string event = "event";

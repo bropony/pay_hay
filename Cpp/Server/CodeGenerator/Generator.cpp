@@ -16,7 +16,7 @@ bool CCodeGenerator::init(const std::string & outPath, const std::string & jsPat
 	_eventHpp.open(outPath + "/EventHandler.h", std::ios::out);
 	_eventCpp.open(outPath + "/EventHandler.cpp", std::ios::out);
 
-	_js.open(jsPath + "/" + "Rmi.js", std::ios::out);
+	_js.open(jsPath + "/" + "rmi.js", std::ios::out);
 
 	_eventHandlerName = "_eventHandler";
 	_eventClassName = "CEventHandler";
@@ -78,6 +78,7 @@ void CCodeGenerator::genMsgCode()
 	_msgCpp << "#include \"" << _headRoot << "/EventCommon.h\"\n";
 	_msgCpp << "#include \"Config/ErrorCodeManager.h\"\n";
 	_msgCpp << "#include \"framework/json/value.h\"\n";
+	_msgCpp << "#include \"framework/websocket/websocketserver.h\"\n";
 	_msgCpp << "\n";
 	_msgCpp << "using namespace cg;\n";
 	_msgCpp << "using namespace WebServerApp;\n";
@@ -92,14 +93,19 @@ void CCodeGenerator::genMsgCode()
 	//body
 	_msgCpp << ident1 << "if (operCode == websocketpp::frame::opcode::binary)\n";
 	_msgCpp << ident1 << "{\n";
+	_msgCpp << ident2 << "int msgId = int(data[0]);\n";
+	_msgCpp << ident2 << "int type = int(data[1]);\n";
 	_msgCpp << ident2 << "try\n" << ident2 << "{\n";
-	_msgCpp << ident3 << _eventHandlerName << "->onUploadImg(data, context);\n";
+	_msgCpp << ident3 << _eventHandlerName << "->onUploadImg(type, data.substr(2), context);\n";
+	_msgCpp << ident3 << "Json::Value __res;\n";
+	_msgCpp << ident3 << "__res[\"msg_id\"] = msgId;\n";
+	_msgCpp << ident3 << "cdf::CWebsocketServer::instance()->sendData(context, __res.toFastString());\n";
 	_msgCpp << ident2 << "}\n";
 	_msgCpp << ident2 << "catch (const cdf::CException & ex)\n" << ident2 << "{\n";
-	_msgCpp << ident3 << "CEventHandler::onError(ex.code(), ex.what(), -1, context);\n";
+	_msgCpp << ident3 << "CEventHandler::onError(ex.code(), ex.what(), msgId, context);\n";
 	_msgCpp << ident2 << "}\n";
 	_msgCpp << ident2 << "catch (...)\n" << ident2 << "{\n";
-	_msgCpp << ident3 << "CEventHandler::onError(10000, \"ExceptionCodeUnkown\", -1, context);\n";
+	_msgCpp << ident3 << "CEventHandler::onError(10000, \"ExceptionCodeUnkown\", msgId, context);\n";
 	_msgCpp << ident2 << "}\n\n";
 	_msgCpp << ident2 << "return;\n";
 	_msgCpp << ident1 << "}\n\n";
@@ -152,7 +158,7 @@ void CCodeGenerator::genMsgCode()
 		}
 		_msgCpp << ident4 << "cb\n";
 		_msgCpp << ident3 << ");\n";
-		_msgCpp << ident2 << "}\n\n";
+		_msgCpp << ident2 << "}\n";
 	}
 
 	_msgCpp << ident2 << "else\n" << ident2 << "{\n";
@@ -195,6 +201,7 @@ void CCodeGenerator::genEventCode()
 	_eventHpp << "namespace cg\n{\n";
 
 	_eventCpp << "#include \"framework/websocket/websocketserver.h\"\n";
+	_eventCpp << "#include \"framework/util/endian.h\"\n";
 	_eventCpp << "#include \"" << _headRoot << "/EventHandler.h\"\n";
 	_eventCpp << "\n";
 
@@ -215,7 +222,7 @@ void CCodeGenerator::genEventCode()
 	_eventHpp << ident2 << "static void onError(";
 	_eventHpp << "int errorCode, const std::string & errorMsg, int msgId, const cdf::CWSContextPtr & context);\n\n";
 
-	_eventHpp << ident2 << "virtual void onUploadImg(const std::string & img, const cdf::CWSContextPtr & context) = 0;\n\n";
+	_eventHpp << ident2 << "virtual void onUploadImg(int type, const std::string & img, const cdf::CWSContextPtr & context) = 0;\n\n";
 
 	for (auto event : CEventManager::instance()->getEvents())
 	{
@@ -266,6 +273,7 @@ void CCodeGenerator::genJsCode()
 		_js << ident2 << "var jsData = {}\n";
 		_js << ident2 << "jsData.msg_id = this.getMsgId();\n";
 		_js << ident2 << "jsData.event = \"" << event.getName() << "\";\n";
+		_js << ident2 << "callback.event = jsData.event;\n";
 
 		_js << ident2 << "if (callback && (typeof(callback) != \"object\")){\n";
 		_js << ident3 << "cc.log(\"Param callback of " << event.getName()
@@ -297,15 +305,16 @@ void CCodeGenerator::genJsCode()
 		_js << ident1 << "},\n\n\n"; // end of function body
 	}
 
-	_js << ident1 << "onCallback: function(cb, jsData){\n";
-	_js << ident2 << "cb || return;\n";
-	_js << ident2 << "var eventName = jsDate.event;\n\n";
+	_js << ident1 << "onCallback: function(cb, eventName, jsData){\n";
+	_js << ident2 << "if (!cb){ return; }\n\n";
+	//_js << ident2 << "var eventName = jsDate.event;\n\n";
 
 	_js << ident2 << "if (eventName == \"error\"){\n";
-	_js << ident3 << "cb.onError && cb.onError(jsData.what, jsData.code);\n";
+	_js << ident3 << "if (cb.onError){cb.onError(jsData.what, jsData.code);}\n";
+	_js << ident3 << "else{ViewManager.navigator.addChild(new ErrorLabel(jsData.what, jsData.code));}\n";
 	_js << ident3 << "return;\n";
 	_js << ident2 << "}\n";
-	_js << ident2 << "else if (!cb.onResponce){\n";
+	_js << ident2 << "else if (!cb.onResponse){\n";
 	_js << ident3 << "return;\n";
 	_js << ident2 << "}\n\n";
 

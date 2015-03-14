@@ -10,6 +10,7 @@ namespace WebServerApp
 	{
 	public:
 		static const CUserPtr getUser(const cdf::CWSContextPtr & context, bool throwIfNull = true);
+		static const CUserPtr getUser(const cdf::CWSContextPtr & context, const std::string & sessionKey, bool throwIfNull = true);
 
 	private:
 		CUserHelper();

@@ -3,8 +3,11 @@
 
 #include "framework/cdf_common.h"
 #include "framework/util/refshared.h"
+#include "framework/json/value.h"
 
 #include "Message/Db/Tables/TUserPost.h"
+
+#include "Rmi/DataStructDef.h"
 
 namespace WebServerApp
 {
@@ -14,6 +17,8 @@ namespace WebServerApp
 	public:
 		CPost(const Message::Db::Tables::TUserPost & userPost);
 		Message::Db::Tables::TUserPost & getTUserPost();
+		void postToJs(Json::Value & js);
+		void postToClient(Rmi::SPost & post);
 	private:
 		Message::Db::Tables::TUserPost _tUserPost;
 	};

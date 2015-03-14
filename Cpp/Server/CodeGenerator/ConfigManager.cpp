@@ -132,6 +132,7 @@ void CEvent::gencallback(std::ofstream & hpp, std::ofstream & cpp)
 	hpp << ident1 << "public:\n";
 	hpp << ident2 << ctor << ";\n";
 	hpp << ident2 << "void " << _cbSig << ";\n";
+	hpp << ident2 << "void responseB(const std::string & data);\n";
 	hpp << ident2 << "const cdf::CWSContextPtr getContext(){ return _context; }\n";
 	hpp << "\n";
 	hpp << ident1 << "private:\n";
@@ -163,6 +164,18 @@ void CEvent::gencallback(std::ofstream & hpp, std::ofstream & cpp)
 	cpp << "\n";
 	cpp << ident1 << "cdf::CWebsocketServer::instance()->sendData(_context, __res.toFastString());\n";
 	cpp << "}\n\n";
+
+	cpp << "void " << _cbName << "::responseB(const std::string & data)\n";
+	cpp << "{\n";
+	cpp << ident1 << "std::string __res;\n";
+	cpp << ident1 << "__res.resize(4);\n";
+	cpp << ident1 << "int msgId = cdf::endian(_msgId);\n";
+	cpp << ident1 << "for (int i = 0; i < 4; i++){__res[i] = ((char*)(&msgId))[i];}\n";
+	cpp << ident1 << "__res += data;\n";
+	cpp << ident1 << "cdf::CWebsocketServer::instance()->sendData(_context, __res, websocketpp::frame::opcode::binary);\n";
+	cpp << "}\n";
+
+	cpp << "\n\n";
 }
 
 

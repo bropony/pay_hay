@@ -3,6 +3,7 @@
 
 #include "Resource/Post.h"
 #include "Message/Public/CdlPublic.h"
+#include "Rmi/DataStructDef.h"
 
 namespace WebServerApp
 {
@@ -18,11 +19,16 @@ namespace WebServerApp
 			const std::string & content, const Message::Public::SeqInt & imgIdList, const cdf::CDateTime & postDt);
 		void addPost(const CPostPtr & post);
 
+		void getPostIdList(int lastPostId, bool forNewPosts, Message::Public::SeqInt & postIdList);
+		void getPostList(const Message::Public::SeqInt & postIdList, Json::Value & jsRes);
+		void getPostList(const Message::Public::SeqInt & postIdList, Rmi::SeqPost & postList);
+
 	private:
 		CPostManager();
 		~CPostManager();
 	private:
 		MapPost _mapPost;
+		std::vector<int> _postIdList;
 	};
 }
 

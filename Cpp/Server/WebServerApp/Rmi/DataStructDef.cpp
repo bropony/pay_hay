@@ -3,84 +3,108 @@
 namespace Rmi
 {
 
-//definition of class STest
-STest::STest()
-:s()
-,l()
-,i()
-,b()
-,ss()
+//definition of class SLoginReturn
+SLoginReturn::SLoginReturn()
+:userId()
+,nickname()
+,avatar()
+,sessionKey()
 {
 }
 
-STest::~STest()
+SLoginReturn::~SLoginReturn()
 {
 }
 
-void STest::__read(cdf::CSimpleSerializer & __is)
+void SLoginReturn::__read(cdf::CSimpleSerializer & __is)
 {
-	__is.read(s); 
-	__is.read(l); 
-	__is.read(i); 
-	__is.read(b); 
-	__is.read(ss); 
+	__is.read(userId);
+	__is.read(nickname);
+	__is.read(avatar);
+	__is.read(sessionKey);
 }
 
-void STest::__write(cdf::CSimpleSerializer & __os)
+void SLoginReturn::__write(cdf::CSimpleSerializer & __os)
 {
-	__os.write(s); 
-	__os.write(l); 
-	__os.write(i); 
-	__os.write(b); 
-	__os.write(ss); 
+	__os.write(userId);
+	__os.write(nickname);
+	__os.write(avatar);
+	__os.write(sessionKey);
 }
 
-//definition of __read and __write of SeqSeqInt
-void __read(cdf::CSimpleSerializer & __is, SeqSeqInt& v, SeqSeqInt__U__)
+//definition of class SPost
+SPost::SPost()
+:postId()
+,title()
+,content()
+,authorUserId()
+,authorAccount()
+,authorNickname()
+,imgIdList()
+,postDt()
+,likes()
+,dislikes()
+,comments()
+{
+}
+
+SPost::~SPost()
+{
+}
+
+void SPost::__read(cdf::CSimpleSerializer & __is)
+{
+	__is.read(postId);
+	__is.read(title);
+	__is.read(content);
+	__is.read(authorUserId);
+	__is.read(authorAccount);
+	__is.read(authorNickname);
+	__is.read(imgIdList); 
+	__is.read(postDt);
+	__is.read(likes);
+	__is.read(dislikes);
+	__is.read(comments);
+}
+
+void SPost::__write(cdf::CSimpleSerializer & __os)
+{
+	__os.write(postId);
+	__os.write(title);
+	__os.write(content);
+	__os.write(authorUserId);
+	__os.write(authorAccount);
+	__os.write(authorNickname);
+	__os.write(imgIdList); 
+	__os.write(postDt);
+	__os.write(likes);
+	__os.write(dislikes);
+	__os.write(comments);
+}
+
+//definition of __read and __write of SeqPost
+void __read(cdf::CSimpleSerializer & __is, SeqPost& v, SeqPost__U__)
 {
 	unsigned size = 0;
 	__is.readSize(size); 
 
 	for(unsigned i = 0; i < size; i++)
 	{
-		SeqInt elem;
-		__is.read(elem);
+		SPost elem;
+		elem.__read(__is);
 		v.push_back(elem);
 	}
 }
 
-void __write(cdf::CSimpleSerializer & __os, SeqSeqInt& v, SeqSeqInt__U__)
+void __write(cdf::CSimpleSerializer & __os, SeqPost& v, SeqPost__U__)
 {
 	unsigned size = v.size();
 	__os.writeSize(size);
 
 	for (auto elem : v)
 	{
-		__os.write(elem);
+		elem.__write(__os);
 	}
-}
-
-//definition of class SGoo
-SGoo::SGoo()
-:st()
-,ilist()
-{
-}
-
-SGoo::~SGoo()
-{
-}
-
-void SGoo::__read(cdf::CSimpleSerializer & __is)
-{
-	st.__read(__is);
-	::Rmi::__read(__is, ilist, SeqSeqInt__U__());
-}
-
-void SGoo::__write(cdf::CSimpleSerializer & __os)
-{
-	st.__write(__os);
-	::Rmi::__write(__os, ilist, SeqSeqInt__U__());
 }
 
 

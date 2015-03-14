@@ -3,6 +3,7 @@
 #include "framework/encrypt/hashencrypt.h"
 
 #include "User.h"
+#include "Helper/Util.h"
 #include "Db/DaoManager.h"
 
 using namespace WebServerApp;
@@ -38,6 +39,16 @@ const std::string & CUser::getNickname()
 	return _tUser.nickname;
 }
 
+const std::string & CUser::getAvatar()
+{
+	return _avatar;
+}
+
+void CUser::updateAvatar(int imgId)
+{
+
+}
+
 bool CUser::isPasswdMatched(const std::string & passwd)
 {
 	if (passwd == _tUser.loginKey)
@@ -55,22 +66,26 @@ void CUser::setPasswd(const std::string & passwd)
 
 const std::string & CUser::getSessionKey()
 {
-	char buf[512] = { 0 };
-	char format[] = "Account=%s&RandInt=%d";
-	int randInt = rand();
-
-	int len = 0;
-	len = cdf_snprintf(
-		buf,
-		sizeof(buf)-1,
-		format,
-		_tUser.account.c_str(),
-		randInt
-		);
-
-	_sessionKey = cdf::CStrFun::to_lower(cdf::CMd5Encrypt().hash(buf, len).c_str());
-
 	return _sessionKey;
+}
+
+void CUser::updateSessionKey()
+{
+	//char buf[512] = { 0 };
+	//char format[] = "Account=%s&RandInt=%d";
+	//int randInt = rand();
+
+	//int len = 0;
+	//len = cdf_snprintf(
+	//	buf,
+	//	sizeof(buf) - 1,
+	//	format,
+	//	_tUser.account.c_str(),
+	//	randInt
+	//	);
+
+	//_sessionKey = cdf::CStrFun::to_lower(cdf::CMd5Encrypt().hash(buf, len).c_str());
+	_sessionKey = cdf::CStrFun::get_uuid();
 }
 
 bool CUser::isSessionKeyMatched(const std::string & sessionKey)
@@ -124,42 +139,7 @@ void CUser::getNewer10PostId(int postId, Message::Public::SeqInt & postIdList)
 {
 	Message::Public::SeqInt::size_type maxSize = 10;
 
-	if (postId > 0)
-	{
-		auto itPostId = _postIdList.cbegin();
-		for (; itPostId != _postIdList.cend(); ++itPostId)
-		{
-			if (postId < *itPostId)
-			{
-				break;
-			}
-		}
-
-		for (; itPostId != _postIdList.cend(); ++itPostId)
-		{
-			postIdList.insert(postIdList.begin(), *itPostId);
-			if (postIdList.size() >= maxSize)
-			{
-				break;
-			}
-		}
-	}
-	else
-	{
-		for (auto itPostId = _postIdList.crbegin(); itPostId != _postIdList.crend(); ++itPostId)
-		{
-			if (*itPostId <= postId)
-			{
-				break;
-			}
-
-			postIdList.push_back(*itPostId);
-			if (postIdList.size() >= maxSize)
-			{
-				break;
-			}
-		}
-	}
+	CUtil::getNewList(_postIdList, maxSize, postId, postIdList);
 }
 
 void CUser::getOlder10PostId(int postId, Json::Value & jsList)
@@ -178,42 +158,7 @@ void CUser::getOlder10PostId(int postId, Message::Public::SeqInt & postIdList)
 {
 	Message::Public::SeqInt::size_type maxSize = 10;
 
-	if (postId > 0)
-	{
-		auto itPostId = _postIdList.crbegin();
-		for (; itPostId != _postIdList.crend(); ++itPostId)
-		{
-			if (postId > *itPostId)
-			{
-				break;
-			}
-		}
-
-		for (; itPostId != _postIdList.crend(); ++itPostId)
-		{
-			postIdList.push_back(*itPostId);
-
-			if (postIdList.size() >= maxSize)
-			{
-				break;
-			}
-		}
-	}
-	else
-	{
-		for (auto currentPostId : _postIdList)
-		{
-			if (currentPostId >= postId)
-			{
-				break;
-			}
-			postIdList.insert(postIdList.begin(), currentPostId);
-			if (postIdList.size() >= maxSize)
-			{
-				break;
-			}
-		}
-	}
+	CUtil::getOldList(_postIdList, maxSize, postId, postIdList);
 }
 
 

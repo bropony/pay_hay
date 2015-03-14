@@ -1,11 +1,14 @@
+SET FOREIGN_KEY_CHECKS=0;
+
 CREATE TABLE `t_user` (
 `user_id`  int(11) NOT NULL AUTO_INCREMENT COMMENT 'userId' ,
 `account`  varchar(128) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' ,
 `nickname`  varchar(128) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' ,
 `login_key`  varchar(128) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' ,
+`avatar`  int(11) NOT NULL DEFAULT 0 COMMENT 'avatar img id' ,
 `create_dt`  datetime NOT NULL DEFAULT '2015-01-01 00:00:00' ,
 PRIMARY KEY (`user_id`),
-INDEX `idx_account` USING BTREE (`account`) 
+INDEX `idx_account` (`account`) USING BTREE 
 )
 ENGINE=InnoDB
 DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci
@@ -20,7 +23,7 @@ CREATE TABLE `t_user_comment` (
 `content`  varchar(1024) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' ,
 `comment_dt`  datetime NOT NULL DEFAULT '2015-01-01 00:00:00' ,
 PRIMARY KEY (`comment_id`),
-INDEX `idx_post_id` USING BTREE (`post_id`) 
+INDEX `idx_post_id` (`post_id`) USING BTREE 
 )
 ENGINE=InnoDB
 DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci
@@ -32,7 +35,7 @@ CREATE TABLE `t_user_img` (
 `img_path`  varchar(1024) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' ,
 `short_desc`  varchar(512) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' ,
 PRIMARY KEY (`img_id`),
-INDEX `idx_img_id` USING BTREE (`img_id`) 
+INDEX `idx_img_id` (`img_id`) USING BTREE 
 )
 ENGINE=InnoDB
 DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci
@@ -50,10 +53,11 @@ CREATE TABLE `t_user_post` (
 `ncomment`  int(11) NOT NULL DEFAULT 0 ,
 `post_dt`  datetime NOT NULL DEFAULT '2015-01-01 00:00:00' ,
 PRIMARY KEY (`post_id`),
-INDEX `user_id_idx` USING BTREE (`user_id`, `post_id`) 
+INDEX `user_id_idx` (`user_id`, `post_id`) USING BTREE 
 )
 ENGINE=InnoDB
 DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci
 ROW_FORMAT=Compact
 ;
 
+SET FOREIGN_KEY_CHECKS=1;

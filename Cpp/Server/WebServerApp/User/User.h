@@ -22,10 +22,14 @@ namespace WebServerApp
 		const std::string & getAccount();
 		const std::string & getNickname();
 
+		const std::string & getAvatar();
+		void updateAvatar(int imgId);
+
 		//验证
 		bool isPasswdMatched(const std::string & passwd);
 		void setPasswd(const std::string & passwd);
 		const std::string & getSessionKey();
+		void updateSessionKey();
 		bool isSessionKeyMatched(const std::string & sessionKey);
 
 		//连接
@@ -45,6 +49,7 @@ namespace WebServerApp
 	private:
 		WSConnectionPtr _wsConnectionPtr;
 		std::string _sessionKey;
+		std::string _avatar;
 
 		Message::Db::Tables::TUser _tUser;
 		Message::Public::SeqInt _postIdList;
@@ -53,6 +58,7 @@ namespace WebServerApp
 	typedef std::map<int, CUserPtr> MapIdUser;
 	typedef std::map<std::string, CUserPtr> MapAccountUser;
 	typedef std::map<std::string, CUserPtr> MapNicknameUser;
+	typedef std::map<std::string, CUserPtr> MapSessionUser;
 }
 
 #endif

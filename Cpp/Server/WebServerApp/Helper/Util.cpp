@@ -324,3 +324,86 @@ const std::string CUtil::genAddressPort(const std::string & ip, int port)
 
 	return destIp;
 }
+
+void CUtil::getNewList(const std::vector<int> & inList, unsigned maxSize, int lastVal, std::vector<int> & outList)
+{
+	int postId = lastVal;
+	if (postId > 0)
+	{
+		auto itPostId = inList.cbegin();
+		for (; itPostId != inList.cend(); ++itPostId)
+		{
+			if (postId < *itPostId)
+			{
+				break;
+			}
+		}
+
+		for (; itPostId != inList.cend(); ++itPostId)
+		{
+			outList.insert(outList.begin(), *itPostId);
+			if (outList.size() >= maxSize)
+			{
+				break;
+			}
+		}
+	}
+	else
+	{
+		for (auto itPostId = inList.crbegin(); itPostId != inList.crend(); ++itPostId)
+		{
+			if (*itPostId <= postId)
+			{
+				break;
+			}
+
+			outList.push_back(*itPostId);
+			if (outList.size() >= maxSize)
+			{
+				break;
+			}
+		}
+	}
+}
+
+void CUtil::getOldList(const std::vector<int> & inList, unsigned maxSize, int lastVal, std::vector<int> & outList)
+{
+	int postId = lastVal;
+
+	if (postId > 0)
+	{
+		auto itPostId = inList.crbegin();
+		for (; itPostId != inList.crend(); ++itPostId)
+		{
+			if (postId > *itPostId)
+			{
+				break;
+			}
+		}
+
+		for (; itPostId != inList.crend(); ++itPostId)
+		{
+			outList.push_back(*itPostId);
+
+			if (outList.size() >= maxSize)
+			{
+				break;
+			}
+		}
+	}
+	else
+	{
+		for (auto currentPostId : inList)
+		{
+			if (currentPostId >= postId)
+			{
+				break;
+			}
+			outList.insert(outList.begin(), currentPostId);
+			if (outList.size() >= maxSize)
+			{
+				break;
+			}
+		}
+	}
+}

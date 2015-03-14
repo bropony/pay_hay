@@ -31,6 +31,7 @@ Message::Db::Tables::Loader::toJs( const Message::Db::Tables::TStructConfig& val
 void
 Message::Db::Tables::Loader::fromJs( Message::Db::Tables::TStructConfig& val , const Json::Value& json )
 {
+    val.id = json["id"].isNull() ? 0 : json["id"].asInt();
     val.name = json["name"].isNull() ? "" : json["name"].asString();
     val.type = json["type"].isNull() ? 0 : json["type"].asInt();
     val.fields = json["fields"].isNull() ? "" : json["fields"].asString();
@@ -39,6 +40,10 @@ Message::Db::Tables::Loader::fromJs( Message::Db::Tables::TStructConfig& val , c
 void
 Message::Db::Tables::Loader::toJs( const Message::Db::Tables::TStructConfig& val , Json::Value& json )
 {
+    if( 0 != val.id )
+    {
+        json["id"] = Json::Value( val.id );
+    }
     if( "" != val.name )
     {
         json["name"] = Json::Value( val.name );

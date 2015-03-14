@@ -9,61 +9,165 @@
 
 namespace Rmi
 {
-	class CTestCallback
+	class CLoginCallback
 		: public virtual CRmiCallbackBase
 	{
 	public:
-		CTestCallback(const cdf::CWSContextPtr & context, int msgId);
+		CLoginCallback(const cdf::CWSContextPtr & context, int msgId);
 
-		void response(cdf::CDateTime & testOut);
+		void response(SLoginReturn & userInfo);
 	};
-	typedef cdf::CHandle<CTestCallback> CTestCallbackPtr;
+	typedef cdf::CHandle<CLoginCallback> CLoginCallbackPtr;
 
-	class CShowErrorCallback
+	class CSignupCallback
 		: public virtual CRmiCallbackBase
 	{
 	public:
-		CShowErrorCallback(const cdf::CWSContextPtr & context, int msgId);
+		CSignupCallback(const cdf::CWSContextPtr & context, int msgId);
 
-		void response(std::string & out);
+		void response(SLoginReturn & userInfo);
 	};
-	typedef cdf::CHandle<CShowErrorCallback> CShowErrorCallbackPtr;
+	typedef cdf::CHandle<CSignupCallback> CSignupCallbackPtr;
 
-	class CUploadImageCallback
+	class CChangeAvatarCallback
 		: public virtual CRmiCallbackBase
 	{
 	public:
-		CUploadImageCallback(const cdf::CWSContextPtr & context, int msgId);
+		CChangeAvatarCallback(const cdf::CWSContextPtr & context, int msgId);
 
-		void response(std::string & fileName);
+		void response();
 	};
-	typedef cdf::CHandle<CUploadImageCallback> CUploadImageCallbackPtr;
+	typedef cdf::CHandle<CChangeAvatarCallback> CChangeAvatarCallbackPtr;
 
-	class CEchoCallback
+	class CGetPostsCallback
 		: public virtual CRmiCallbackBase
 	{
 	public:
-		CEchoCallback(const cdf::CWSContextPtr & context, int msgId);
+		CGetPostsCallback(const cdf::CWSContextPtr & context, int msgId);
 
-		void response(STest & output);
+		void response(SeqPost & postList);
 	};
-	typedef cdf::CHandle<CEchoCallback> CEchoCallbackPtr;
+	typedef cdf::CHandle<CGetPostsCallback> CGetPostsCallbackPtr;
+
+	class CGetImageCallback
+		: public virtual CRmiCallbackBase
+	{
+	public:
+		CGetImageCallback(const cdf::CWSContextPtr & context, int msgId);
+
+		void response(std::string & img);
+	};
+	typedef cdf::CHandle<CGetImageCallback> CGetImageCallbackPtr;
+
+	class CGetMyPostsCallback
+		: public virtual CRmiCallbackBase
+	{
+	public:
+		CGetMyPostsCallback(const cdf::CWSContextPtr & context, int msgId);
+
+		void response(SeqPost & postList);
+	};
+	typedef cdf::CHandle<CGetMyPostsCallback> CGetMyPostsCallbackPtr;
+
+	class CStartPostCallback
+		: public virtual CRmiCallbackBase
+	{
+	public:
+		CStartPostCallback(const cdf::CWSContextPtr & context, int msgId);
+
+		void response();
+	};
+	typedef cdf::CHandle<CStartPostCallback> CStartPostCallbackPtr;
+
+	class CUploadPostImgCallback
+		: public virtual CRmiCallbackBase
+	{
+	public:
+		CUploadPostImgCallback(const cdf::CWSContextPtr & context, int msgId);
+
+		void response(int imgId);
+	};
+	typedef cdf::CHandle<CUploadPostImgCallback> CUploadPostImgCallbackPtr;
+
+	class CEndPostCallback
+		: public virtual CRmiCallbackBase
+	{
+	public:
+		CEndPostCallback(const cdf::CWSContextPtr & context, int msgId);
+
+		void response(int postId);
+	};
+	typedef cdf::CHandle<CEndPostCallback> CEndPostCallbackPtr;
+
+	class CLikePostCallback
+		: public virtual CRmiCallbackBase
+	{
+	public:
+		CLikePostCallback(const cdf::CWSContextPtr & context, int msgId);
+
+		void response();
+	};
+	typedef cdf::CHandle<CLikePostCallback> CLikePostCallbackPtr;
+
+	class CDislikePostCallback
+		: public virtual CRmiCallbackBase
+	{
+	public:
+		CDislikePostCallback(const cdf::CWSContextPtr & context, int msgId);
+
+		void response();
+	};
+	typedef cdf::CHandle<CDislikePostCallback> CDislikePostCallbackPtr;
+
+	class CCommentPostCallback
+		: public virtual CRmiCallbackBase
+	{
+	public:
+		CCommentPostCallback(const cdf::CWSContextPtr & context, int msgId);
+
+		void response();
+	};
+	typedef cdf::CHandle<CCommentPostCallback> CCommentPostCallbackPtr;
 
 	class CRmiServer
 		: public virtual cdf::CRefShared
 	{
 	public:
-		void __test(cdf::CSimpleSerializer & __is, int __msgId, const cdf::CWSContextPtr & context);
-		virtual void test(cdf::CDateTime & dt, const CTestCallbackPtr & testCB) = 0;
+		void __login(cdf::CSimpleSerializer & __is, int __msgId, const cdf::CWSContextPtr & context);
+		virtual void login(std::string & account, std::string & passwd, const CLoginCallbackPtr & loginCB) = 0;
 	
-		void __showError(cdf::CSimpleSerializer & __is, int __msgId, const cdf::CWSContextPtr & context);
-		virtual void showError(cdf::CDateTime & dt, const CShowErrorCallbackPtr & showErrorCB) = 0;
+		void __signup(cdf::CSimpleSerializer & __is, int __msgId, const cdf::CWSContextPtr & context);
+		virtual void signup(std::string & account, std::string & passwd, std::string & nickname, const CSignupCallbackPtr & signupCB) = 0;
 	
-		void __uploadImage(cdf::CSimpleSerializer & __is, int __msgId, const cdf::CWSContextPtr & context);
-		virtual void uploadImage(std::string & img, const CUploadImageCallbackPtr & uploadImageCB) = 0;
+		void __changeAvatar(cdf::CSimpleSerializer & __is, int __msgId, const cdf::CWSContextPtr & context);
+		virtual void changeAvatar(std::string & sessionKey, std::string & avatar, const CChangeAvatarCallbackPtr & changeAvatarCB) = 0;
 	
-		void __echo(cdf::CSimpleSerializer & __is, int __msgId, const cdf::CWSContextPtr & context);
-		virtual void echo(STest & input, const CEchoCallbackPtr & echoCB) = 0;
+		void __getPosts(cdf::CSimpleSerializer & __is, int __msgId, const cdf::CWSContextPtr & context);
+		virtual void getPosts(int lastPostId, bool forNew, int requestNum, const CGetPostsCallbackPtr & getPostsCB) = 0;
+	
+		void __getImage(cdf::CSimpleSerializer & __is, int __msgId, const cdf::CWSContextPtr & context);
+		virtual void getImage(int imgId, const CGetImageCallbackPtr & getImageCB) = 0;
+	
+		void __getMyPosts(cdf::CSimpleSerializer & __is, int __msgId, const cdf::CWSContextPtr & context);
+		virtual void getMyPosts(std::string & sessionKey, int lastPostId, const CGetMyPostsCallbackPtr & getMyPostsCB) = 0;
+	
+		void __startPost(cdf::CSimpleSerializer & __is, int __msgId, const cdf::CWSContextPtr & context);
+		virtual void startPost(std::string & sessionKey, std::string & title, std::string & content, const CStartPostCallbackPtr & startPostCB) = 0;
+	
+		void __uploadPostImg(cdf::CSimpleSerializer & __is, int __msgId, const cdf::CWSContextPtr & context);
+		virtual void uploadPostImg(std::string & sessionKey, std::string & img, std::string & descrpt, const CUploadPostImgCallbackPtr & uploadPostImgCB) = 0;
+	
+		void __endPost(cdf::CSimpleSerializer & __is, int __msgId, const cdf::CWSContextPtr & context);
+		virtual void endPost(std::string & sessionKey, const CEndPostCallbackPtr & endPostCB) = 0;
+	
+		void __likePost(cdf::CSimpleSerializer & __is, int __msgId, const cdf::CWSContextPtr & context);
+		virtual void likePost(std::string & sessionKey, int postId, const CLikePostCallbackPtr & likePostCB) = 0;
+	
+		void __dislikePost(cdf::CSimpleSerializer & __is, int __msgId, const cdf::CWSContextPtr & context);
+		virtual void dislikePost(std::string & sessionKey, int postId, const CDislikePostCallbackPtr & dislikePostCB) = 0;
+	
+		void __commentPost(cdf::CSimpleSerializer & __is, int __msgId, const cdf::CWSContextPtr & context);
+		virtual void commentPost(std::string & sessionKey, int postId, std::string & comments, const CCommentPostCallbackPtr & commentPostCB) = 0;
 	
 		void __call(cdf::CSimpleSerializer & __is, const cdf::CWSContextPtr & context);
 

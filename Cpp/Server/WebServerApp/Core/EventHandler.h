@@ -24,6 +24,7 @@ namespace cg
     public:
         CLogin_callback(int msgId, const std::string & event, const cdf::CWSContextPtr & context);
         void response(const std::string & sessionKey, const std::string & nickname, int userId);
+        void responseB(const std::string & data);
         const cdf::CWSContextPtr getContext(){ return _context; }
 
     private:
@@ -39,6 +40,7 @@ namespace cg
     public:
         CSignup_callback(int msgId, const std::string & event, const cdf::CWSContextPtr & context);
         void response(const std::string & sessionKey, int userId);
+        void responseB(const std::string & data);
         const cdf::CWSContextPtr getContext(){ return _context; }
 
     private:
@@ -54,6 +56,7 @@ namespace cg
     public:
         CReconnect_callback(int msgId, const std::string & event, const cdf::CWSContextPtr & context);
         void response(int res);
+        void responseB(const std::string & data);
         const cdf::CWSContextPtr getContext(){ return _context; }
 
     private:
@@ -69,6 +72,7 @@ namespace cg
     public:
         CStartPost_callback(int msgId, const std::string & event, const cdf::CWSContextPtr & context);
         void response();
+        void responseB(const std::string & data);
         const cdf::CWSContextPtr getContext(){ return _context; }
 
     private:
@@ -84,6 +88,7 @@ namespace cg
     public:
         CEndPost_callback(int msgId, const std::string & event, const cdf::CWSContextPtr & context);
         void response(int postId);
+        void responseB(const std::string & data);
         const cdf::CWSContextPtr getContext(){ return _context; }
 
     private:
@@ -99,6 +104,7 @@ namespace cg
     public:
         CDeletePost_callback(int msgId, const std::string & event, const cdf::CWSContextPtr & context);
         void response();
+        void responseB(const std::string & data);
         const cdf::CWSContextPtr getContext(){ return _context; }
 
     private:
@@ -114,6 +120,7 @@ namespace cg
     public:
         CGetPostList_callback(int msgId, const std::string & event, const cdf::CWSContextPtr & context);
         void response(const Json::Value & res);
+        void responseB(const std::string & data);
         const cdf::CWSContextPtr getContext(){ return _context; }
 
     private:
@@ -129,6 +136,7 @@ namespace cg
     public:
         CViewPost_callback(int msgId, const std::string & event, const cdf::CWSContextPtr & context);
         void response(const Json::Value & res);
+        void responseB(const std::string & data);
         const cdf::CWSContextPtr getContext(){ return _context; }
 
     private:
@@ -144,6 +152,7 @@ namespace cg
     public:
         CCommentPost_callback(int msgId, const std::string & event, const cdf::CWSContextPtr & context);
         void response();
+        void responseB(const std::string & data);
         const cdf::CWSContextPtr getContext(){ return _context; }
 
     private:
@@ -159,6 +168,7 @@ namespace cg
     public:
         CLikePost_callback(int msgId, const std::string & event, const cdf::CWSContextPtr & context);
         void response();
+        void responseB(const std::string & data);
         const cdf::CWSContextPtr getContext(){ return _context; }
 
     private:
@@ -174,6 +184,7 @@ namespace cg
     public:
         CDislikePost_callback(int msgId, const std::string & event, const cdf::CWSContextPtr & context);
         void response();
+        void responseB(const std::string & data);
         const cdf::CWSContextPtr getContext(){ return _context; }
 
     private:
@@ -189,6 +200,7 @@ namespace cg
     public:
         CTest_callback(int msgId, const std::string & event, const cdf::CWSContextPtr & context);
         void response(const cdf::CDateTime & testOut);
+        void responseB(const std::string & data);
         const cdf::CWSContextPtr getContext(){ return _context; }
 
     private:
@@ -198,6 +210,22 @@ namespace cg
     };
     typedef cdf::CHandle<CTest_callback> CTest_callbackPtr;
 
+    class CGetImage_callback
+        : public virtual cdf::CRefShared
+    {
+    public:
+        CGetImage_callback(int msgId, const std::string & event, const cdf::CWSContextPtr & context);
+        void response(const std::string & imge);
+        void responseB(const std::string & data);
+        const cdf::CWSContextPtr getContext(){ return _context; }
+
+    private:
+        int _msgId;
+        std::string _event;
+        cdf::CWSContextPtr _context;
+    };
+    typedef cdf::CHandle<CGetImage_callback> CGetImage_callbackPtr;
+
 
     //EventHandler
     class CEventHandler
@@ -206,7 +234,7 @@ namespace cg
     public:
         static void onError(int errorCode, const std::string & errorMsg, int msgId, const cdf::CWSContextPtr & context);
 
-        virtual void onUploadImg(const std::string & img, const cdf::CWSContextPtr & context) = 0;
+        virtual void onUploadImg(int type, const std::string & img, const cdf::CWSContextPtr & context) = 0;
 
         virtual void login(const std::string & account, const std::string & passwd, const std::string & deviceId, const ::cg::CLogin_callbackPtr & callback) = 0;
         virtual void signup(const std::string & account, const std::string & nickname, const std::string & passwd, const std::string & deviceId, const ::cg::CSignup_callbackPtr & callback) = 0;
@@ -220,6 +248,7 @@ namespace cg
         virtual void likePost(int postId, const ::cg::CLikePost_callbackPtr & callback) = 0;
         virtual void dislikePost(int postId, const ::cg::CDislikePost_callbackPtr & callback) = 0;
         virtual void test(const cdf::CDateTime & testIn, const ::cg::CTest_callbackPtr & callback) = 0;
+        virtual void getImage(int imgId, const ::cg::CGetImage_callbackPtr & callback) = 0;
     };
     typedef cdf::CHandle<CEventHandler> CEventHandlerPtr;
 } //close namespace cg

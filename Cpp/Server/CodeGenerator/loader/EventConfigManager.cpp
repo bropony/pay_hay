@@ -154,7 +154,7 @@ void CMethod::callbacksToCpp(std::ofstream & Hpp, std::ofstream & Cpp)
 			}
 			else
 			{
-				Cpp << Ident1 << "::Rmi::__write(" << field->getName() << ");" << ENDL;
+				Cpp << Ident1 << "::Rmi::__write(__os, " << field->getName() << ", " << fieldTypePtr->getName() << "__U__());" << ENDL;
 			}
 		}
 		else

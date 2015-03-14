@@ -1,30 +1,126 @@
 #include "RmiServerImpl.h"
 #include "Config/ErrorCodeManager.h"
 #include "Resource/ImageManager.h"
+#include "Resource/PostManager.h"
+
+#include "User/UserManager.h"
+#include "User/UserHelper.h"
 
 using namespace Rmi;
+using namespace WebServerApp;
 
-void CRmiServerImpl::test(cdf::CDateTime & dt, const CTestCallbackPtr & testCB)
+void CRmiServerImpl::login(std::string & account, std::string & passwd, const CLoginCallbackPtr & loginCB)
 {
-	testCB->response(dt);
+	CUserPtr user = CUserManager::instance()->findUser(account);
+	if (NULL == user ||
+		!user->isPasswdMatched(passwd))
+	{
+		CErrorCodeManager::throwException("Error_accountOrPasswd");
+	}
+
+	CUserManager::instance()->updateUserSessionKey(user);
+
+	SLoginReturn userInfo;
+	userInfo.userId = user->getUserId();
+	userInfo.nickname = user->getNickname();
+	userInfo.sessionKey = user->getSessionKey();
+	userInfo.avatar = user->getAvatar();
+
+	loginCB->response(userInfo);
+
+	loginCB->getContext()->setUserObject(user);
 }
 
-void CRmiServerImpl::showError(cdf::CDateTime & dt, const CShowErrorCallbackPtr & showErrorCB)
+void CRmiServerImpl::signup(std::string & account, std::string & passwd, std::string & nickname, const CSignupCallbackPtr & signupCB)
 {
-	WebServerApp::CErrorCodeManager::throwException("Error_userDataError");
+	if (account.size() < 5)
+	{
+		CErrorCodeManager::throwException("Error_accountTooShort");
+	}
+
+	if (nickname.empty())
+	{
+		CErrorCodeManager::throwException("Error_nicknameNeeded");
+	}
+
+	if (passwd.empty())
+	{
+		CErrorCodeManager::throwException("Error_passwdNeeded");
+	}
+
+	if (NULL != CUserManager::instance()->findUser(account))
+	{
+		CErrorCodeManager::throwException("Error_accountExisted");
+	}
+
+	if (NULL != CUserManager::instance()->findUserByNickname(nickname))
+	{
+		CErrorCodeManager::throwException("Error_nicknameUsed");
+	}
+
+	CUserPtr user = CUserManager::instance()->createUser(account, nickname, passwd);
+
+	SLoginReturn userInfo;
+	userInfo.userId = user->getUserId();
+	userInfo.nickname = user->getNickname();
+	userInfo.sessionKey = user->getSessionKey();
+	userInfo.avatar = user->getAvatar();
+
+	signupCB->response(userInfo);
+
+	signupCB->getContext()->setUserObject(user);
 }
 
-void CRmiServerImpl::uploadImage(std::string & img, const CUploadImageCallbackPtr & uploadImageCB)
+void CRmiServerImpl::changeAvatar(std::string & sessionKey, std::string & avatar, const CChangeAvatarCallbackPtr & changeAvatarCB)
 {
-	WebServerApp::CImagePtr newImg = WebServerApp::CImageManager::instance()->createImage("test.jpg", "null", img);
-	
-	uploadImageCB->response(newImg->getTUserImg().imgPath);
+	CUserPtr user = CUserHelper::getUser(changeAvatarCB->getContext(), sessionKey);
+
+	changeAvatarCB->response();
 }
 
-void CRmiServerImpl::echo(STest & input, const CEchoCallbackPtr & echoCB)
+void CRmiServerImpl::getPosts(int lastPostId, bool forNew, int requestNum, const CGetPostsCallbackPtr & getPostsCB)
 {
-	echoCB->response(input);
+	Message::Public::SeqInt postIdList;
 
-	int res = 0;
+	CPostManager::instance()->getPostIdList(lastPostId, forNew, postIdList);
+}
+
+void CRmiServerImpl::getImage(int imgId, const CGetImageCallbackPtr & getImageCB)
+{
+
+}
+
+void CRmiServerImpl::getMyPosts(std::string & sessionKey, const CGetMyPostsCallbackPtr & getMyPostsCB)
+{
+
+}
+
+void CRmiServerImpl::startPost(std::string & sessionKey, std::string & title, std::string & content, const CStartPostCallbackPtr & startPostCB)
+{
+
+}
+
+void CRmiServerImpl::uploadPostImg(std::string & sessionKey, std::string & img, std::string & descrpt, const CUploadPostImgCallbackPtr & uploadPostImgCB)
+{
+
+}
+
+void CRmiServerImpl::endPost(std::string & sessionKey, const CEndPostCallbackPtr & endPostCB)
+{
+
+}
+
+void CRmiServerImpl::likePost(std::string & sessionKey, int postId, const CLikePostCallbackPtr & likePostCB)
+{
+
+}
+
+void CRmiServerImpl::dislikePost(std::string & sessionKey, int postId, const CDislikePostCallbackPtr & dislikePostCB)
+{
+
+}
+
+void CRmiServerImpl::commentPost(std::string & sessionKey, int postId, std::string & comments, const CCommentPostCallbackPtr & commentPostCB)
+{
 
 }

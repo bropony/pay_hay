@@ -1,6 +1,7 @@
 #include "PostManager.h"
 #include "User/UserManager.h"
 #include "Db/DaoManager.h"
+#include "Helper/Util.h"
 
 using namespace WebServerApp;
 
@@ -72,5 +73,57 @@ const CPostPtr CPostManager::createPost(int userId, const std::string & title,
 
 void CPostManager::addPost(const CPostPtr & post)
 {
-	_mapPost[post->getTUserPost().postId] = post;
+	int postId = post->getTUserPost().postId;
+
+	_mapPost[postId] = post;
+	_postIdList.push_back(postId);
+}
+
+void CPostManager::getPostIdList(int lastPostId, bool forNewPosts, Message::Public::SeqInt & postIdList)
+{
+	unsigned maxSize = 10;
+	if (forNewPosts)
+	{
+		CUtil::getNewList(_postIdList, maxSize, lastPostId, postIdList);
+	}
+	else
+	{
+		CUtil::getOldList(_postIdList, maxSize, lastPostId, postIdList);
+	}
+}
+
+void CPostManager::getPostList(const Message::Public::SeqInt & postIdList, Json::Value & jsRes)
+{
+	for (auto postId : postIdList)
+	{
+		CPostPtr postPtr = findPost(postId);
+		if (NULL == postPtr)
+		{
+			CDF_LOG_TRACE("CPostManager::getPostList", "NoSuchPost: " << postId);
+			continue;
+		}
+
+		Json::Value jsPost;
+		postPtr->postToJs(jsPost);
+
+		jsRes.append(jsPost);
+	}
+}
+
+void CPostManager::getPostList(const Message::Public::SeqInt & postIdList, Rmi::SeqPost & postList)
+{
+	for (auto postId : postIdList)
+	{
+		CPostPtr postPtr = findPost(postId);
+		if (NULL == postPtr)
+		{
+			CDF_LOG_TRACE("CPostManager::getPostList", "NoSuchPost: " << postId);
+			continue;
+		}
+
+		Rmi::SPost post;
+		postPtr->postToClient(post);
+
+		postList.push_back(post);
+	}
 }

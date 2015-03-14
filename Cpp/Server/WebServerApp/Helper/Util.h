@@ -164,6 +164,12 @@ namespace WebServerApp
 		{
 			return (val > maxVal ? maxVal : val);
 		}
+
+		/*
+		* get list
+		*/
+		static void getNewList(const std::vector<int> & inList, unsigned maxNum, int lastVal, std::vector<int> & outList);
+		static void getOldList(const std::vector<int> & inList, unsigned maxNum, int lastVal, std::vector<int> & outList);
 	};
 }
 #endif

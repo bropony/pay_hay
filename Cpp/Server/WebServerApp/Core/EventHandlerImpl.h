@@ -14,7 +14,7 @@ namespace WebServerApp
 		CEventHandlerImpl();
 		~CEventHandlerImpl();
 
-		virtual void onUploadImg(const std::string & img, const cdf::CWSContextPtr & context);
+		virtual void onUploadImg(int type, const std::string & img, const cdf::CWSContextPtr & context);
 
 		virtual void login(const std::string & account, 
 			const std::string & passwd, 
@@ -57,6 +57,8 @@ namespace WebServerApp
 			const ::cg::CDislikePost_callbackPtr & callback);
 
 		virtual void test(const cdf::CDateTime & testIn, const ::cg::CTest_callbackPtr & callback);
+
+		virtual void getImage(int imgId, const ::cg::CGetImage_callbackPtr & callback);
 	};
 
 	typedef cdf::CHandle<CEventHandlerImpl> CEventHandlerImplPtr;

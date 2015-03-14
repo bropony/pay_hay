@@ -13,9 +13,11 @@ namespace WebServerApp
 		CImage(const Message::Db::Tables::TUserImg & tImg);
 
 		Message::Db::Tables::TUserImg & getTUserImg();
+		const std::string & getImgBin();
 
 	private:
 		Message::Db::Tables::TUserImg _tUserImg;
+		std::string _imgBin;
 	};
 	typedef cdf::CHandle<CImage> CImagePtr;
 	typedef std::map<int, CImagePtr> MapImage;

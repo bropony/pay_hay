@@ -72,6 +72,18 @@ const CUserPtr CUserManager::findUserByNickname(const std::string & nickname)
 	return found->second;
 }
 
+const CUserPtr CUserManager::findUserBySessionKey(const std::string & sessionKey)
+{
+	const auto found = _mapSessionUser.find(sessionKey);
+
+	if (found == _mapSessionUser.end())
+	{
+		return NULL;
+	}
+
+	return found->second;
+}
+
 bool CUserManager::hasUserExisted(const std::string & account)
 {
 	const auto found = _mapAccountUser.find(account);
@@ -107,6 +119,9 @@ const CUserPtr CUserManager::createUser(const std::string & account, const std::
 
 	CUserPtr newUser = new CUser(tUser);
 	addUser(newUser);
+
+	updateUserSessionKey(newUser);
+
 	newUser->updateToDb();
 
 	return newUser;
@@ -120,6 +135,19 @@ void CUserManager::addUser(const CUserPtr & user)
 		_mapAccountUser[user->getAccount()] = user;
 		_mapNicknameUser[user->getNickname()] = user;
 	}
+}
+
+void CUserManager::updateUserSessionKey(const CUserPtr & user)
+{
+	const std::string & oldSession = user->getSessionKey();
+	if (_mapSessionUser.find(oldSession) != _mapSessionUser.end())
+	{
+		_mapSessionUser.erase(oldSession);
+	}
+
+	user->updateSessionKey();
+
+	_mapSessionUser[user->getSessionKey()] = user;
 }
 
 void CUserManager::addPostId(int userId, int postId)

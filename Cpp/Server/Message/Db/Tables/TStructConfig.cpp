@@ -40,6 +40,10 @@ Message::Db::Tables::TStructConfig::operator!=(const TStructConfig& __rhs) const
     {
         return false;
     }
+    if(id != __rhs.id)
+    {
+        return true;
+    }
     if(name != __rhs.name)
     {
         return true;
@@ -63,6 +67,14 @@ bool
 Message::Db::Tables::TStructConfig::operator<(const TStructConfig& __rhs) const
 {
     if(this == &__rhs)
+    {
+        return false;
+    }
+    if(id < __rhs.id)
+    {
+        return true;
+    }
+    else if(__rhs.id < id)
     {
         return false;
     }
@@ -104,12 +116,14 @@ Message::Db::Tables::TStructConfig::operator<(const TStructConfig& __rhs) const
 void
 Message::Db::Tables::TStructConfig::__init()
 {
+    id = 0;
     type = 0;
 }
 
 void
 Message::Db::Tables::TStructConfig::__write(cdf::CSerializeStream& __os) const
 {
+    __os.write(id);
     __os.write(name);
     __os.write(type);
     __os.write(fields);
@@ -119,6 +133,7 @@ Message::Db::Tables::TStructConfig::__write(cdf::CSerializeStream& __os) const
 void
 Message::Db::Tables::TStructConfig::__read(cdf::CSerializeStream& __is)
 {
+    __is.read(id);
     __is.read(name);
     __is.read(type);
     __is.read(fields);
@@ -128,6 +143,7 @@ Message::Db::Tables::TStructConfig::__read(cdf::CSerializeStream& __is)
 void
 Message::Db::Tables::TStructConfig::__update(const TStructConfig& __rhs)
 {
+    id = __rhs.id;
     if( name != __rhs.name ) 
     {
         name = __rhs.name;

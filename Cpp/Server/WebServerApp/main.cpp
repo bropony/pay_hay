@@ -2,7 +2,7 @@
 #include "framework/cdf_link.h"
 #include "framework/cdf_common.h"
 #include "engine/rmi/rmiinteface.h"
-#include "framework/serialize/simpleserializer.h"
+
 #include "App.h"
 #include "Config/Config.h"
 #include "Helper/PublicConfig.h"
@@ -24,18 +24,6 @@ void waitStop()
 
 int main(int argc, char ** argv)
 {
-	std::vector<std::string> var;
-	var.push_back("Hello");
-	var.push_back("World");
-	cdf::CSimpleSerializer writer;
-	writer.startToWrite();
-	writer.write(var);
-
-	std::vector<std::string> v2;
-	cdf::CSimpleSerializer reader(writer.getBuffer());
-	reader.startToRead();
-	reader.read(v2);
-
 	cde::CRMIServer rmiServer;
 
 #ifndef _DEBUG

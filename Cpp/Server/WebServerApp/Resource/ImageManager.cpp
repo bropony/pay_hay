@@ -1,7 +1,6 @@
 #include "ImageManager.h"
 #include "Db/DaoManager.h"
 #include "Helper/PublicConfig.h"
-#include "Helper/ImageInfo.h"
 
 #include "framework/log/loggerutil.h"
 #include "framework/util/stringfun.h"
@@ -63,9 +62,14 @@ const CImagePtr CImageManager::createImage(const std::string & filename,
 	}
 
 	std::string extention;
-	if (!CImageInfo::getImageType(imgBinary, extention))
+	std::string::size_type lastDotPos = filename.find_last_of('.');
+	if (std::string::npos != lastDotPos)
 	{
-		CDF_LOG_TRACE("CImageManager::createImage", "Unknown Image Type");
+		extention = filename.substr(lastDotPos);
+	}
+	else
+	{
+		extention = ".jpg";
 	}
 
 	std::string imgFileName = cdf::CStrFun::get_uuid() + extention;

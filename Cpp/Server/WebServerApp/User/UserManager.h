@@ -14,11 +14,13 @@ namespace WebServerApp
 		const CUserPtr findUser(int userId);
 		const CUserPtr findUser(const std::string & account);
 		const CUserPtr findUserByNickname(const std::string & nickname);
+		const CUserPtr findUserBySessionKey(const std::string & sessionKey);
 		bool hasUserExisted(const std::string & account);
 		bool hasUserExistedByNickname(const std::string & nickname);
 
 		const CUserPtr createUser(const std::string & account, const std::string & nickname, const std::string & passwd);
 		void addUser(const CUserPtr & user);
+		void updateUserSessionKey(const CUserPtr & user);
 
 		void addPostId(int userId, int postId);
 	private:
@@ -29,6 +31,7 @@ namespace WebServerApp
 		MapIdUser _mapIdUser;
 		MapAccountUser _mapAccountUser;
 		MapNicknameUser _mapNicknameUser;
+		MapSessionUser _mapSessionUser;
 	};
 }
 

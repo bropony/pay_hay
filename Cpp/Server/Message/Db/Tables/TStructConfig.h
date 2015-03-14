@@ -42,6 +42,7 @@ namespace Message
         {
             struct TStructConfig
             {
+                int id;
                 std::string name;
                 int type;
                 std::string fields;

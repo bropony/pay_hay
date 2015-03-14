@@ -2,6 +2,7 @@
 #include "Core/EventCommon.h"
 #include "Config/ErrorCodeManager.h"
 #include "framework/json/value.h"
+#include "framework/websocket/websocketserver.h"
 
 using namespace cg;
 using namespace WebServerApp;
@@ -12,17 +13,22 @@ void CMassageHandler::onMessage(const cdf::CWSContextPtr & context,
 {
     if (operCode == websocketpp::frame::opcode::binary)
     {
+        int msgId = int(data[0]);
+        int type = int(data[1]);
         try
         {
-            _eventHandler->onUploadImg(data, context);
+            _eventHandler->onUploadImg(type, data.substr(2), context);
+            Json::Value __res;
+            __res["msg_id"] = msgId;
+            cdf::CWebsocketServer::instance()->sendData(context, __res.toFastString());
         }
         catch (const cdf::CException & ex)
         {
-            CEventHandler::onError(ex.code(), ex.what(), -1, context);
+            CEventHandler::onError(ex.code(), ex.what(), msgId, context);
         }
         catch (...)
         {
-            CEventHandler::onError(10000, "ExceptionCodeUnkown", -1, context);
+            CEventHandler::onError(10000, "ExceptionCodeUnkown", msgId, context);
         }
 
         return;
@@ -54,7 +60,6 @@ void CMassageHandler::onMessage(const cdf::CWSContextPtr & context,
                 cb
             );
         }
-
         else if (eventType == "signup")
         {
             CSignup_callbackPtr cb = new CSignup_callback(msgId, "signup", context);
@@ -67,7 +72,6 @@ void CMassageHandler::onMessage(const cdf::CWSContextPtr & context,
                 cb
             );
         }
-
         else if (eventType == "reconnect")
         {
             CReconnect_callbackPtr cb = new CReconnect_callback(msgId, "reconnect", context);
@@ -78,7 +82,6 @@ void CMassageHandler::onMessage(const cdf::CWSContextPtr & context,
                 cb
             );
         }
-
         else if (eventType == "startPost")
         {
             CStartPost_callbackPtr cb = new CStartPost_callback(msgId, "startPost", context);
@@ -90,7 +93,6 @@ void CMassageHandler::onMessage(const cdf::CWSContextPtr & context,
                 cb
             );
         }
-
         else if (eventType == "endPost")
         {
             CEndPost_callbackPtr cb = new CEndPost_callback(msgId, "endPost", context);
@@ -99,7 +101,6 @@ void CMassageHandler::onMessage(const cdf::CWSContextPtr & context,
                 cb
             );
         }
-
         else if (eventType == "deletePost")
         {
             CDeletePost_callbackPtr cb = new CDeletePost_callback(msgId, "deletePost", context);
@@ -109,7 +110,6 @@ void CMassageHandler::onMessage(const cdf::CWSContextPtr & context,
                 cb
             );
         }
-
         else if (eventType == "getPostList")
         {
             CGetPostList_callbackPtr cb = new CGetPostList_callback(msgId, "getPostList", context);
@@ -121,7 +121,6 @@ void CMassageHandler::onMessage(const cdf::CWSContextPtr & context,
                 cb
             );
         }
-
         else if (eventType == "viewPost")
         {
             CViewPost_callbackPtr cb = new CViewPost_callback(msgId, "viewPost", context);
@@ -131,7 +130,6 @@ void CMassageHandler::onMessage(const cdf::CWSContextPtr & context,
                 cb
             );
         }
-
         else if (eventType == "commentPost")
         {
             CCommentPost_callbackPtr cb = new CCommentPost_callback(msgId, "commentPost", context);
@@ -142,7 +140,6 @@ void CMassageHandler::onMessage(const cdf::CWSContextPtr & context,
                 cb
             );
         }
-
         else if (eventType == "likePost")
         {
             CLikePost_callbackPtr cb = new CLikePost_callback(msgId, "likePost", context);
@@ -152,7 +149,6 @@ void CMassageHandler::onMessage(const cdf::CWSContextPtr & context,
                 cb
             );
         }
-
         else if (eventType == "dislikePost")
         {
             CDislikePost_callbackPtr cb = new CDislikePost_callback(msgId, "dislikePost", context);
@@ -162,7 +158,6 @@ void CMassageHandler::onMessage(const cdf::CWSContextPtr & context,
                 cb
             );
         }
-
         else if (eventType == "test")
         {
             CTest_callbackPtr cb = new CTest_callback(msgId, "test", context);
@@ -172,7 +167,15 @@ void CMassageHandler::onMessage(const cdf::CWSContextPtr & context,
                 cb
             );
         }
+        else if (eventType == "getImage")
+        {
+            CGetImage_callbackPtr cb = new CGetImage_callback(msgId, "getImage", context);
 
+            _eventHandler->getImage(
+                JS_INT(js, "imgId"), 
+                cb
+            );
+        }
         else
         {
             CDF_LOG_TRACE("onMessage", "InvalidEventType: " << eventType);

@@ -5,6 +5,8 @@
 #include "User/UserHelper.h"
 #include "Config/ErrorCodeManager.h"
 #include "Core/PostUploader.h"
+#include "Resource/PostManager.h"
+#include "Resource/ImageManager.h"
 
 #include "framework/websocket/websocketserver.h"
 
@@ -20,11 +22,20 @@ CEventHandlerImpl::~CEventHandlerImpl()
 
 }
 
-void CEventHandlerImpl::onUploadImg(const std::string & img, const cdf::CWSContextPtr & context)
+void CEventHandlerImpl::onUploadImg(int type, const std::string & img, const cdf::CWSContextPtr & context)
 {
 	CUserPtr user = CUserHelper::getUser(context);
 	
-	CPostUploader::instance()->addImg(user->getUserId(), "tmp.jpg", "binary", img);
+	switch (type)
+	{
+	case ImageType::POST:
+		CPostUploader::instance()->addImg(user->getUserId(), img);
+		break;
+	default:
+		CErrorCodeManager::throwException("Error_unkwonImgType");
+		break;
+	}
+	
 }
 
 void CEventHandlerImpl::login(const std::string & account,
@@ -92,6 +103,10 @@ void CEventHandlerImpl::startPost(const std::string & title,
 	const ::cg::CStartPost_callbackPtr & callback)
 {
 	CUserPtr user = CUserHelper::getUser(callback->getContext());
+
+	CPostUploader::instance()->startPost(user->getUserId(), title, content, imgNames);
+
+	callback->response();
 }
 
 //void CEventHandlerImpl::uploadImg(const std::string & img, const cdf::CWSContextPtr & context)
@@ -118,6 +133,8 @@ void CEventHandlerImpl::endPost(const ::cg::CEndPost_callbackPtr & callback)
 	cdf::CDateTime postDt;
 
 	int postId = CPostUploader::instance()->endPost(user->getUserId(), postDt);
+
+	callback->response(postId);
 }
 
 void CEventHandlerImpl::deletePost(int postId, const ::cg::CDeletePost_callbackPtr & callback)
@@ -130,7 +147,37 @@ void CEventHandlerImpl::getPostList(int userId,
 	bool forNewPost,
 	const ::cg::CGetPostList_callbackPtr & callback)
 {
+	Message::Public::SeqInt postIdList;
 
+	if (userId > 0)
+	{
+		CUserPtr userPtr = CUserManager::instance()->findUser(userId);
+		if (NULL == userPtr)
+		{
+			CDF_LOG_TRACE("CEventHandlerImpl::getPostList", "NoSuchUser: " << userId);
+		}
+		else
+		{
+			if (forNewPost)
+			{
+				userPtr->getNewer10PostId(lastPostId, postIdList);
+			}
+			else
+			{
+				userPtr->getOlder10PostId(lastPostId, postIdList);
+			}
+		}
+	}
+	else
+	{
+		CPostManager::instance()->getPostIdList(lastPostId, forNewPost, postIdList);
+	}
+
+	Json::Value jsRes;
+	jsRes.parse("[]");
+	CPostManager::instance()->getPostList(postIdList, jsRes);
+
+	callback->response(jsRes);
 }
 
 void CEventHandlerImpl::viewPost(int postId,
@@ -160,4 +207,15 @@ void CEventHandlerImpl::dislikePost(int postId,
 void CEventHandlerImpl::test(const cdf::CDateTime & testIn, const ::cg::CTest_callbackPtr & callback)
 {
 
+}
+
+void CEventHandlerImpl::getImage(int imgId, const ::cg::CGetImage_callbackPtr & callback)
+{
+	CImagePtr img = CImageManager::instance()->findImage(imgId);
+	if (NULL == img)
+	{
+		CErrorCodeManager::throwException("Error_noSuchImg");
+	}
+
+	callback->responseB(img->getImgBin());
 }

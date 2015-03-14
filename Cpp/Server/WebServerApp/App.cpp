@@ -12,10 +12,11 @@
 #include "Config/GameDataLoader.h"
 #include "Helper/PublicConfig.h"
 #include "User/UserManager.h"
-//#include "Core/MessageHandler.h"
-//#include "Core/EventHandlerImpl.h"
-#include "Rmi/RmiIncoming.h"
-#include "Rmi/RmiServerImpl.h"
+#include "Core/MessageHandler.h"
+#include "Core/EventHandlerImpl.h"
+#include "Resource/PostManager.h"
+#include "Resource/ImageManager.h"
+#include "Resource/CommentManager.h"
 
 using namespace WebServerApp;
 
@@ -39,11 +40,9 @@ void Application::initWebSocket()
 		cdf::CWebsocketServer::instance()->setDocRoot(CPublicConfig::instance()->getDocRoot());
 	}
 
-	//cg::CMassageHandlerPtr msgHandler = new cg::CMassageHandler();
-	//msgHandler->setEventHandler(new CEventHandlerImpl());
-	Rmi::CRmiIncomingPtr rmiIncoming = new Rmi::CRmiIncoming();
-	rmiIncoming->setRmiServer(new Rmi::CRmiServerImpl());
-	cdf::CWebsocketServer::instance()->setMessageHandler(rmiIncoming);
+	cg::CMassageHandlerPtr msgHandler = new cg::CMassageHandler();
+	msgHandler->setEventHandler(new CEventHandlerImpl());
+	cdf::CWebsocketServer::instance()->setMessageHandler(msgHandler);
 }
 
 void Application::initThreadFun()
@@ -119,6 +118,11 @@ bool Application::init()
 
 		CDF_LOG_TRACE("Application::init", "LoadUsers");
 		CUserManager::instance()->loadUsers();
+
+		CDF_LOG_TRACE("Application::init", "Loading Resources");
+		CPostManager::instance()->loadAllPosts();
+		CImageManager::instance()->loadAllImages();
+		CCommentManager::instance()->loadAllComments();
 
 		CDF_LOG_TRACE("Application::init", "Init WebSocket");
 		initWebSocket();

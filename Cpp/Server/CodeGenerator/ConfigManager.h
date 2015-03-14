@@ -61,6 +61,8 @@ namespace cg
 			if (type == "json"){ return "object"; }
 			if (type == "bool"){ return "boolean"; }
 			if (type == "date"){ return "object"; }
+
+			return "xxxx";
 		}
 	};
 	typedef std::vector<CParam> SeqParam;

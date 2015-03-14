@@ -10,47 +10,63 @@
 
 namespace Rmi
 {
-	typedef std::vector<short> SeqShort;
-
-	typedef std::vector<long64_t> SeqLong;
-
 	typedef std::vector<int> SeqInt;
-
-	typedef std::vector<bool> SeqBool;
 
 	typedef std::vector<std::string> SeqString;
 
-	struct STest
-	{
-		SeqShort s;
-		SeqLong l;
-		SeqInt i;
-		SeqBool b;
-		SeqString ss;
+	typedef std::vector<cdf::CDateTime> SeqDate;
 
-		STest();
-		~STest();
+	typedef std::vector<bool> SeqBool;
+
+	typedef std::vector<byte_t> SeqByte;
+
+	typedef std::vector<short> SeqShort;
+
+	typedef std::vector<double> SeqDouble;
+
+	typedef std::vector<long64_t> SeqLong;
+
+	typedef std::vector<std::string> SeqImage;
+
+	struct SLoginReturn
+	{
+		int userId;
+		std::string nickname;
+		std::string avatar;
+		std::string sessionKey;
+
+		SLoginReturn();
+		~SLoginReturn();
 
 		void __read(cdf::CSimpleSerializer & __is);
 		void __write(cdf::CSimpleSerializer & __os);
-	}; //end of class STest
+	}; //end of class SLoginReturn
 
-	typedef std::vector<SeqInt> SeqSeqInt;
-	class SeqSeqInt__U__{};
-	void __read(cdf::CSimpleSerializer & __is, SeqSeqInt& v, SeqSeqInt__U__);
-	void __write(cdf::CSimpleSerializer & __os, SeqSeqInt& v, SeqSeqInt__U__);
-
-	struct SGoo
+	struct SPost
 	{
-		STest st;
-		SeqSeqInt ilist;
+		int postId;
+		std::string title;
+		std::string content;
+		int authorUserId;
+		std::string authorAccount;
+		std::string authorNickname;
+		SeqInt imgIdList;
+		cdf::CDateTime postDt;
+		int likes;
+		int dislikes;
+		int comments;
 
-		SGoo();
-		~SGoo();
+		SPost();
+		~SPost();
 
 		void __read(cdf::CSimpleSerializer & __is);
 		void __write(cdf::CSimpleSerializer & __os);
-	}; //end of class SGoo
+	}; //end of class SPost
+
+	typedef std::vector<SPost> SeqPost;
+	class SeqPost__U__{};
+	void __read(cdf::CSimpleSerializer & __is, SeqPost& v, SeqPost__U__);
+	void __write(cdf::CSimpleSerializer & __os, SeqPost& v, SeqPost__U__);
 
 } // end of namespace Rmi
 #endif // end of __RMI_DATA_STRUCT_DEF_H__
