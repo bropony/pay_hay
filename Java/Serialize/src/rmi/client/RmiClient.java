@@ -40,7 +40,7 @@ public class RmiClient{
 			RmiManager.instance().invoke(clientCB__, __msgIdBase, __os);
 		}
 
-		public static void changeAvatar(ChangeAvatarCallback clientCB__, byte[] avatar){
+		public static void changeAvatar(ChangeAvatarCallback clientCB__, String sessionKey, byte[] avatar){
 			SerializeStream __os = new SerializeStream();
 			__os.startToWrite();
 
@@ -48,6 +48,7 @@ public class RmiClient{
 			__os.write(__msgIdBase);
 			__os.write(3);
 
+			__os.write(sessionKey);
 			__os.write(avatar);
 
 			RmiManager.instance().invoke(clientCB__, __msgIdBase, __os);
@@ -81,7 +82,7 @@ public class RmiClient{
 			RmiManager.instance().invoke(clientCB__, __msgIdBase, __os);
 		}
 
-		public static void getMyPosts(GetMyPostsCallback clientCB__){
+		public static void getMyPosts(GetMyPostsCallback clientCB__, String sessionKey, int lastPostId){
 			SerializeStream __os = new SerializeStream();
 			__os.startToWrite();
 
@@ -89,11 +90,13 @@ public class RmiClient{
 			__os.write(__msgIdBase);
 			__os.write(22);
 
+			__os.write(sessionKey);
+			__os.write(lastPostId);
 
 			RmiManager.instance().invoke(clientCB__, __msgIdBase, __os);
 		}
 
-		public static void startPost(StartPostCallback clientCB__, String title, String content){
+		public static void startPost(StartPostCallback clientCB__, String sessionKey, String title, String content){
 			SerializeStream __os = new SerializeStream();
 			__os.startToWrite();
 
@@ -101,13 +104,14 @@ public class RmiClient{
 			__os.write(__msgIdBase);
 			__os.write(30);
 
+			__os.write(sessionKey);
 			__os.write(title);
 			__os.write(content);
 
 			RmiManager.instance().invoke(clientCB__, __msgIdBase, __os);
 		}
 
-		public static void uploadPostImg(UploadPostImgCallback clientCB__, byte[] img, String descrpt){
+		public static void uploadPostImg(UploadPostImgCallback clientCB__, String sessionKey, byte[] img, String descrpt){
 			SerializeStream __os = new SerializeStream();
 			__os.startToWrite();
 
@@ -115,13 +119,14 @@ public class RmiClient{
 			__os.write(__msgIdBase);
 			__os.write(31);
 
+			__os.write(sessionKey);
 			__os.write(img);
 			__os.write(descrpt);
 
 			RmiManager.instance().invoke(clientCB__, __msgIdBase, __os);
 		}
 
-		public static void endPost(EndPostCallback clientCB__){
+		public static void endPost(EndPostCallback clientCB__, String sessionKey){
 			SerializeStream __os = new SerializeStream();
 			__os.startToWrite();
 
@@ -129,11 +134,12 @@ public class RmiClient{
 			__os.write(__msgIdBase);
 			__os.write(32);
 
+			__os.write(sessionKey);
 
 			RmiManager.instance().invoke(clientCB__, __msgIdBase, __os);
 		}
 
-		public static void likePost(LikePostCallback clientCB__, int postId){
+		public static void likePost(LikePostCallback clientCB__, String sessionKey, int postId){
 			SerializeStream __os = new SerializeStream();
 			__os.startToWrite();
 
@@ -141,12 +147,13 @@ public class RmiClient{
 			__os.write(__msgIdBase);
 			__os.write(40);
 
+			__os.write(sessionKey);
 			__os.write(postId);
 
 			RmiManager.instance().invoke(clientCB__, __msgIdBase, __os);
 		}
 
-		public static void dislikePost(DislikePostCallback clientCB__, int postId){
+		public static void dislikePost(DislikePostCallback clientCB__, String sessionKey, int postId){
 			SerializeStream __os = new SerializeStream();
 			__os.startToWrite();
 
@@ -154,12 +161,13 @@ public class RmiClient{
 			__os.write(__msgIdBase);
 			__os.write(41);
 
+			__os.write(sessionKey);
 			__os.write(postId);
 
 			RmiManager.instance().invoke(clientCB__, __msgIdBase, __os);
 		}
 
-		public static void commentPost(CommentPostCallback clientCB__, int postId, String comments){
+		public static void commentPost(CommentPostCallback clientCB__, String sessionKey, int postId, String comments){
 			SerializeStream __os = new SerializeStream();
 			__os.startToWrite();
 
@@ -167,6 +175,7 @@ public class RmiClient{
 			__os.write(__msgIdBase);
 			__os.write(42);
 
+			__os.write(sessionKey);
 			__os.write(postId);
 			__os.write(comments);
 
