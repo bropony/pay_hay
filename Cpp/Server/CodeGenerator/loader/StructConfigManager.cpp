@@ -172,7 +172,7 @@ void CStruct::toJava(std::ostream & Java)
 			{
 				Java << fieldName << " = false;" << ENDL;
 			}
-			else if (fieldTypePtr->getName() == "String")
+			else if (fieldTypePtr->getName() == "string")
 			{
 				Java << fieldName << " = \"\";" << ENDL;
 			}
