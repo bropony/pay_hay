@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="src">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="src\Db">
+      <UniqueIdentifier>{8088b31f-2b4c-4f42-8ae6-5e1a51850a39}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Db\Tables">
+      <UniqueIdentifier>{2f249dd0-0b29-43e9-b754-0ab3cedca96b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Public">
+      <UniqueIdentifier>{1bfb4b7a-8e18-433c-a632-9ba23cd0c346}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Db\Tables\Loader">
+      <UniqueIdentifier>{bb157f6f-2998-45ab-951d-c6e6eca52a56}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\Server\Message\Db\Tables\TUser.cpp">
+      <Filter>src\Db\Tables</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Server\Message\Db\Tables\TUserComment.cpp">
+      <Filter>src\Db\Tables</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Server\Message\Db\Tables\TUserImg.cpp">
+      <Filter>src\Db\Tables</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Server\Message\Db\Tables\TUserPost.cpp">
+      <Filter>src\Db\Tables</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Server\Message\Public\CdlPublic.cpp">
+      <Filter>src\Public</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Server\Message\Regist.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Server\Message\Db\Tables\TErrorCode.cpp">
+      <Filter>src\Db\Tables</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Server\Message\Db\Tables\Loader\TErrorCodeLoader.cpp">
+      <Filter>src\Db\Tables\Loader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Server\Message\Db\Tables\TEventConfig.cpp">
+      <Filter>src\Db\Tables</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Server\Message\Db\Tables\Loader\TEventConfigLoader.cpp">
+      <Filter>src\Db\Tables\Loader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Server\Message\Db\Tables\TStructConfig.cpp">
+      <Filter>src\Db\Tables</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Server\Message\Db\Tables\Loader\TStructConfigLoader.cpp">
+      <Filter>src\Db\Tables\Loader</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\Server\Message\Db\Tables\TUser.h">
+      <Filter>src\Db\Tables</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Server\Message\Db\Tables\TUserComment.h">
+      <Filter>src\Db\Tables</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Server\Message\Db\Tables\TUserImg.h">
+      <Filter>src\Db\Tables</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Server\Message\Db\Tables\TUserPost.h">
+      <Filter>src\Db\Tables</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Server\Message\Public\CdlPublic.h">
+      <Filter>src\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Server\Message\Regist.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Server\Message\Db\Tables\TErrorCode.h">
+      <Filter>src\Db\Tables</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Server\Message\Db\Tables\Loader\TErrorCodeLoader.h">
+      <Filter>src\Db\Tables\Loader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Server\Message\Db\Tables\TEventConfig.h">
+      <Filter>src\Db\Tables</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Server\Message\Db\Tables\Loader\TEventConfigLoader.h">
+      <Filter>src\Db\Tables\Loader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Server\Message\Db\Tables\TStructConfig.h">
+      <Filter>src\Db\Tables</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Server\Message\Db\Tables\Loader\TStructConfigLoader.h">
+      <Filter>src\Db\Tables\Loader</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

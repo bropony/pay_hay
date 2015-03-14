@@ -1,0 +1,25 @@
+#ifndef _TUSERPOST_H_
+#define _TUSERPOST_H_
+module Message
+{
+    module Db
+    {
+        module Tables
+        {
+            struct TUserPost
+            {
+                int postId;
+                int userId;
+                string title;
+                string content;
+                string imgList;
+                int nlike;
+                int ndislike;
+                int ncomment;
+                date postDt;
+            };
+            sequence<TUserPost> SeqTUserPost;
+        };
+    };
+};
+#endif

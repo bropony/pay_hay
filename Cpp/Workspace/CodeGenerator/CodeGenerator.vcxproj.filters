@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="src">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="src\toCpp">
+      <UniqueIdentifier>{3f1e7adf-5f67-4a9c-9979-f7abbe9d84c2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\toJava">
+      <UniqueIdentifier>{354df786-a8f9-4e19-959f-a9ca14a9ef0e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\loader">
+      <UniqueIdentifier>{830f3812-ae7c-4338-ae5e-be987595ceda}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\Server\CodeGenerator\ConfigManager.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Server\CodeGenerator\Generator.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Server\CodeGenerator\main.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Server\CodeGenerator\loader\EventConfigManager.cpp">
+      <Filter>src\loader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Server\CodeGenerator\loader\StructConfigManager.cpp">
+      <Filter>src\loader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Server\CodeGenerator\loader\TypeManager.cpp">
+      <Filter>src\loader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Server\CodeGenerator\toCpp\CToCpp.cpp">
+      <Filter>src\toCpp</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\Server\CodeGenerator\ConfigManager.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Server\CodeGenerator\Generator.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Server\CodeGenerator\loader\EventConfigManager.h">
+      <Filter>src\loader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Server\CodeGenerator\loader\StructConfigManager.h">
+      <Filter>src\loader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Server\CodeGenerator\loader\TypeManager.h">
+      <Filter>src\loader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Server\CodeGenerator\toCpp\CToCpp.h">
+      <Filter>src\toCpp</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

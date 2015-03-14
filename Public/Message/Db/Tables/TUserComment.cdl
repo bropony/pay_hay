@@ -1,0 +1,22 @@
+#ifndef _TUSERCOMMENT_H_
+#define _TUSERCOMMENT_H_
+module Message
+{
+    module Db
+    {
+        module Tables
+        {
+            struct TUserComment
+            {
+                int commentId;
+                int postId;
+                int fromUserId;
+                int fromNickname;
+                string content;
+                date commentDt;
+            };
+            sequence<TUserComment> SeqTUserComment;
+        };
+    };
+};
+#endif

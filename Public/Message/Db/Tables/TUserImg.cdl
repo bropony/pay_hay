@@ -1,0 +1,19 @@
+#ifndef _TUSERIMG_H_
+#define _TUSERIMG_H_
+module Message
+{
+    module Db
+    {
+        module Tables
+        {
+            struct TUserImg
+            {
+                int imgId;
+                string imgPath;
+                string shortDesc;
+            };
+            sequence<TUserImg> SeqTUserImg;
+        };
+    };
+};
+#endif

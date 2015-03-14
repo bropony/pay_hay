@@ -1,0 +1,21 @@
+#ifndef _TUSER_H_
+#define _TUSER_H_
+module Message
+{
+    module Db
+    {
+        module Tables
+        {
+            struct TUser
+            {
+                int userId;
+                string account;
+                string nickname;
+                string loginKey;
+                date createDt;
+            };
+            sequence<TUser> SeqTUser;
+        };
+    };
+};
+#endif

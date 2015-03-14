@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{A9CB0E1E-B05C-4374-8330-9FBA6116B91C}</ProjectGuid>
+    <RootNamespace>Dao</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <TargetExt>.lib</TargetExt>
+    <IncludePath>..\..\Server;..\..\engine;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;USED_ASIO;_WIN32_WINNT=0x0601;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <OutputFile>..\lib\Daod.lib</OutputFile>
+    </Link>
+    <Lib>
+      <OutputFile>../lib/Daod.lib</OutputFile>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\Server\Dao\Base\UserCommentDaoBase.cpp" />
+    <ClCompile Include="..\..\Server\Dao\Base\UserDaoBase.cpp" />
+    <ClCompile Include="..\..\Server\Dao\Base\UserImgDaoBase.cpp" />
+    <ClCompile Include="..\..\Server\Dao\Base\UserPostDaoBase.cpp" />
+    <ClCompile Include="..\..\Server\Dao\Impl\Base\CachedTablesInit.cpp" />
+    <ClCompile Include="..\..\Server\Dao\Impl\Base\UserCached.cpp" />
+    <ClCompile Include="..\..\Server\Dao\Impl\Base\UserCommentCached.cpp" />
+    <ClCompile Include="..\..\Server\Dao\Impl\Base\UserCommentDaoImplBase.cpp" />
+    <ClCompile Include="..\..\Server\Dao\Impl\Base\UserDaoImplBase.cpp" />
+    <ClCompile Include="..\..\Server\Dao\Impl\Base\UserImgCached.cpp" />
+    <ClCompile Include="..\..\Server\Dao\Impl\Base\UserImgDaoImplBase.cpp" />
+    <ClCompile Include="..\..\Server\Dao\Impl\Base\UserPostCached.cpp" />
+    <ClCompile Include="..\..\Server\Dao\Impl\Base\UserPostDaoImplBase.cpp" />
+    <ClCompile Include="..\..\Server\Dao\Impl\UserCommentDaoImpl.cpp" />
+    <ClCompile Include="..\..\Server\Dao\Impl\UserDaoImpl.cpp" />
+    <ClCompile Include="..\..\Server\Dao\Impl\UserImgDaoImpl.cpp" />
+    <ClCompile Include="..\..\Server\Dao\Impl\UserPostDaoImpl.cpp" />
+    <ClCompile Include="..\..\Server\Dao\UserCommentDao.cpp" />
+    <ClCompile Include="..\..\Server\Dao\UserDao.cpp" />
+    <ClCompile Include="..\..\Server\Dao\UserImgDao.cpp" />
+    <ClCompile Include="..\..\Server\Dao\UserPostDao.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\Server\Dao\Base\UserCommentDaoBase.h" />
+    <ClInclude Include="..\..\Server\Dao\Base\UserDaoBase.h" />
+    <ClInclude Include="..\..\Server\Dao\Base\UserImgDaoBase.h" />
+    <ClInclude Include="..\..\Server\Dao\Base\UserPostDaoBase.h" />
+    <ClInclude Include="..\..\Server\Dao\Impl\Base\CachedTablesInit.h" />
+    <ClInclude Include="..\..\Server\Dao\Impl\Base\UserCached.h" />
+    <ClInclude Include="..\..\Server\Dao\Impl\Base\UserCommentCached.h" />
+    <ClInclude Include="..\..\Server\Dao\Impl\Base\UserCommentDaoImplBase.h" />
+    <ClInclude Include="..\..\Server\Dao\Impl\Base\UserDaoImplBase.h" />
+    <ClInclude Include="..\..\Server\Dao\Impl\Base\UserImgCached.h" />
+    <ClInclude Include="..\..\Server\Dao\Impl\Base\UserImgDaoImplBase.h" />
+    <ClInclude Include="..\..\Server\Dao\Impl\Base\UserPostCached.h" />
+    <ClInclude Include="..\..\Server\Dao\Impl\Base\UserPostDaoImplBase.h" />
+    <ClInclude Include="..\..\Server\Dao\Impl\UserCommentDaoImpl.h" />
+    <ClInclude Include="..\..\Server\Dao\Impl\UserDaoImpl.h" />
+    <ClInclude Include="..\..\Server\Dao\Impl\UserImgDaoImpl.h" />
+    <ClInclude Include="..\..\Server\Dao\Impl\UserPostDaoImpl.h" />
+    <ClInclude Include="..\..\Server\Dao\UserCommentDao.h" />
+    <ClInclude Include="..\..\Server\Dao\UserDao.h" />
+    <ClInclude Include="..\..\Server\Dao\UserImgDao.h" />
+    <ClInclude Include="..\..\Server\Dao\UserPostDao.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

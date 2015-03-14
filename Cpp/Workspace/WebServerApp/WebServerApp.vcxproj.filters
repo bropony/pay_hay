@@ -1,0 +1,208 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="src">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="src\Helper">
+      <UniqueIdentifier>{5dfeb1b0-9efc-4697-823d-78ece7c18375}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Core">
+      <UniqueIdentifier>{0b438c89-fa97-40d1-ad86-085780c7783c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Config">
+      <UniqueIdentifier>{16948c32-1b99-4f77-ad5b-1ce1f3c5806e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\User">
+      <UniqueIdentifier>{0b5579c1-a1b3-4983-b7f0-e92eb1fc516c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Resource">
+      <UniqueIdentifier>{6ffcfa93-695c-42dc-ac64-da3f99e49940}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Db">
+      <UniqueIdentifier>{9d6a3277-e317-44cc-af33-196f309b0410}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Rmi">
+      <UniqueIdentifier>{84b85348-7787-48bb-9191-fe001be12adf}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\Server\WebServerApp\Helper\PublicConfig.cpp">
+      <Filter>src\Helper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Server\WebServerApp\Helper\Regex.cpp">
+      <Filter>src\Helper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Server\WebServerApp\Helper\Util.cpp">
+      <Filter>src\Helper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Server\WebServerApp\main.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Server\WebServerApp\Config\Config.cpp">
+      <Filter>src\Config</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Server\WebServerApp\User\User.cpp">
+      <Filter>src\User</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Server\WebServerApp\User\UserManager.cpp">
+      <Filter>src\User</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Server\WebServerApp\Resource\CommentManager.cpp">
+      <Filter>src\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Server\WebServerApp\Resource\ImageManager.cpp">
+      <Filter>src\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Server\WebServerApp\Resource\PostManager.cpp">
+      <Filter>src\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Server\WebServerApp\App.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Server\WebServerApp\Core\EventHandlerImpl.cpp">
+      <Filter>src\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Server\WebServerApp\Core\PostUploader.cpp">
+      <Filter>src\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Server\WebServerApp\Db\DaoManager.cpp">
+      <Filter>src\Db</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Server\WebServerApp\Config\ErrorCodeManager.cpp">
+      <Filter>src\Config</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Server\WebServerApp\Config\GameDataLoader.cpp">
+      <Filter>src\Config</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Server\WebServerApp\Db\DbHelper.cpp">
+      <Filter>src\Db</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Server\WebServerApp\User\UserHelper.cpp">
+      <Filter>src\User</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Server\WebServerApp\Resource\Comment.cpp">
+      <Filter>src\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Server\WebServerApp\Resource\Image.cpp">
+      <Filter>src\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Server\WebServerApp\Resource\Post.cpp">
+      <Filter>src\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Server\WebServerApp\Core\EventHandler.cpp">
+      <Filter>src\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Server\WebServerApp\Core\MessageHandler.cpp">
+      <Filter>src\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Server\WebServerApp\Rmi\DataStructDef.cpp">
+      <Filter>src\Rmi</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Server\WebServerApp\Rmi\RmiCallbackBase.cpp">
+      <Filter>src\Rmi</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Server\WebServerApp\Rmi\RmiIncoming.cpp">
+      <Filter>src\Rmi</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Server\WebServerApp\Rmi\RmiServer.cpp">
+      <Filter>src\Rmi</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Server\WebServerApp\Rmi\RmiServerImpl.cpp">
+      <Filter>src\Rmi</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Server\WebServerApp\Helper\ImageInfo.cpp">
+      <Filter>src\Helper</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\Server\WebServerApp\Helper\PublicConfig.h">
+      <Filter>src\Helper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Server\WebServerApp\Helper\Regex.h">
+      <Filter>src\Helper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Server\WebServerApp\Helper\Util.h">
+      <Filter>src\Helper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Server\WebServerApp\Config\Config.h">
+      <Filter>src\Config</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Server\WebServerApp\User\User.h">
+      <Filter>src\User</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Server\WebServerApp\User\UserManager.h">
+      <Filter>src\User</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Server\WebServerApp\Resource\CommentManager.h">
+      <Filter>src\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Server\WebServerApp\Resource\ImageManager.h">
+      <Filter>src\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Server\WebServerApp\Resource\PostManager.h">
+      <Filter>src\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Server\WebServerApp\App.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Server\WebServerApp\Core\EventHandlerImpl.h">
+      <Filter>src\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Server\WebServerApp\Core\EventCommon.h">
+      <Filter>src\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Server\WebServerApp\Core\PostUploader.h">
+      <Filter>src\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Server\WebServerApp\Db\DaoManager.h">
+      <Filter>src\Db</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Server\WebServerApp\Config\ErrorCodeManager.h">
+      <Filter>src\Config</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Server\WebServerApp\Config\GameDataLoader.h">
+      <Filter>src\Config</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Server\WebServerApp\Db\DbHelper.h">
+      <Filter>src\Db</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Server\WebServerApp\User\UserHelper.h">
+      <Filter>src\User</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Server\WebServerApp\Resource\Comment.h">
+      <Filter>src\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Server\WebServerApp\Resource\Image.h">
+      <Filter>src\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Server\WebServerApp\Resource\Post.h">
+      <Filter>src\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Server\WebServerApp\Core\EventHandler.h">
+      <Filter>src\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Server\WebServerApp\Core\MessageHandler.h">
+      <Filter>src\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Server\WebServerApp\Rmi\DataStructDef.h">
+      <Filter>src\Rmi</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Server\WebServerApp\Rmi\RmiCallbackBase.h">
+      <Filter>src\Rmi</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Server\WebServerApp\Rmi\RmiIncoming.h">
+      <Filter>src\Rmi</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Server\WebServerApp\Rmi\RmiServer.h">
+      <Filter>src\Rmi</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Server\WebServerApp\Rmi\RmiServerImpl.h">
+      <Filter>src\Rmi</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Server\WebServerApp\Helper\ImageInfo.h">
+      <Filter>src\Helper</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

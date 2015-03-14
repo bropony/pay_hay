@@ -1,0 +1,31 @@
+
+[
+	
+	{
+		"event" : "test",
+		"eventId" : 12,
+		"inParams" : "dt:date",
+		"outParams" : "testOut:date"
+	},
+	
+	{
+		"event" : "showError",
+		"eventId" : 13,
+		"inParams" : "dt:date",
+		"outParams" : "out:string"
+	},
+	
+	{
+		"event" : "uploadImage",
+		"eventId" : 14,
+		"inParams" : "img:image",
+		"outParams" : "fileName:string"
+	},
+	
+	{
+		"event" : "echo",
+		"eventId" : 15,
+		"inParams" : "input:STest",
+		"outParams" : "output:STest"
+	}
+]

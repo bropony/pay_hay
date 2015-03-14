@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<root>
+	<!--
+		ECHANNEL_TYPE_GAME_APP = 1,         //游戏逻辑
+		ECHANNEL_TYPE_DB_CACHE_APP = 2,     //数据缓存  
+		ECHANNEL_TYPE_MISCEL_APP = 3,       //杂项功能
+		ECHANNEL_TYPE_SNAPSHOT_APP = 4,     //排行榜
+		ECHANNEL_TYPE_LOGIN_APP = 5,        //登陆服务器
+		ECHANNEL_TYPE_CROSS_APP = 6,        //跨服服务器
+		ECHANNEL_TYPE_LOG_DB_APP = 7,       //日志服务器
+	-->
+	
+	<channel id="1004" type="1" url="192.168.3.24:80ChangePort" public_bind_url="0.0.0.0:90ChangePort" public_url="192.168.3.24:90ChangePort"/>
+        <channel id="1001" type="1" url="ServerInnerIpOne:80ChangePort" public_bind_url="0.0.0.0:90ChangePort" public_url="GameAppHostDomain:90ChangePort"/>
+        <channel id="1002" type="1" url="192.168.3.20:80ChangePort" public_bind_url="0.0.0.0:90ChangePort" public_url="192.168.3.20:90ChangePort"/>
+        <channel id="1003" type="1" url="192.168.3.30:80ChangePort" public_bind_url="0.0.0.0:90ChangePort" public_url="192.168.3.30:90ChangePort"/>
+        
+        <channel id="1005" type="1" url="10.10.0.160:80ChangePort" public_bind_url="0.0.0.0:90ChangePort" public_url="10.10.0.160:90ChangePort"/>
+        <channel id="1006" type="1" url="192.168.3.55:80ChangePort" public_bind_url="0.0.0.0:90ChangePort" public_url="192.168.3.55:90ChangePort"/>
+		<channel id="1007" type="1" url="10.211.55.4:80ChangePort" public_bind_url="0.0.0.0:90ChangePort" public_url="10.211.55.4:90ChangePort"/>
+		<channel id="1008" type="1" url="10.211.55.3:80ChangePort" public_bind_url="0.0.0.0:90ChangePort" public_url="10.211.55.3:90ChangePort"/>
+
+        <channel id="2001" type="2" url="ServerInnerIpOne:81ChangePort" public_url=""/>
+	
+	    <channel id="3001" type="3" url="ServerInnerIpOne:82ChangePort" public_url=""/>
+	    <channel id="3002" type="3" url="10.10.0.160:82ChangePort" public_url=""/>
+	    
+        <channel id="4001" type="4" url="ServerInnerIpOne:84ChangePort" public_url=""/>
+	
+	    <channel id="5001" type="5" url="ServerInnerIpOne:85ChangePort" public_bind_url="0.0.0.0:95ChangePort" public_url="LoginAppHostDomain:95ChangePort"/>
+	    <channel id="5002" type="5" url="192.168.3.20:85ChangePort" public_bind_url="0.0.0.0:95ChangePort" public_url="192.168.3.20:95ChangePort"/>
+	
+	    <channel id="6001" type="6" url="ServerInnerIpOne:86ChangePort" public_url=""/>
+	
+	    <channel id="7001" type="7" url="ServerInnerIpOne:87ChangePort" public_url=""/>
+</root>

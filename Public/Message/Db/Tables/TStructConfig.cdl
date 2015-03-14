@@ -1,0 +1,20 @@
+#ifndef _TSTRUCTCONFIG_H_
+#define _TSTRUCTCONFIG_H_
+module Message
+{
+    module Db
+    {
+        module Tables
+        {
+            struct TStructConfig
+            {
+                string name;
+                int type;
+                string fields;
+                string descr;
+            };
+            sequence<TStructConfig> SeqTStructConfig;
+        };
+    };
+};
+#endif

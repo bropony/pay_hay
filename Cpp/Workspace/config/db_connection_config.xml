@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+  <db>
+    <url>mysql://DbOneHostIp:DbOneHostPort/pay_hayDbVersion</url>
+    <maxconn>20</maxconn>
+    <user>root</user>
+    <password>DbPwd</password>
+  </db>
+</root>

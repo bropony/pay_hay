@@ -1,0 +1,19 @@
+#ifndef _TERRORCODE_H_
+#define _TERRORCODE_H_
+module Message
+{
+    module Db
+    {
+        module Tables
+        {
+            struct TErrorCode
+            {
+                int errorCode;
+                string errorName;
+                string errorStr;
+            };
+            sequence<TErrorCode> SeqTErrorCode;
+        };
+    };
+};
+#endif

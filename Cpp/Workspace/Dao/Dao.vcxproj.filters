@@ -1,0 +1,148 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="src">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="src\Impl">
+      <UniqueIdentifier>{339594a0-cb16-4d91-bc85-389071bec55d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Base">
+      <UniqueIdentifier>{e25b187b-c386-453a-a591-305cfb5f9c74}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Impl\Base">
+      <UniqueIdentifier>{75ea6c2c-7aa5-4cb8-a0e6-b82579d9d569}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\Server\Dao\UserCommentDao.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Server\Dao\UserDao.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Server\Dao\UserImgDao.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Server\Dao\UserPostDao.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Server\Dao\Base\UserCommentDaoBase.cpp">
+      <Filter>src\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Server\Dao\Base\UserDaoBase.cpp">
+      <Filter>src\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Server\Dao\Base\UserImgDaoBase.cpp">
+      <Filter>src\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Server\Dao\Base\UserPostDaoBase.cpp">
+      <Filter>src\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Server\Dao\Impl\UserCommentDaoImpl.cpp">
+      <Filter>src\Impl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Server\Dao\Impl\UserDaoImpl.cpp">
+      <Filter>src\Impl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Server\Dao\Impl\UserImgDaoImpl.cpp">
+      <Filter>src\Impl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Server\Dao\Impl\UserPostDaoImpl.cpp">
+      <Filter>src\Impl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Server\Dao\Impl\Base\CachedTablesInit.cpp">
+      <Filter>src\Impl\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Server\Dao\Impl\Base\UserCached.cpp">
+      <Filter>src\Impl\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Server\Dao\Impl\Base\UserCommentCached.cpp">
+      <Filter>src\Impl\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Server\Dao\Impl\Base\UserCommentDaoImplBase.cpp">
+      <Filter>src\Impl\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Server\Dao\Impl\Base\UserDaoImplBase.cpp">
+      <Filter>src\Impl\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Server\Dao\Impl\Base\UserImgCached.cpp">
+      <Filter>src\Impl\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Server\Dao\Impl\Base\UserImgDaoImplBase.cpp">
+      <Filter>src\Impl\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Server\Dao\Impl\Base\UserPostCached.cpp">
+      <Filter>src\Impl\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Server\Dao\Impl\Base\UserPostDaoImplBase.cpp">
+      <Filter>src\Impl\Base</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\Server\Dao\UserCommentDao.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Server\Dao\UserDao.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Server\Dao\UserImgDao.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Server\Dao\UserPostDao.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Server\Dao\Base\UserCommentDaoBase.h">
+      <Filter>src\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Server\Dao\Base\UserDaoBase.h">
+      <Filter>src\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Server\Dao\Base\UserImgDaoBase.h">
+      <Filter>src\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Server\Dao\Base\UserPostDaoBase.h">
+      <Filter>src\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Server\Dao\Impl\UserCommentDaoImpl.h">
+      <Filter>src\Impl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Server\Dao\Impl\UserDaoImpl.h">
+      <Filter>src\Impl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Server\Dao\Impl\UserImgDaoImpl.h">
+      <Filter>src\Impl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Server\Dao\Impl\UserPostDaoImpl.h">
+      <Filter>src\Impl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Server\Dao\Impl\Base\CachedTablesInit.h">
+      <Filter>src\Impl\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Server\Dao\Impl\Base\UserCached.h">
+      <Filter>src\Impl\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Server\Dao\Impl\Base\UserCommentCached.h">
+      <Filter>src\Impl\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Server\Dao\Impl\Base\UserCommentDaoImplBase.h">
+      <Filter>src\Impl\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Server\Dao\Impl\Base\UserDaoImplBase.h">
+      <Filter>src\Impl\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Server\Dao\Impl\Base\UserImgCached.h">
+      <Filter>src\Impl\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Server\Dao\Impl\Base\UserImgDaoImplBase.h">
+      <Filter>src\Impl\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Server\Dao\Impl\Base\UserPostCached.h">
+      <Filter>src\Impl\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Server\Dao\Impl\Base\UserPostDaoImplBase.h">
+      <Filter>src\Impl\Base</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

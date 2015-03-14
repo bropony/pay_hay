@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<root>
+  <config flush_mill="500" cached="1" init_size="500" name="PayHay"/>
+  
+  <!-- user -->
+  <table name="t_user" cached="1" nagtive_count="5" nagtive_check="account" />
+  <table name="t_user_comment" cached="1" nagtive_count="5" nagtive_check="post_id" />
+  <table name="t_user_img" cached="1" nagtive_count="5" nagtive_check="img_id" />
+  <table name="t_user_post" cached="1" nagtive_count="5" nagtive_check="user_id" />
+  
+</root>

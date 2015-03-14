@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+    <ServerOpenDt>2013-01-01 00:00:00</ServerOpenDt>
+    <InnerKey>t%y~q++t</InnerKey>
+    <ClientPasswd>bpqqx48jit</ClientPasswd>
+    <ServerId>1</ServerId>
+    <ServerName>S1</ServerName>
+    <PlatformId>1</PlatformId>
+    <PlatformName>fl</PlatformName>
+    
+    <!-- Database IPs and ports -->
+    <DbOneHostIp>192.168.3.238</DbOneHostIp>
+    <DbTwoHostIp>192.168.3.238</DbTwoHostIp>
+    <DbOneHostPort>3306</DbOneHostPort>
+    <DbTwoHostPort>3306</DbTwoHostPort>
+    
+    <!-- GameApp Public Host Domain -->
+    <GameAppHostDomain>192.168.3.238</GameAppHostDomain>
+    <!-- LoginApp Public Host Domain -->
+    <LoginAppHostDomain>192.168.3.238</LoginAppHostDomain>
+    <!-- Host One IP -->
+    <ServerInnerIpOne>192.168.3.238</ServerInnerIpOne>
+    <!-- Host Two IP -->
+    <ServerInnerIpTwo>192.168.3.238</ServerInnerIpTwo>
+    
+    <!-- Censoreship switch -->
+    <Censorship>1</Censorship>
+    
+    <DbPwd>root</DbPwd>
+    <DbVersion>_0_0_1</DbVersion>
+    
+    <ChangePort>00</ChangePort>
+    <HttpPort>9600</HttpPort>
+    <DocRoot></DocRoot>
+    <ImgRoot>../config/images</ImgRoot>
+</root>

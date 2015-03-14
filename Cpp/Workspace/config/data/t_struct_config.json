@@ -1,0 +1,59 @@
+
+[
+	
+	{
+		"fields" : "short",
+		"id" : 1,
+		"name" : "SeqShort",
+		"type" : 2
+	},
+	
+	{
+		"fields" : "long",
+		"id" : 2,
+		"name" : "SeqLong",
+		"type" : 2
+	},
+	
+	{
+		"fields" : "int",
+		"id" : 3,
+		"name" : "SeqInt",
+		"type" : 2
+	},
+	
+	{
+		"fields" : "bool",
+		"id" : 4,
+		"name" : "SeqBool",
+		"type" : 2
+	},
+	
+	{
+		"fields" : "string",
+		"id" : 5,
+		"name" : "SeqString",
+		"type" : 2
+	},
+	
+	{
+		"fields" : "s:SeqShort#l:SeqLong#i:SeqInt#b:SeqBool#ss:SeqString",
+		"id" : 6,
+		"name" : "STest",
+		"type" : 1
+	},
+	
+	{
+		"fields" : "SeqInt",
+		"id" : 7,
+		"name" : "SeqSeqInt",
+		"type" : 2
+	},
+	
+	{
+		"fields" : "st:STest#ilist:SeqSeqInt",
+		"id" : 8,
+		"name" : "SGoo",
+		"type" : 1
+	}
+]

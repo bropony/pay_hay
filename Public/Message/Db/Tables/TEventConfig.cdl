@@ -1,0 +1,20 @@
+#ifndef _TEVENTCONFIG_H_
+#define _TEVENTCONFIG_H_
+module Message
+{
+    module Db
+    {
+        module Tables
+        {
+            struct TEventConfig
+            {
+                int eventId;
+                string event;
+                string inParams;
+                string outParams;
+            };
+            sequence<TEventConfig> SeqTEventConfig;
+        };
+    };
+};
+#endif

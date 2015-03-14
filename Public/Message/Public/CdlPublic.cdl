@@ -1,0 +1,28 @@
+#ifndef _CDL_MESSAGE_PUBLIC_H_
+#define _CDL_MESSAGE_PUBLIC_H_
+
+module Message
+{
+	module Public
+	{
+	  sequence<bool>  SeqBool;     //bool型数组
+	  sequence<byte>  SeqByte;     //byte型数组
+	  sequence<short>  SeqShort;   //short型数组
+	  sequence<int>  SeqInt;       //int型数组
+	  sequence<float>  SeqFloat;   //float型数组
+	  sequence<double>  SeqDouble; //double型数组
+	  sequence<long>  SeqLong;     //long型数组
+	  sequence<string>  SeqString; //string型数组
+	  
+	  dictionary<int, int> DictIntInt; //int int型字典
+	  dictionary<long, int> DictLongInt; //long int型字典
+	  dictionary<int, string> DictIntStr; //int str型字典
+	  dictionary<string, int> DictStrInt; //str int型字典
+	  dictionary<int, bool> DictIntBool;	//int bool型字典
+	  dictionary<int, date> DictIntDate; //int date型字典
+	  dictionary<string, bool> DictStrBool; //str bool型字典
+	  dictionary<string, string> DictStrStr; // str str型字典
+	};
+};
+
+#endif
