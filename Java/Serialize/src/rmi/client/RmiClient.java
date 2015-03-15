@@ -82,7 +82,7 @@ public class RmiClient{
 			RmiManager.instance().invoke(clientCB__, __msgIdBase, __os);
 		}
 
-		public static void getMyPosts(GetMyPostsCallback clientCB__, String sessionKey, int lastPostId){
+		public static void getMyPosts(GetMyPostsCallback clientCB__, String sessionKey, int lastPostId, boolean forNew){
 			SerializeStream __os = new SerializeStream();
 			__os.startToWrite();
 
@@ -92,6 +92,7 @@ public class RmiClient{
 
 			__os.write(sessionKey);
 			__os.write(lastPostId);
+			__os.write(forNew);
 
 			RmiManager.instance().invoke(clientCB__, __msgIdBase, __os);
 		}
@@ -292,7 +293,7 @@ public class RmiClient{
 	public static abstract class GetImageCallback extends RmiCallbackBase {
 		public GetImageCallback(){}
 
-		public abstract void onResponse(byte[] img);
+		public abstract void onResponse(byte[] img, String shortDesc);
 		public abstract void onError(String what, int code);
 		public abstract void onTimeout();
 
@@ -301,7 +302,10 @@ public class RmiClient{
 			byte[] img = null;
 			img = __is.read(img);
 
-			onResponse(img);
+			String shortDesc = null;
+			shortDesc = __is.read(shortDesc);
+
+			onResponse(img, shortDesc);
 		}
 
 		@Override
