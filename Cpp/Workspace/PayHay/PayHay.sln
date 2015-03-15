@@ -1,10 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
+VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CDELib", "..\..\engine\project_2005\CDELib\CDELib.vcxproj", "{B196D109-316E-4C26-BDEC-E92CFBA2C203}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "WebServerApp", "..\WebServerApp\WebServerApp.vcxproj", "{745AA926-E79C-4984-9310-5B1142E67CA5}"
 	ProjectSection(ProjectDependencies) = postProject
 		{B196D109-316E-4C26-BDEC-E92CFBA2C203} = {B196D109-316E-4C26-BDEC-E92CFBA2C203}
@@ -29,16 +27,14 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CodeGenerator", "..\CodeGen
 		{DFC17A8D-7503-4F2E-8A94-401A378F34CD} = {DFC17A8D-7503-4F2E-8A94-401A378F34CD}
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CDELib", "..\..\..\..\engine\project_2005\CDELib\CDELib.vcxproj", "{B196D109-316E-4C26-BDEC-E92CFBA2C203}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
 		Release|Win32 = Release|Win32
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{B196D109-316E-4C26-BDEC-E92CFBA2C203}.Debug|Win32.ActiveCfg = Debug|Win32
-		{B196D109-316E-4C26-BDEC-E92CFBA2C203}.Debug|Win32.Build.0 = Debug|Win32
-		{B196D109-316E-4C26-BDEC-E92CFBA2C203}.Release|Win32.ActiveCfg = Release|Win32
-		{B196D109-316E-4C26-BDEC-E92CFBA2C203}.Release|Win32.Build.0 = Release|Win32
 		{745AA926-E79C-4984-9310-5B1142E67CA5}.Debug|Win32.ActiveCfg = Debug|Win32
 		{745AA926-E79C-4984-9310-5B1142E67CA5}.Debug|Win32.Build.0 = Debug|Win32
 		{745AA926-E79C-4984-9310-5B1142E67CA5}.Release|Win32.ActiveCfg = Release|Win32
@@ -55,6 +51,10 @@ Global
 		{A14CD2AB-92A2-474A-8E2D-2636D1F492E7}.Debug|Win32.Build.0 = Debug|Win32
 		{A14CD2AB-92A2-474A-8E2D-2636D1F492E7}.Release|Win32.ActiveCfg = Release|Win32
 		{A14CD2AB-92A2-474A-8E2D-2636D1F492E7}.Release|Win32.Build.0 = Release|Win32
+		{B196D109-316E-4C26-BDEC-E92CFBA2C203}.Debug|Win32.ActiveCfg = Debug|Win32
+		{B196D109-316E-4C26-BDEC-E92CFBA2C203}.Debug|Win32.Build.0 = Debug|Win32
+		{B196D109-316E-4C26-BDEC-E92CFBA2C203}.Release|Win32.ActiveCfg = Release|Win32
+		{B196D109-316E-4C26-BDEC-E92CFBA2C203}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
