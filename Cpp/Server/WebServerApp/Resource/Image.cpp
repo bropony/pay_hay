@@ -34,3 +34,8 @@ const std::string & CImage::getImgBin()
 
 	return _imgBin;
 }
+
+const std::string & CImage::getDesc()
+{
+	return _tUserImg.shortDesc;
+}

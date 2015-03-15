@@ -8,7 +8,7 @@ CLoginCallback::CLoginCallback(const cdf::CWSContextPtr & context, int msgId)
 {
 }
 
-void CLoginCallback::response(SLoginReturn & userInfo)
+void CLoginCallback::response( const SLoginReturn & userInfo)
 {
 	cdf::CSimpleSerializer __os;
 	__os.startToWrite();
@@ -27,7 +27,7 @@ CSignupCallback::CSignupCallback(const cdf::CWSContextPtr & context, int msgId)
 {
 }
 
-void CSignupCallback::response(SLoginReturn & userInfo)
+void CSignupCallback::response( const SLoginReturn & userInfo)
 {
 	cdf::CSimpleSerializer __os;
 	__os.startToWrite();
@@ -64,7 +64,7 @@ CGetPostsCallback::CGetPostsCallback(const cdf::CWSContextPtr & context, int msg
 {
 }
 
-void CGetPostsCallback::response(SeqPost & postList)
+void CGetPostsCallback::response( const SeqPost & postList)
 {
 	cdf::CSimpleSerializer __os;
 	__os.startToWrite();
@@ -83,7 +83,7 @@ CGetImageCallback::CGetImageCallback(const cdf::CWSContextPtr & context, int msg
 {
 }
 
-void CGetImageCallback::response(std::string & img)
+void CGetImageCallback::response( const std::string & img,  const std::string & shortDesc)
 {
 	cdf::CSimpleSerializer __os;
 	__os.startToWrite();
@@ -92,6 +92,7 @@ void CGetImageCallback::response(std::string & img)
 	__os.write(true);
 
 	__os.write(img);
+	__os.write(shortDesc);
 
 	__response(__os);
 }
@@ -102,7 +103,7 @@ CGetMyPostsCallback::CGetMyPostsCallback(const cdf::CWSContextPtr & context, int
 {
 }
 
-void CGetMyPostsCallback::response(SeqPost & postList)
+void CGetMyPostsCallback::response( const SeqPost & postList)
 {
 	cdf::CSimpleSerializer __os;
 	__os.startToWrite();
@@ -297,8 +298,11 @@ void CRmiServer::__getMyPosts(cdf::CSimpleSerializer & __is, int __msgId, const 
 	int lastPostId = 0;
 	__is.read(lastPostId);
 
+	bool forNew = false;
+	__is.read(forNew);
+
 	CGetMyPostsCallbackPtr __cb = new CGetMyPostsCallback(context, __msgId);
-	getMyPosts(sessionKey, lastPostId, __cb);
+	getMyPosts(sessionKey, lastPostId, forNew, __cb);
 }
 
 void CRmiServer::__startPost(cdf::CSimpleSerializer & __is, int __msgId, const cdf::CWSContextPtr & context)

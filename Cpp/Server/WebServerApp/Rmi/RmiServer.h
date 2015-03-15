@@ -15,7 +15,7 @@ namespace Rmi
 	public:
 		CLoginCallback(const cdf::CWSContextPtr & context, int msgId);
 
-		void response(SLoginReturn & userInfo);
+		void response( const SLoginReturn & userInfo);
 	};
 	typedef cdf::CHandle<CLoginCallback> CLoginCallbackPtr;
 
@@ -25,7 +25,7 @@ namespace Rmi
 	public:
 		CSignupCallback(const cdf::CWSContextPtr & context, int msgId);
 
-		void response(SLoginReturn & userInfo);
+		void response( const SLoginReturn & userInfo);
 	};
 	typedef cdf::CHandle<CSignupCallback> CSignupCallbackPtr;
 
@@ -45,7 +45,7 @@ namespace Rmi
 	public:
 		CGetPostsCallback(const cdf::CWSContextPtr & context, int msgId);
 
-		void response(SeqPost & postList);
+		void response( const SeqPost & postList);
 	};
 	typedef cdf::CHandle<CGetPostsCallback> CGetPostsCallbackPtr;
 
@@ -55,7 +55,7 @@ namespace Rmi
 	public:
 		CGetImageCallback(const cdf::CWSContextPtr & context, int msgId);
 
-		void response(std::string & img);
+		void response( const std::string & img,  const std::string & shortDesc);
 	};
 	typedef cdf::CHandle<CGetImageCallback> CGetImageCallbackPtr;
 
@@ -65,7 +65,7 @@ namespace Rmi
 	public:
 		CGetMyPostsCallback(const cdf::CWSContextPtr & context, int msgId);
 
-		void response(SeqPost & postList);
+		void response( const SeqPost & postList);
 	};
 	typedef cdf::CHandle<CGetMyPostsCallback> CGetMyPostsCallbackPtr;
 
@@ -134,13 +134,13 @@ namespace Rmi
 	{
 	public:
 		void __login(cdf::CSimpleSerializer & __is, int __msgId, const cdf::CWSContextPtr & context);
-		virtual void login(std::string & account, std::string & passwd, const CLoginCallbackPtr & loginCB) = 0;
+		virtual void login( const std::string & account,  const std::string & passwd, const CLoginCallbackPtr & loginCB) = 0;
 	
 		void __signup(cdf::CSimpleSerializer & __is, int __msgId, const cdf::CWSContextPtr & context);
-		virtual void signup(std::string & account, std::string & passwd, std::string & nickname, const CSignupCallbackPtr & signupCB) = 0;
+		virtual void signup( const std::string & account,  const std::string & passwd,  const std::string & nickname, const CSignupCallbackPtr & signupCB) = 0;
 	
 		void __changeAvatar(cdf::CSimpleSerializer & __is, int __msgId, const cdf::CWSContextPtr & context);
-		virtual void changeAvatar(std::string & sessionKey, std::string & avatar, const CChangeAvatarCallbackPtr & changeAvatarCB) = 0;
+		virtual void changeAvatar( const std::string & sessionKey,  const std::string & avatar, const CChangeAvatarCallbackPtr & changeAvatarCB) = 0;
 	
 		void __getPosts(cdf::CSimpleSerializer & __is, int __msgId, const cdf::CWSContextPtr & context);
 		virtual void getPosts(int lastPostId, bool forNew, int requestNum, const CGetPostsCallbackPtr & getPostsCB) = 0;
@@ -149,25 +149,25 @@ namespace Rmi
 		virtual void getImage(int imgId, const CGetImageCallbackPtr & getImageCB) = 0;
 	
 		void __getMyPosts(cdf::CSimpleSerializer & __is, int __msgId, const cdf::CWSContextPtr & context);
-		virtual void getMyPosts(std::string & sessionKey, int lastPostId, const CGetMyPostsCallbackPtr & getMyPostsCB) = 0;
+		virtual void getMyPosts( const std::string & sessionKey, int lastPostId, bool forNew, const CGetMyPostsCallbackPtr & getMyPostsCB) = 0;
 	
 		void __startPost(cdf::CSimpleSerializer & __is, int __msgId, const cdf::CWSContextPtr & context);
-		virtual void startPost(std::string & sessionKey, std::string & title, std::string & content, const CStartPostCallbackPtr & startPostCB) = 0;
+		virtual void startPost( const std::string & sessionKey,  const std::string & title,  const std::string & content, const CStartPostCallbackPtr & startPostCB) = 0;
 	
 		void __uploadPostImg(cdf::CSimpleSerializer & __is, int __msgId, const cdf::CWSContextPtr & context);
-		virtual void uploadPostImg(std::string & sessionKey, std::string & img, std::string & descrpt, const CUploadPostImgCallbackPtr & uploadPostImgCB) = 0;
+		virtual void uploadPostImg( const std::string & sessionKey,  const std::string & img,  const std::string & descrpt, const CUploadPostImgCallbackPtr & uploadPostImgCB) = 0;
 	
 		void __endPost(cdf::CSimpleSerializer & __is, int __msgId, const cdf::CWSContextPtr & context);
-		virtual void endPost(std::string & sessionKey, const CEndPostCallbackPtr & endPostCB) = 0;
+		virtual void endPost( const std::string & sessionKey, const CEndPostCallbackPtr & endPostCB) = 0;
 	
 		void __likePost(cdf::CSimpleSerializer & __is, int __msgId, const cdf::CWSContextPtr & context);
-		virtual void likePost(std::string & sessionKey, int postId, const CLikePostCallbackPtr & likePostCB) = 0;
+		virtual void likePost( const std::string & sessionKey, int postId, const CLikePostCallbackPtr & likePostCB) = 0;
 	
 		void __dislikePost(cdf::CSimpleSerializer & __is, int __msgId, const cdf::CWSContextPtr & context);
-		virtual void dislikePost(std::string & sessionKey, int postId, const CDislikePostCallbackPtr & dislikePostCB) = 0;
+		virtual void dislikePost( const std::string & sessionKey, int postId, const CDislikePostCallbackPtr & dislikePostCB) = 0;
 	
 		void __commentPost(cdf::CSimpleSerializer & __is, int __msgId, const cdf::CWSContextPtr & context);
-		virtual void commentPost(std::string & sessionKey, int postId, std::string & comments, const CCommentPostCallbackPtr & commentPostCB) = 0;
+		virtual void commentPost( const std::string & sessionKey, int postId,  const std::string & comments, const CCommentPostCallbackPtr & commentPostCB) = 0;
 	
 		void __call(cdf::CSimpleSerializer & __is, const cdf::CWSContextPtr & context);
 

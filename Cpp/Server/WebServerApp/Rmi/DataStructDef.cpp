@@ -24,7 +24,7 @@ void SLoginReturn::__read(cdf::CSimpleSerializer & __is)
 	__is.read(sessionKey);
 }
 
-void SLoginReturn::__write(cdf::CSimpleSerializer & __os)
+void SLoginReturn::__write(cdf::CSimpleSerializer & __os) const
 {
 	__os.write(userId);
 	__os.write(nickname);
@@ -67,7 +67,7 @@ void SPost::__read(cdf::CSimpleSerializer & __is)
 	__is.read(comments);
 }
 
-void SPost::__write(cdf::CSimpleSerializer & __os)
+void SPost::__write(cdf::CSimpleSerializer & __os) const
 {
 	__os.write(postId);
 	__os.write(title);
@@ -96,7 +96,7 @@ void __read(cdf::CSimpleSerializer & __is, SeqPost& v, SeqPost__U__)
 	}
 }
 
-void __write(cdf::CSimpleSerializer & __os, SeqPost& v, SeqPost__U__)
+void __write(cdf::CSimpleSerializer & __os, const SeqPost& v, SeqPost__U__)
 {
 	unsigned size = v.size();
 	__os.writeSize(size);

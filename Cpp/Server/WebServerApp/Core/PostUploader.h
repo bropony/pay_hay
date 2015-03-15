@@ -12,7 +12,7 @@ namespace WebServerApp
 		cdf::CDateTime postDt;
 		std::string title;
 		std::string content;
-		Json::Value jsImages;
+		//Json::Value jsImages;
 		unsigned imgIdex;
 		Message::Public::SeqInt msgIdList;
 	};
@@ -22,8 +22,8 @@ namespace WebServerApp
 	{
 	public:
 		static CPostUploader * instance();
-		void startPost(int userId, const std::string & title, const std::string & content, const Json::Value & jsImages);
-		void addImg(int userId, const std::string & img);
+		void startPost(int userId, const std::string & title, const std::string & content);
+		void addImg(int userId, const std::string & img, const std::string & shortDesc);
 		int endPost(int userId, cdf::CDateTime & postDt);
 	private:
 		CPostUploader(){}

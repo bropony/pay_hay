@@ -14,6 +14,7 @@ namespace WebServerApp
 
 		Message::Db::Tables::TUserImg & getTUserImg();
 		const std::string & getImgBin();
+		const std::string & getDesc();
 
 	private:
 		Message::Db::Tables::TUserImg _tUserImg;

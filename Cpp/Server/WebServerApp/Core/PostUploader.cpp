@@ -12,7 +12,7 @@ CPostUploader * CPostUploader::instance()
 	return &_inst;
 }
 
-void CPostUploader::startPost(int userId, const std::string & title, const std::string & content, const Json::Value & jsImages)
+void CPostUploader::startPost(int userId, const std::string & title, const std::string & content)
 {
 	auto found = _mapPostInst.find(userId);
 	if (found != _mapPostInst.end())
@@ -25,39 +25,24 @@ void CPostUploader::startPost(int userId, const std::string & title, const std::
 	CPostInst postInst;
 	postInst.title = title;
 	postInst.content = content;
-	postInst.jsImages = jsImages;
 	postInst.postDt = cdf::CDateTime();
 	postInst.imgIdex = 0;
 
 	_mapPostInst[userId] = postInst;
 }
 
-void CPostUploader::addImg(int userId, const std::string & img)
+void CPostUploader::addImg(int userId, const std::string & img, const std::string & shortDesc)
 {
 	auto found = _mapPostInst.find(userId);
 	if (found == _mapPostInst.end())
 	{
 		CDF_LOG_TRACE("CPostUploader::addImg", "NoPost: " << userId);
 
-		CImageManager::instance()->createImage("unknow.jpg", "unknownPost", img);
+		CImageManager::instance()->createImage(shortDesc, img);
 		return;
 	}
 
-	std::string fileName = "oops.jpg";
-	std::string shortDesc = "oops";
-	auto postInst = found->second;
-	if (postInst.imgIdex < postInst.jsImages.size())
-	{
-		if (postInst.jsImages[postInst.imgIdex].size() == 2)
-		{
-			fileName = postInst.jsImages[postInst.imgIdex][unsigned(0)].asString();
-			shortDesc = postInst.jsImages[postInst.imgIdex][unsigned(1)].asString();
-		}
-
-		postInst.imgIdex++;
-	}
-
-	CImagePtr newImg = CImageManager::instance()->createImage(fileName, shortDesc, img);
+	CImagePtr newImg = CImageManager::instance()->createImage(shortDesc, img);
 
 	if (NULL != newImg)
 	{

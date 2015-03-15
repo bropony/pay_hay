@@ -9,9 +9,9 @@
 using namespace Rmi;
 using namespace WebServerApp;
 
-void CRmiServerImpl::login(std::string & account, std::string & passwd, const CLoginCallbackPtr & loginCB)
+void CRmiServerImpl::login(const std::string & account, const std::string & passwd, const CLoginCallbackPtr & loginCB)
 {
-	CUserPtr user = CUserManager::instance()->findUser(account);
+	CUserPtr user = CUserManager::instance()->findUser(account); 
 	if (NULL == user ||
 		!user->isPasswdMatched(passwd))
 	{
@@ -31,7 +31,7 @@ void CRmiServerImpl::login(std::string & account, std::string & passwd, const CL
 	loginCB->getContext()->setUserObject(user);
 }
 
-void CRmiServerImpl::signup(std::string & account, std::string & passwd, std::string & nickname, const CSignupCallbackPtr & signupCB)
+void CRmiServerImpl::signup(const std::string & account, const std::string & passwd, const std::string & nickname, const CSignupCallbackPtr & signupCB)
 {
 	if (account.size() < 5)
 	{
@@ -71,7 +71,7 @@ void CRmiServerImpl::signup(std::string & account, std::string & passwd, std::st
 	signupCB->getContext()->setUserObject(user);
 }
 
-void CRmiServerImpl::changeAvatar(std::string & sessionKey, std::string & avatar, const CChangeAvatarCallbackPtr & changeAvatarCB)
+void CRmiServerImpl::changeAvatar(const std::string & sessionKey, const std::string & avatar, const CChangeAvatarCallbackPtr & changeAvatarCB)
 {
 	CUserPtr user = CUserHelper::getUser(changeAvatarCB->getContext(), sessionKey);
 
@@ -87,40 +87,62 @@ void CRmiServerImpl::getPosts(int lastPostId, bool forNew, int requestNum, const
 
 void CRmiServerImpl::getImage(int imgId, const CGetImageCallbackPtr & getImageCB)
 {
+	CImagePtr img = CImageManager::instance()->findImage(imgId);
+	if (NULL == img)
+	{
+		CErrorCodeManager::throwException("Error_noSuchImg");
+	}
 
+	getImageCB->response(img->getImgBin(), img->getDesc());
 }
 
-void CRmiServerImpl::getMyPosts(std::string & sessionKey, int lastPostId, const CGetMyPostsCallbackPtr & getMyPostsCB)
+void CRmiServerImpl::getMyPosts(const std::string & sessionKey, int lastPostId, bool forNew, const CGetMyPostsCallbackPtr & getMyPostsCB)
+{
+	CUserPtr user = CUserHelper::getUser(getMyPostsCB->getContext(), sessionKey);
+
+	Message::Public::SeqInt postIdList;
+
+	if (forNew)
+	{
+		user->getNewer10PostId(lastPostId, postIdList);
+	}
+	else
+	{
+		user->getOlder10PostId(lastPostId, postIdList);
+	}
+
+	Rmi::SeqPost postList;
+	CPostManager::instance()->getPostList(postIdList, postList);
+
+	getMyPostsCB->response(postList);
+}
+
+void CRmiServerImpl::startPost(const std::string & sessionKey, const std::string & title, const std::string & content, const CStartPostCallbackPtr & startPostCB)
 {
 
 }
 
-void CRmiServerImpl::startPost(std::string & sessionKey, std::string & title, std::string & content, const CStartPostCallbackPtr & startPostCB)
+void CRmiServerImpl::uploadPostImg(const std::string & sessionKey, const std::string & img, const std::string & descrpt, const CUploadPostImgCallbackPtr & uploadPostImgCB)
 {
 
 }
 
-void CRmiServerImpl::uploadPostImg(std::string & sessionKey, std::string & img, std::string & descrpt, const CUploadPostImgCallbackPtr & uploadPostImgCB)
+void CRmiServerImpl::endPost(const std::string & sessionKey, const CEndPostCallbackPtr & endPostCB)
 {
 
 }
 
-void CRmiServerImpl::endPost(std::string & sessionKey, const CEndPostCallbackPtr & endPostCB)
+void CRmiServerImpl::likePost(const std::string & sessionKey, int postId, const CLikePostCallbackPtr & likePostCB)
 {
 
 }
 
-void CRmiServerImpl::likePost(std::string & sessionKey, int postId, const CLikePostCallbackPtr & likePostCB)
+void CRmiServerImpl::dislikePost(const std::string & sessionKey, int postId, const CDislikePostCallbackPtr & dislikePostCB)
 {
 
 }
 
-void CRmiServerImpl::dislikePost(std::string & sessionKey, int postId, const CDislikePostCallbackPtr & dislikePostCB)
-{
-
-}
-
-void CRmiServerImpl::commentPost(std::string & sessionKey, int postId, std::string & comments, const CCommentPostCallbackPtr & commentPostCB)
+void CRmiServerImpl::commentPost(const std::string & sessionKey, int postId, const std::string & comments, const CCommentPostCallbackPtr & commentPostCB)
 {
 
 }

@@ -39,7 +39,7 @@ namespace Rmi
 		~SLoginReturn();
 
 		void __read(cdf::CSimpleSerializer & __is);
-		void __write(cdf::CSimpleSerializer & __os);
+		void __write(cdf::CSimpleSerializer & __os) const;
 	}; //end of class SLoginReturn
 
 	struct SPost
@@ -60,13 +60,13 @@ namespace Rmi
 		~SPost();
 
 		void __read(cdf::CSimpleSerializer & __is);
-		void __write(cdf::CSimpleSerializer & __os);
+		void __write(cdf::CSimpleSerializer & __os) const;
 	}; //end of class SPost
 
 	typedef std::vector<SPost> SeqPost;
 	class SeqPost__U__{};
 	void __read(cdf::CSimpleSerializer & __is, SeqPost& v, SeqPost__U__);
-	void __write(cdf::CSimpleSerializer & __os, SeqPost& v, SeqPost__U__);
+	void __write(cdf::CSimpleSerializer & __os, const SeqPost& v, SeqPost__U__);
 
 } // end of namespace Rmi
 #endif // end of __RMI_DATA_STRUCT_DEF_H__

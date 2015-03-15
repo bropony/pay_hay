@@ -86,6 +86,11 @@ bool CMethod::parseFields(const FieldConfig & fields, SeqField & params, std::se
 			sig += ", ";
 		}
 
+		if (fieldTypePtr->isCompositeType())
+		{
+			sig += " const ";
+		}
+
 		sig += fieldTypePtr->getCppType();
 		if (fieldTypePtr->isCompositeType())
 		{

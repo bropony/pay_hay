@@ -1,6 +1,7 @@
 #include "ImageManager.h"
 #include "Db/DaoManager.h"
 #include "Helper/PublicConfig.h"
+#include "Helper/ImageInfo.h"
 
 #include "framework/log/loggerutil.h"
 #include "framework/util/stringfun.h"
@@ -40,8 +41,7 @@ const CImagePtr CImageManager::findImage(int imgId)
 	return NULL;
 }
 
-const CImagePtr CImageManager::createImage(const std::string & filename, 
-	const std::string & shortDesc, const std::string & imgBinary)
+const CImagePtr CImageManager::createImage(const std::string & shortDesc, const std::string & imgBinary)
 {
 	cdf::CDateTime now;
 
@@ -62,15 +62,7 @@ const CImagePtr CImageManager::createImage(const std::string & filename,
 	}
 
 	std::string extention;
-	std::string::size_type lastDotPos = filename.find_last_of('.');
-	if (std::string::npos != lastDotPos)
-	{
-		extention = filename.substr(lastDotPos);
-	}
-	else
-	{
-		extention = ".jpg";
-	}
+	CImageInfo::getImageType(imgBinary, extention);
 
 	std::string imgFileName = cdf::CStrFun::get_uuid() + extention;
 	std::string fullImgFileName = imgDir + "/" + imgFileName;

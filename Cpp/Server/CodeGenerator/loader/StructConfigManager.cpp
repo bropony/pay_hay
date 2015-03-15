@@ -52,7 +52,7 @@ void CStruct::toCpp(std::ostream & Hpp, std::ostream & Cpp)
 
 	//serialize funcs
 	Hpp << Ident2 << "void __read(cdf::CSimpleSerializer & __is);" << ENDL;
-	Hpp << Ident2 << "void __write(cdf::CSimpleSerializer & __os);" << ENDL;
+	Hpp << Ident2 << "void __write(cdf::CSimpleSerializer & __os) const;" << ENDL;
 
 	Hpp << Ident1 << "}; //end of class " << _name << ENDL; //end of class
 	//Hpp << Ident1 << "typedef cdf::CHandle<" << _name << "> " << _name << "Ptr;" << ENDL;
@@ -116,7 +116,7 @@ void CStruct::toCpp(std::ostream & Hpp, std::ostream & Cpp)
 	Cpp << "}\n" << ENDL;
 
 	//__write
-	Cpp << "void " << scope << "__write(cdf::CSimpleSerializer & __os)" << ENDL;
+	Cpp << "void " << scope << "__write(cdf::CSimpleSerializer & __os) const" << ENDL;
 	Cpp << "{" << ENDL;
 	for (auto field : _fields)
 	{
@@ -267,7 +267,7 @@ void CList::toCpp(std::ostream & Hpp, std::ostream & Cpp)
 	{
 		Hpp << Ident1 << "class " << _name << "__U__{};" << ENDL;
 		Hpp << Ident1 << "void __read(cdf::CSimpleSerializer & __is, " << _name << "& v, " << _name << "__U__);" << ENDL;
-		Hpp << Ident1 << "void __write(cdf::CSimpleSerializer & __os, " << _name << "& v, " << _name << "__U__);" << ENDL;
+		Hpp << Ident1 << "void __write(cdf::CSimpleSerializer & __os, const " << _name << "& v, " << _name << "__U__);" << ENDL;
 
 		//__read
 		Cpp << "//definition of __read and __write of " << _name << ENDL;
@@ -299,7 +299,7 @@ void CList::toCpp(std::ostream & Hpp, std::ostream & Cpp)
 		Cpp << ENDL;
 
 		//__write
-		Cpp << "void __write(cdf::CSimpleSerializer & __os, " << _name << "& v, " << _name << "__U__)" << ENDL;
+		Cpp << "void __write(cdf::CSimpleSerializer & __os, const " << _name << "& v, " << _name << "__U__)" << ENDL;
 		Cpp << "{" << ENDL;
 		Cpp << Ident1 << "unsigned size = v.size();" << ENDL;
 		Cpp << Ident1 << "__os.writeSize(size);" << ENDL;
