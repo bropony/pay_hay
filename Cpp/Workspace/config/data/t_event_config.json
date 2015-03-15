@@ -32,13 +32,13 @@
 		"event" : "getImage",
 		"eventId" : 21,
 		"inParams" : "imgId:int",
-		"outParams" : "img:image"
+		"outParams" : "img:image#shortDesc:string"
 	},
 	
 	{
 		"event" : "getMyPosts",
 		"eventId" : 22,
-		"inParams" : "sessionKey:string#lastPostId:int",
+		"inParams" : "sessionKey:string#lastPostId:int#forNew:bool",
 		"outParams" : "postList:SeqPost"
 	},
 	
