@@ -23,6 +23,7 @@ TUserCached::dbDescribeComponents(FASTDB_NS::dbFieldDescriptor*)
         *FASTDB_NS::dbDescribeField(new FASTDB_NS::dbFieldDescriptor("account", (char*)&account-(char*)this , sizeof( account ), FASTDB_NS::INDEXED ), account),
         *FASTDB_NS::dbDescribeField(new FASTDB_NS::dbFieldDescriptor("nickname", (char*)&nickname-(char*)this , sizeof( nickname ), 0 ), nickname),
         *FASTDB_NS::dbDescribeField(new FASTDB_NS::dbFieldDescriptor("login_key", (char*)&loginKey-(char*)this , sizeof( loginKey ), 0 ), loginKey),
+        *FASTDB_NS::dbDescribeField(new FASTDB_NS::dbFieldDescriptor("avatar", (char*)&avatar-(char*)this , sizeof( avatar ), 0 ), avatar),
         *FASTDB_NS::dbDescribeField(new FASTDB_NS::dbFieldDescriptor("create_dt", (char*)&createDt-(char*)this , sizeof( createDt ), 0 ), createDt)
         );
     
@@ -35,6 +36,7 @@ TUserCached::__update( const Message::Db::Tables::TUser& t )
     account = t.account;
     nickname = t.nickname;
     loginKey = t.loginKey;
+    avatar = t.avatar;
     {
         cdf::CDateTime __date( t.createDt );
         __date.clearMillSecond();
@@ -49,6 +51,7 @@ TUserCached::__save( Message::Db::Tables::TUser& t ) const
     t.account = account;
     t.nickname = nickname;
     t.loginKey = loginKey;
+    t.avatar = avatar;
     t.createDt.init( createDt );
 }
 
@@ -364,6 +367,10 @@ void Dao::Impl::CUserCached::load( cdf::CStatement* stmt )
         else if ( getNagtiveCheck() == "login_key" )
         {
             cmpNode.setString( "" );
+        }
+        else if ( getNagtiveCheck() == "avatar" )
+        {
+            cmpNode.setInt( 0 );
         }
         else if ( getNagtiveCheck() == "create_dt" )
         {
@@ -725,6 +732,16 @@ void Dao::Impl::CUserCached::__update(
                 throw cdf::CException( exp.c_str() , cdf::ExceptionCodeDB );
             }
             v.loginKey = iter->getString();
+            continue;
+        }
+        if( iter->getColumnName() == "avatar" )
+        {
+            if( iter->getDataType() != cdf::TYPE_INT )
+            {
+                std::string exp = "table name:t_user column name:" + iter->getColumnName() + " type error";
+                throw cdf::CException( exp.c_str() , cdf::ExceptionCodeDB );
+            }
+            v.avatar = iter->getInt();
             continue;
         }
         if( iter->getColumnName() == "create_dt" )

@@ -56,6 +56,10 @@ Message::Db::Tables::TUser::operator!=(const TUser& __rhs) const
     {
         return true;
     }
+    if(avatar != __rhs.avatar)
+    {
+        return true;
+    }
     if(createDt != __rhs.createDt)
     {
         return true;
@@ -102,6 +106,14 @@ Message::Db::Tables::TUser::operator<(const TUser& __rhs) const
     {
         return false;
     }
+    if(avatar < __rhs.avatar)
+    {
+        return true;
+    }
+    else if(__rhs.avatar < avatar)
+    {
+        return false;
+    }
     if(createDt < __rhs.createDt)
     {
         return true;
@@ -117,6 +129,7 @@ void
 Message::Db::Tables::TUser::__init()
 {
     userId = 0;
+    avatar = 0;
 }
 
 void
@@ -126,6 +139,7 @@ Message::Db::Tables::TUser::__write(cdf::CSerializeStream& __os) const
     __os.write(account);
     __os.write(nickname);
     __os.write(loginKey);
+    __os.write(avatar);
     __os.write(createDt);
 }
 
@@ -136,6 +150,7 @@ Message::Db::Tables::TUser::__read(cdf::CSerializeStream& __is)
     __is.read(account);
     __is.read(nickname);
     __is.read(loginKey);
+    __is.read(avatar);
     __is.read(createDt);
 }
 
@@ -155,6 +170,7 @@ Message::Db::Tables::TUser::__update(const TUser& __rhs)
     {
         loginKey = __rhs.loginKey;
     }
+    avatar = __rhs.avatar;
     createDt = __rhs.createDt;
 }
 

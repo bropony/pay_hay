@@ -21,6 +21,7 @@ namespace Dao
             std::string account;
             std::string nickname;
             std::string loginKey;
+            int avatar;
             long64_t createDt;
             FASTDB_NS::dbFieldDescriptor* dbDescribeComponents(FASTDB_NS::dbFieldDescriptor*);
             static FASTDB_NS::dbTableDescriptor dbDescriptor;

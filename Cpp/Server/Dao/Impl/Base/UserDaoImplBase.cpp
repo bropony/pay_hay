@@ -120,7 +120,7 @@ bool Dao::Impl::CUserDaoImplBase::update( const Message::Db::Tables::TUser& v , 
     }
     stmt->prepare( (_updateBase + " where user_id = ?").c_str() );
     __writeTUser( v , stmt );
-    stmt->setInt( 5 , v.userId );
+    stmt->setInt( 6 , v.userId );
     return stmt->executeUpdate() > 0;
 }
 
@@ -233,17 +233,18 @@ long64_t Dao::Impl::CUserDaoImplBase::remove( const cdf::dao::SeqCmpNode& cmp , 
 }
 
 
-const int Dao::Impl::CUserDaoImplBase::_columnCount = 5;
+const int Dao::Impl::CUserDaoImplBase::_columnCount = 6;
 
 const std::string Dao::Impl::CUserDaoImplBase::_selectBase = 
-"select user_id,account,nickname,login_key,create_dt from t_user";
+"select user_id,account,nickname,login_key,avatar,create_dt from t_user";
 
 const std::string Dao::Impl::CUserDaoImplBase::_updateBase = 
-"update t_user set account=?,nickname=?,login_key=?,create_dt=?";
+"update t_user set account=?,nickname=?,login_key=?,avatar=?,"
+"create_dt=?";
 
 const std::string Dao::Impl::CUserDaoImplBase::_insertBase = 
-"insert into t_user ( account,nickname,login_key,create_dt) values ("
-"?,?,?,?)";
+"insert into t_user ( account,nickname,login_key,avatar,create_dt"
+") values (?,?,?,?,?)";
 
 const std::string Dao::Impl::CUserDaoImplBase::_deleteBase = 
 "delete from t_user";
@@ -254,7 +255,8 @@ void Dao::Impl::CUserDaoImplBase::__readTUser( Message::Db::Tables::TUser& outV 
     outV.account = rs->getString( 2 );
     outV.nickname = rs->getString( 3 );
     outV.loginKey = rs->getString( 4 );
-    outV.createDt = rs->getDate( 5 );
+    outV.avatar = rs->getInt( 5 );
+    outV.createDt = rs->getDate( 6 );
 }
 
 void Dao::Impl::CUserDaoImplBase::__writeTUser( const Message::Db::Tables::TUser& inV , cdf::CStatement* stmt )
@@ -262,7 +264,8 @@ void Dao::Impl::CUserDaoImplBase::__writeTUser( const Message::Db::Tables::TUser
     stmt->setString( 1 , inV.account );
     stmt->setString( 2 , inV.nickname );
     stmt->setString( 3 , inV.loginKey );
-    stmt->setDate( 4 , inV.createDt );
+    stmt->setInt( 4 , inV.avatar );
+    stmt->setDate( 5 , inV.createDt );
 }
 
 Dao::Impl::CUserCached* Dao::Impl::CUserDaoImplBase::getCached()

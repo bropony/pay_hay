@@ -26,6 +26,7 @@ namespace Dao
         const static std::string _account;
         const static std::string _nickname;
         const static std::string _loginKey;
+        const static std::string _avatar;
         const static std::string _createDt;
     };
 }

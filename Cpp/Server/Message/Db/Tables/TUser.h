@@ -46,6 +46,7 @@ namespace Message
                 std::string account;
                 std::string nickname;
                 std::string loginKey;
+                int avatar;
                 cdf::CDateTime createDt;
 
                 TUser();
