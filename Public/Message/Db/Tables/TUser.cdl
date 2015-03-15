@@ -12,6 +12,7 @@ module Message
                 string account;
                 string nickname;
                 string loginKey;
+                int avatar;
                 date createDt;
             };
             sequence<TUser> SeqTUser;

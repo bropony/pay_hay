@@ -11,6 +11,9 @@ local t_error_code=
  {   errorCode = 20001,   errorName = "Error_accountOrPasswd",   errorStr = "账号或者密码错误" }, 
  {   errorCode = 20002,   errorName = "Error_accountExisted",   errorStr = "账号已存在" }, 
  {   errorCode = 20003,   errorName = "Error_nicknameUsed",   errorStr = "昵称已被使用" }, 
- {   errorCode = 20004,   errorName = "Error_userDataError",   errorStr = "用户数据有错，请重新登录" }
+ {   errorCode = 20004,   errorName = "Error_userDataError",   errorStr = "用户数据有错，请重新登录" }, 
+ {   errorCode = 20005,   errorName = "Error_accountTooShort",   errorStr = "账号长度必须不少于5个字符" }, 
+ {   errorCode = 20006,   errorName = "Error_nicknameNeeded",   errorStr = "请设置昵称" }, 
+ {   errorCode = 20007,   errorName = "Error_passwdNeeded",   errorStr = "请设置密码" }
 }
 return t_error_code
