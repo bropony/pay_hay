@@ -11,7 +11,7 @@ module Message
                 int commentId;
                 int postId;
                 int fromUserId;
-                int fromNickname;
+                string fromNickname;
                 string content;
                 date commentDt;
             };
