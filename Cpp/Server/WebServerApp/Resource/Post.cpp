@@ -1,5 +1,6 @@
 #include "Post.h"
 #include "User/UserManager.h"
+#include "Db/DbHelper.h"
 
 using namespace WebServerApp;
 
@@ -63,4 +64,9 @@ void CPost::postToClient(Rmi::SPost & post)
 	post.dislikes = _tUserPost.ndislike;
 	post.comments = _tUserPost.ncomment;
 	post.postDt = _tUserPost.postDt;
+}
+
+void CPost::updateToDb()
+{
+	CDbHelper::updateTUserPost(_tUserPost);
 }

@@ -20,7 +20,7 @@ namespace Dao
             int commentId;
             int postId;
             int fromUserId;
-            int fromNickname;
+            std::string fromNickname;
             std::string content;
             long64_t commentDt;
             FASTDB_NS::dbFieldDescriptor* dbDescribeComponents(FASTDB_NS::dbFieldDescriptor*);

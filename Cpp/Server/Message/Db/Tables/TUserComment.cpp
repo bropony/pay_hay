@@ -131,7 +131,6 @@ Message::Db::Tables::TUserComment::__init()
     commentId = 0;
     postId = 0;
     fromUserId = 0;
-    fromNickname = 0;
 }
 
 void
@@ -162,7 +161,10 @@ Message::Db::Tables::TUserComment::__update(const TUserComment& __rhs)
     commentId = __rhs.commentId;
     postId = __rhs.postId;
     fromUserId = __rhs.fromUserId;
-    fromNickname = __rhs.fromNickname;
+    if( fromNickname != __rhs.fromNickname ) 
+    {
+        fromNickname = __rhs.fromNickname;
+    }
     if( content != __rhs.content ) 
     {
         content = __rhs.content;

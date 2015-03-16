@@ -19,6 +19,8 @@ namespace WebServerApp
 		Message::Db::Tables::TUserPost & getTUserPost();
 		void postToJs(Json::Value & js);
 		void postToClient(Rmi::SPost & post);
+
+		void updateToDb();
 	private:
 		Message::Db::Tables::TUserPost _tUserPost;
 	};

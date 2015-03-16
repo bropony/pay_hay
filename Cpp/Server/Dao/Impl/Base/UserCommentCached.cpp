@@ -366,7 +366,7 @@ void Dao::Impl::CUserCommentCached::load( cdf::CStatement* stmt )
         }
         else if ( getNagtiveCheck() == "from_nickname" )
         {
-            cmpNode.setInt( 0 );
+            cmpNode.setString( "" );
         }
         else if ( getNagtiveCheck() == "content" )
         {
@@ -726,12 +726,12 @@ void Dao::Impl::CUserCommentCached::__update(
         }
         if( iter->getColumnName() == "from_nickname" )
         {
-            if( iter->getDataType() != cdf::TYPE_INT )
+            if( iter->getDataType() != cdf::TYPE_STRING )
             {
                 std::string exp = "table name:t_user_comment column name:" + iter->getColumnName() + " type error";
                 throw cdf::CException( exp.c_str() , cdf::ExceptionCodeDB );
             }
-            v.fromNickname = iter->getInt();
+            v.fromNickname = iter->getString();
             continue;
         }
         if( iter->getColumnName() == "content" )

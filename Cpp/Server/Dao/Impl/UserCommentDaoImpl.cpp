@@ -17,6 +17,10 @@ bool Dao::Impl::CUserCommentDaoImpl::loadUserComment(int postId, Message::Db::Ta
 	{
 		cmpNode.setEqualType(cdf::dao::EQUAL_TYPE_GRANTER);
 	}
+	else
+	{
+		cmpNode.setEqualType(cdf::dao::EQUAL_TYPE_EQUAL);
+	}
 
 	query.cmpNodes.push_back(cmpNode);
 
@@ -24,6 +28,7 @@ bool Dao::Impl::CUserCommentDaoImpl::loadUserComment(int postId, Message::Db::Ta
 
 	return true;
 }
+
 
 void Dao::Impl::CUserCommentDaoImpl::updateUserComment(const Message::Db::Tables::TUserComment & t)
 {

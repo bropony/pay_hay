@@ -45,7 +45,7 @@ namespace Message
                 int commentId;
                 int postId;
                 int fromUserId;
-                int fromNickname;
+                std::string fromNickname;
                 std::string content;
                 cdf::CDateTime commentDt;
 

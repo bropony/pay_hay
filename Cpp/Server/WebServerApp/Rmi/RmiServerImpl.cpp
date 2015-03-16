@@ -2,6 +2,7 @@
 #include "Config/ErrorCodeManager.h"
 #include "Resource/ImageManager.h"
 #include "Resource/PostManager.h"
+#include "Resource/CommentManager.h"
 #include "Core/PostUploader.h"
 
 #include "User/UserManager.h"
@@ -162,15 +163,47 @@ void CRmiServerImpl::endPost(const std::string & sessionKey, const CEndPostCallb
 
 void CRmiServerImpl::likePost(const std::string & sessionKey, int postId, const CLikePostCallbackPtr & likePostCB)
 {
+	CUserPtr user = CUserHelper::getUser(likePostCB, sessionKey);
 
+	CPostPtr postPtr = CPostManager::instance()->findPost(postId);
+	if (NULL == postPtr)
+	{
+		CErrorCodeManager::throwException("Error_postNotFound");
+	}
+
+	postPtr->getTUserPost().nlike += 1;
+	postPtr->updateToDb();
+
+	likePostCB->response();
 }
 
 void CRmiServerImpl::dislikePost(const std::string & sessionKey, int postId, const CDislikePostCallbackPtr & dislikePostCB)
 {
+	CUserPtr user = CUserHelper::getUser(dislikePostCB, sessionKey);
 
+	CPostPtr postPtr = CPostManager::instance()->findPost(postId);
+	if (NULL == postPtr)
+	{
+		CErrorCodeManager::throwException("Error_postNotFound");
+	}
+
+	postPtr->getTUserPost().ndislike += 1;
+	postPtr->updateToDb();
+
+	dislikePostCB->response();
 }
 
-void CRmiServerImpl::commentPost(const std::string & sessionKey, int postId, const std::string & comments, const CCommentPostCallbackPtr & commentPostCB)
+void CRmiServerImpl::commentPost(const std::string & sessionKey, int postId,
+	const std::string & comments, const CCommentPostCallbackPtr & commentPostCB)
 {
+	CUserPtr user = CUserHelper::getUser(commentPostCB, sessionKey);
 
+	CPostPtr postPtr = CPostManager::instance()->findPost(postId);
+	if (NULL == postPtr)
+	{
+		CErrorCodeManager::throwException("Error_postNotFound");
+	}
+
+	CCommentManager::instance()->createComment(postId, user->getUserId(), user->getNickname(), comments);
+	commentPostCB->response();
 }

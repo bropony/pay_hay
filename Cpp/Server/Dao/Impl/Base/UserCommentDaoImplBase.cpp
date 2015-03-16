@@ -255,7 +255,7 @@ void Dao::Impl::CUserCommentDaoImplBase::__readTUserComment( Message::Db::Tables
     outV.commentId = rs->getInt( 1 );
     outV.postId = rs->getInt( 2 );
     outV.fromUserId = rs->getInt( 3 );
-    outV.fromNickname = rs->getInt( 4 );
+    outV.fromNickname = rs->getString( 4 );
     outV.content = rs->getString( 5 );
     outV.commentDt = rs->getDate( 6 );
 }
@@ -264,7 +264,7 @@ void Dao::Impl::CUserCommentDaoImplBase::__writeTUserComment( const Message::Db:
 {
     stmt->setInt( 1 , inV.postId );
     stmt->setInt( 2 , inV.fromUserId );
-    stmt->setInt( 3 , inV.fromNickname );
+    stmt->setString( 3 , inV.fromNickname );
     stmt->setString( 4 , inV.content );
     stmt->setDate( 5 , inV.commentDt );
 }
