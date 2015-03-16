@@ -19,7 +19,7 @@ CREATE TABLE `t_user_comment` (
 `comment_id`  int(11) NOT NULL AUTO_INCREMENT ,
 `post_id`  int(11) NOT NULL DEFAULT 0 ,
 `from_user_id`  int(11) NOT NULL DEFAULT 0 ,
-`from_nickname`  int(11) NOT NULL ,
+`from_nickname`  varchar(128) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' ,
 `content`  varchar(1024) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' ,
 `comment_dt`  datetime NOT NULL DEFAULT '2015-01-01 00:00:00' ,
 PRIMARY KEY (`comment_id`),

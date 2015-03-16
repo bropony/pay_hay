@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50623
 File Encoding         : 65001
 
-Date: 2015-03-14 22:20:56
+Date: 2015-03-17 00:01:46
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -63,8 +63,8 @@ INSERT INTO `t_event_config` VALUES ('1', 'login', 'account:string#passwd:string
 INSERT INTO `t_event_config` VALUES ('2', 'signup', 'account:string#passwd:string#nickname:string', 'userInfo:SLoginReturn');
 INSERT INTO `t_event_config` VALUES ('3', 'changeAvatar', 'sessionKey:string#avatar:image', '');
 INSERT INTO `t_event_config` VALUES ('20', 'getPosts', 'lastPostId:int#forNew:bool#requestNum:int', 'postList:SeqPost');
-INSERT INTO `t_event_config` VALUES ('21', 'getImage', 'imgId:int', 'img:image');
-INSERT INTO `t_event_config` VALUES ('22', 'getMyPosts', 'sessionKey:string#lastPostId:int', 'postList:SeqPost');
+INSERT INTO `t_event_config` VALUES ('21', 'getImage', 'imgId:int', 'img:image#shortDesc:string');
+INSERT INTO `t_event_config` VALUES ('22', 'getMyPosts', 'sessionKey:string#lastPostId:int#forNew:bool', 'postList:SeqPost');
 INSERT INTO `t_event_config` VALUES ('30', 'startPost', 'sessionKey:string#title:string#content:string', '');
 INSERT INTO `t_event_config` VALUES ('31', 'uploadPostImg', 'sessionKey:string#img:image#descrpt:string', 'imgId:int');
 INSERT INTO `t_event_config` VALUES ('32', 'endPost', 'sessionKey:string', 'postId:int');
