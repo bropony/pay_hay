@@ -29,6 +29,14 @@ void CImageManager::loadAllImages()
 	}
 }
 
+void CImageManager::releaseExpiredImgMemory(const cdf::CDateTime & nowDt, int expiredSecs)
+{
+	for (auto img : _mapImage)
+	{
+		img.second->releaseExpiredImgMemory(nowDt, expiredSecs);
+	}
+}
+
 const CImagePtr CImageManager::findImage(int imgId)
 {
 	auto found = _mapImage.find(imgId);

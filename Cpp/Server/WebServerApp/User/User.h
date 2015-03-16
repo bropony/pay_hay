@@ -23,7 +23,7 @@ namespace WebServerApp
 		const std::string & getNickname();
 
 		const std::string & getAvatar();
-		void updateAvatar(int imgId);
+		void updateAvatar(int imgId, const std::string & avatarImg);
 
 		//—È÷§
 		bool isPasswdMatched(const std::string & passwd);

@@ -73,7 +73,21 @@ void CRmiServerImpl::signup(const std::string & account, const std::string & pas
 
 void CRmiServerImpl::changeAvatar(const std::string & sessionKey, const std::string & avatar, const CChangeAvatarCallbackPtr & changeAvatarCB)
 {
+	if (avatar.size() > 50000)
+	{
+		CErrorCodeManager::throwException("Error_avatarImgToLarge");
+	}
+
 	CUserPtr user = CUserHelper::getUser(changeAvatarCB->getContext(), sessionKey);
+
+	CImagePtr imgPtr = CImageManager::instance()->createImage("avatar", avatar);
+	if (NULL == imgPtr)
+	{
+		CErrorCodeManager::throwException("Error_saveAvatarImgError");
+	}
+
+	user->updateAvatar(imgPtr->getTUserImg().imgId, imgPtr->getImgBin());
+	user->updateToDb();
 
 	changeAvatarCB->response();
 }

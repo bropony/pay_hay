@@ -44,9 +44,10 @@ const std::string & CUser::getAvatar()
 	return _avatar;
 }
 
-void CUser::updateAvatar(int imgId)
+void CUser::updateAvatar(int imgId, const std::string & avatarImg)
 {
-
+	_tUser.avatar = imgId;
+	_avatar = avatarImg;
 }
 
 bool CUser::isPasswdMatched(const std::string & passwd)

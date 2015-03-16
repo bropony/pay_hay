@@ -10,6 +10,7 @@ namespace WebServerApp
 	public:
 		static CImageManager * instance();
 		void loadAllImages();
+		void releaseExpiredImgMemory(const cdf::CDateTime & nowDt, int expiredSecs);
 
 		const CImagePtr findImage(int imgId);
 

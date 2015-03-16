@@ -12,6 +12,7 @@
 #include "Config/GameDataLoader.h"
 #include "Helper/PublicConfig.h"
 #include "User/UserManager.h"
+#include "Timer/TimerManager.h"
 #include "Rmi/RmiIncoming.h"
 #include "Rmi/RmiServerImpl.h"
 #include "Resource/PostManager.h"
@@ -128,6 +129,9 @@ bool Application::init()
 
 		CDF_LOG_TRACE("Application::init", "Init WebSocket");
 		initWebSocket();
+
+		CDF_LOG_TRACE("Application::init", "Init Timers");
+		CTimerManager::initTimers();
 	}
 	CDE_END_TRY_RETURN(__FILE__, __LINE__, false);
 

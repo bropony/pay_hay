@@ -32,7 +32,22 @@ const std::string & CImage::getImgBin()
 			std::istreambuf_iterator<char>());
 	}
 
+	_lastVisitedDt = cdf::CDateTime();
+
 	return _imgBin;
+}
+
+void CImage::releaseExpiredImgMemory(const cdf::CDateTime & nowDt, int timeoutSecs)
+{
+	if (timeoutSecs <= 0)
+	{
+		timeoutSecs = 5 * 3600;
+	}
+
+	if ((nowDt - _lastVisitedDt).getTotalSeconds() >= timeoutSecs)
+	{
+		_imgBin.clear();
+	}
 }
 
 const std::string & CImage::getDesc()
