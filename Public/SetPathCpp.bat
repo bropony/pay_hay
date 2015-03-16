@@ -15,7 +15,7 @@ set INCLUDEBASE=Message/
 set TOOLDIR=%WORKBASE%Public/toolsexe/
 set TOOLDIR_PUBLIC=%WORKBASE%Public/toolsexe_public/
 
-set DBIP=192.168.1.111
+set DBIP=112.74.102.141
 set DB_PWD=root
 set DB_VERSION=_0_0_1
 set DB_BASE=pay_hay
