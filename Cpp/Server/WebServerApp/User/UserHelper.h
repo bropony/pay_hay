@@ -2,6 +2,7 @@
 #define __WEBSERVERAPP_USER_USER_HELPER_H__
 
 #include "User/User.h"
+#include "Rmi/RmiCallbackBase.h"
 #include "framework/websocket/websocketserver.h"
 
 namespace WebServerApp
@@ -10,7 +11,8 @@ namespace WebServerApp
 	{
 	public:
 		static const CUserPtr getUser(const cdf::CWSContextPtr & context, bool throwIfNull = true);
-		static const CUserPtr getUser(const cdf::CWSContextPtr & context, const std::string & sessionKey, bool throwIfNull = true);
+		static const CUserPtr getUserByContext(const cdf::CWSContextPtr & context, const std::string & sessionKey, bool throwIfNull = true);
+		static const CUserPtr getUser(const Rmi::CRmiCallbackBasePtr & callback, const std::string & sessionKey, bool throwIfNull = true);
 
 	private:
 		CUserHelper();

@@ -31,15 +31,22 @@ void CPostUploader::startPost(int userId, const std::string & title, const std::
 	_mapPostInst[userId] = postInst;
 }
 
-void CPostUploader::addImg(int userId, const std::string & img, const std::string & shortDesc)
+int CPostUploader::addImg(int userId, const std::string & img, const std::string & shortDesc)
 {
 	auto found = _mapPostInst.find(userId);
 	if (found == _mapPostInst.end())
 	{
 		CDF_LOG_TRACE("CPostUploader::addImg", "NoPost: " << userId);
 
-		CImageManager::instance()->createImage(shortDesc, img);
-		return;
+		CImagePtr newImg = CImageManager::instance()->createImage(shortDesc, img);
+		if (NULL != newImg)
+		{
+			return newImg->getTUserImg().imgId;
+		}
+		else
+		{
+			return 0;
+		}
 	}
 
 	CImagePtr newImg = CImageManager::instance()->createImage(shortDesc, img);
@@ -47,7 +54,11 @@ void CPostUploader::addImg(int userId, const std::string & img, const std::strin
 	if (NULL != newImg)
 	{
 		found->second.msgIdList.push_back(newImg->getTUserImg().imgId);
+
+		return newImg->getTUserImg().imgId;
 	}
+
+	return 0;
 }
 
 int CPostUploader::endPost(int userId, cdf::CDateTime & postDt)

@@ -23,7 +23,7 @@ namespace WebServerApp
 	public:
 		static CPostUploader * instance();
 		void startPost(int userId, const std::string & title, const std::string & content);
-		void addImg(int userId, const std::string & img, const std::string & shortDesc);
+		int addImg(int userId, const std::string & img, const std::string & shortDesc);
 		int endPost(int userId, cdf::CDateTime & postDt);
 	private:
 		CPostUploader(){}

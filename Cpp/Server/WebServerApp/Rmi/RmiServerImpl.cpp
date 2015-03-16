@@ -2,6 +2,7 @@
 #include "Config/ErrorCodeManager.h"
 #include "Resource/ImageManager.h"
 #include "Resource/PostManager.h"
+#include "Core/PostUploader.h"
 
 #include "User/UserManager.h"
 #include "User/UserHelper.h"
@@ -78,7 +79,7 @@ void CRmiServerImpl::changeAvatar(const std::string & sessionKey, const std::str
 		CErrorCodeManager::throwException("Error_avatarImgToLarge");
 	}
 
-	CUserPtr user = CUserHelper::getUser(changeAvatarCB->getContext(), sessionKey);
+	CUserPtr user = CUserHelper::getUser(changeAvatarCB, sessionKey);
 
 	CImagePtr imgPtr = CImageManager::instance()->createImage("avatar", avatar);
 	if (NULL == imgPtr)
@@ -112,7 +113,7 @@ void CRmiServerImpl::getImage(int imgId, const CGetImageCallbackPtr & getImageCB
 
 void CRmiServerImpl::getMyPosts(const std::string & sessionKey, int lastPostId, bool forNew, const CGetMyPostsCallbackPtr & getMyPostsCB)
 {
-	CUserPtr user = CUserHelper::getUser(getMyPostsCB->getContext(), sessionKey);
+	CUserPtr user = CUserHelper::getUser(getMyPostsCB, sessionKey);
 
 	Message::Public::SeqInt postIdList;
 
@@ -133,17 +134,30 @@ void CRmiServerImpl::getMyPosts(const std::string & sessionKey, int lastPostId, 
 
 void CRmiServerImpl::startPost(const std::string & sessionKey, const std::string & title, const std::string & content, const CStartPostCallbackPtr & startPostCB)
 {
+	CUserPtr user = CUserHelper::getUser(startPostCB, sessionKey);
+	CPostUploader::instance()->startPost(user->getUserId(), title, content);
 
+	startPostCB->response();
 }
 
 void CRmiServerImpl::uploadPostImg(const std::string & sessionKey, const std::string & img, const std::string & descrpt, const CUploadPostImgCallbackPtr & uploadPostImgCB)
 {
+	CUserPtr user = CUserHelper::getUser(uploadPostImgCB, sessionKey);
 
+	int imgId = CPostUploader::instance()->addImg(user->getUserId(), img, descrpt);
+
+
+	uploadPostImgCB->response(imgId);
 }
 
 void CRmiServerImpl::endPost(const std::string & sessionKey, const CEndPostCallbackPtr & endPostCB)
 {
+	CUserPtr user = CUserHelper::getUser(endPostCB, sessionKey);
 
+	cdf::CDateTime postDt;
+	int postId = CPostUploader::instance()->endPost(user->getUserId(), postDt);
+
+	endPostCB->response(postId);
 }
 
 void CRmiServerImpl::likePost(const std::string & sessionKey, int postId, const CLikePostCallbackPtr & likePostCB)

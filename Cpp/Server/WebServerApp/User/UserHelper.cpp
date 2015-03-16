@@ -16,7 +16,7 @@ const CUserPtr CUserHelper::getUser(const cdf::CWSContextPtr & context, bool thr
 	return user;
 }
 
-const CUserPtr CUserHelper::getUser(const cdf::CWSContextPtr & context, const std::string & sessionKey, bool throwIfNull /*= true*/)
+const CUserPtr CUserHelper::getUserByContext(const cdf::CWSContextPtr & context, const std::string & sessionKey, bool throwIfNull /*= true*/)
 {
 	CUserPtr user = CUserPtr::dynamicCast(context->getUserObject());
 
@@ -40,4 +40,9 @@ const CUserPtr CUserHelper::getUser(const cdf::CWSContextPtr & context, const st
 	}
 
 	return NULL;
+}
+
+const CUserPtr CUserHelper::getUser(const Rmi::CRmiCallbackBasePtr & callback, const std::string & sessionKey, bool throwIfNull/* = true*/)
+{
+	return getUserByContext(callback->getContext(), sessionKey, throwIfNull);
 }
