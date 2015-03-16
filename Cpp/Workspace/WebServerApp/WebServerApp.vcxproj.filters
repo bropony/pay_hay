@@ -26,6 +26,9 @@
     <Filter Include="src\Rmi">
       <UniqueIdentifier>{84b85348-7787-48bb-9191-fe001be12adf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Timer">
+      <UniqueIdentifier>{0ec2dd6b-02e1-4f7a-b0b5-743ec1b4e4af}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Server\WebServerApp\Helper\PublicConfig.cpp">
@@ -115,6 +118,12 @@
     <ClCompile Include="..\..\Server\WebServerApp\Helper\ImageInfo.cpp">
       <Filter>src\Helper</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Server\WebServerApp\Timer\ImageTimer.cpp">
+      <Filter>src\Timer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Server\WebServerApp\Timer\TimerManager.cpp">
+      <Filter>src\Timer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Server\WebServerApp\Helper\PublicConfig.h">
@@ -203,6 +212,12 @@
     </ClInclude>
     <ClInclude Include="..\..\Server\WebServerApp\Helper\ImageInfo.h">
       <Filter>src\Helper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Server\WebServerApp\Timer\ImageTimer.h">
+      <Filter>src\Timer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Server\WebServerApp\Timer\TimerManager.h">
+      <Filter>src\Timer</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

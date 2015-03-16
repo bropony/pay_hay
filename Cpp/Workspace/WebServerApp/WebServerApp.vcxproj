@@ -95,6 +95,8 @@
     <ClCompile Include="..\..\Server\WebServerApp\Rmi\RmiIncoming.cpp" />
     <ClCompile Include="..\..\Server\WebServerApp\Rmi\RmiServer.cpp" />
     <ClCompile Include="..\..\Server\WebServerApp\Rmi\RmiServerImpl.cpp" />
+    <ClCompile Include="..\..\Server\WebServerApp\Timer\ImageTimer.cpp" />
+    <ClCompile Include="..\..\Server\WebServerApp\Timer\TimerManager.cpp" />
     <ClCompile Include="..\..\Server\WebServerApp\User\User.cpp" />
     <ClCompile Include="..\..\Server\WebServerApp\User\UserHelper.cpp" />
     <ClCompile Include="..\..\Server\WebServerApp\User\UserManager.cpp" />
@@ -126,6 +128,8 @@
     <ClInclude Include="..\..\Server\WebServerApp\Rmi\RmiIncoming.h" />
     <ClInclude Include="..\..\Server\WebServerApp\Rmi\RmiServer.h" />
     <ClInclude Include="..\..\Server\WebServerApp\Rmi\RmiServerImpl.h" />
+    <ClInclude Include="..\..\Server\WebServerApp\Timer\ImageTimer.h" />
+    <ClInclude Include="..\..\Server\WebServerApp\Timer\TimerManager.h" />
     <ClInclude Include="..\..\Server\WebServerApp\User\User.h" />
     <ClInclude Include="..\..\Server\WebServerApp\User\UserHelper.h" />
     <ClInclude Include="..\..\Server\WebServerApp\User\UserManager.h" />
