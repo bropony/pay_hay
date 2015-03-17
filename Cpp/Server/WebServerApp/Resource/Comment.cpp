@@ -18,3 +18,11 @@ void CComment::updateToDb()
 {
 	CDbHelper::updateTUserComment(_tUserComment);
 }
+
+void CComment::commentToClient(Rmi::SComment & comment)
+{
+	comment.commentDt = _tUserComment.commentDt;
+	comment.userId = _tUserComment.fromUserId;
+	comment.nickname = _tUserComment.fromNickname;
+	comment.content = _tUserComment.content;
+}

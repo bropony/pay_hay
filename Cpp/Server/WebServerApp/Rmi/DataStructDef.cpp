@@ -107,6 +107,60 @@ void __write(cdf::CSimpleSerializer & __os, const SeqPost& v, SeqPost__U__)
 	}
 }
 
+//definition of class SComment
+SComment::SComment()
+:userId()
+,nickname()
+,content()
+,commentDt()
+{
+}
+
+SComment::~SComment()
+{
+}
+
+void SComment::__read(cdf::CSimpleSerializer & __is)
+{
+	__is.read(userId);
+	__is.read(nickname);
+	__is.read(content);
+	__is.read(commentDt);
+}
+
+void SComment::__write(cdf::CSimpleSerializer & __os) const
+{
+	__os.write(userId);
+	__os.write(nickname);
+	__os.write(content);
+	__os.write(commentDt);
+}
+
+//definition of __read and __write of SeqComment
+void __read(cdf::CSimpleSerializer & __is, SeqComment& v, SeqComment__U__)
+{
+	unsigned size = 0;
+	__is.readSize(size); 
+
+	for(unsigned i = 0; i < size; i++)
+	{
+		SComment elem;
+		elem.__read(__is);
+		v.push_back(elem);
+	}
+}
+
+void __write(cdf::CSimpleSerializer & __os, const SeqComment& v, SeqComment__U__)
+{
+	unsigned size = v.size();
+	__os.writeSize(size);
+
+	for (auto elem : v)
+	{
+		elem.__write(__os);
+	}
+}
+
 
 } //end of namespace Rmi
 

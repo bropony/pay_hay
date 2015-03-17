@@ -207,3 +207,11 @@ void CRmiServerImpl::commentPost(const std::string & sessionKey, int postId,
 	CCommentManager::instance()->createComment(postId, user->getUserId(), user->getNickname(), comments);
 	commentPostCB->response();
 }
+
+void CRmiServerImpl::getComments(const std::string & sessionKey, int postId, const CGetCommentsCallbackPtr & getCommentsCB)
+{
+	CUserPtr user = CUserHelper::getUser(getCommentsCB, sessionKey);
+
+	Rmi::SeqComment comments;
+	CCommentManager::instance()->getCommentsByPostId(postId, comments);
+}

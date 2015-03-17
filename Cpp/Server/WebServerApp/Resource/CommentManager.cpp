@@ -48,3 +48,26 @@ const CCommentPtr CCommentManager::createComment(int postId, int fromUserId, con
 
 	return commentPtr;
 }
+
+void CCommentManager::getCommentsByPostId(int postId, Rmi::SeqComment & comments)
+{
+	auto found = _mapPostComment.find(postId);
+	if (found == _mapPostComment.end())
+	{
+		return;
+	}
+
+	for (auto commentId : found->second)
+	{
+		auto commentFound = _mapComment.find(commentId);
+		if (commentFound == _mapComment.end())
+		{
+			continue;
+		}
+
+		Rmi::SComment comment;
+		commentFound->second->commentToClient(comment);
+
+		comments.push_back(comment);
+	}
+}

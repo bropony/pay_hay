@@ -227,6 +227,25 @@ void CCommentPostCallback::response()
 }
 
 
+CGetCommentsCallback::CGetCommentsCallback(const cdf::CWSContextPtr & context, int msgId)
+:CRmiCallbackBase(context, msgId)
+{
+}
+
+void CGetCommentsCallback::response( const SeqComment & comments)
+{
+	cdf::CSimpleSerializer __os;
+	__os.startToWrite();
+
+	__os.write(_msgId);
+	__os.write(true);
+
+	::Rmi::__write(__os, comments, SeqComment__U__());
+
+	__response(__os);
+}
+
+
 void CRmiServer::__login(cdf::CSimpleSerializer & __is, int __msgId, const cdf::CWSContextPtr & context)
 {
 	std::string account;
@@ -383,6 +402,18 @@ void CRmiServer::__commentPost(cdf::CSimpleSerializer & __is, int __msgId, const
 	commentPost(sessionKey, postId, comments, __cb);
 }
 
+void CRmiServer::__getComments(cdf::CSimpleSerializer & __is, int __msgId, const cdf::CWSContextPtr & context)
+{
+	std::string sessionKey;
+	__is.read(sessionKey);
+
+	int postId = 0;
+	__is.read(postId);
+
+	CGetCommentsCallbackPtr __cb = new CGetCommentsCallback(context, __msgId);
+	getComments(sessionKey, postId, __cb);
+}
+
 void CRmiServer::__call(cdf::CSimpleSerializer & __is, const cdf::CWSContextPtr & context)
 {
 	int __msgId = 0;
@@ -437,6 +468,9 @@ void CRmiServer::__call(cdf::CSimpleSerializer & __is, const cdf::CWSContextPtr 
 			break;
 		case 42:
 			__commentPost(__is, __msgId, context);
+			break;
+		case 43:
+			__getComments(__is, __msgId, context);
 			break;
 		default:
 			WebServerApp::CErrorCodeManager::throwException("Error_NotRegisterdRmiCall");

@@ -70,3 +70,4 @@ void CPost::updateToDb()
 {
 	CDbHelper::updateTUserPost(_tUserPost);
 }
+

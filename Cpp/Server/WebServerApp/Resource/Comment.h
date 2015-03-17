@@ -4,6 +4,8 @@
 #include "Message/Db/Tables/TUserComment.h"
 #include <map>
 
+#include "Rmi/DataStructDef.h"
+
 namespace WebServerApp
 {
 	class CComment
@@ -13,6 +15,8 @@ namespace WebServerApp
 		CComment(const Message::Db::Tables::TUserComment & tUserComment);
 		Message::Db::Tables::TUserComment & getTUserComment();
 		void updateToDb();
+
+		void commentToClient(Rmi::SComment & comment);
 
 	private:
 		Message::Db::Tables::TUserComment _tUserComment;

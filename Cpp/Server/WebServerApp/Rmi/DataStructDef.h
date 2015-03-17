@@ -68,6 +68,25 @@ namespace Rmi
 	void __read(cdf::CSimpleSerializer & __is, SeqPost& v, SeqPost__U__);
 	void __write(cdf::CSimpleSerializer & __os, const SeqPost& v, SeqPost__U__);
 
+	struct SComment
+	{
+		int userId;
+		std::string nickname;
+		std::string content;
+		cdf::CDateTime commentDt;
+
+		SComment();
+		~SComment();
+
+		void __read(cdf::CSimpleSerializer & __is);
+		void __write(cdf::CSimpleSerializer & __os) const;
+	}; //end of class SComment
+
+	typedef std::vector<SComment> SeqComment;
+	class SeqComment__U__{};
+	void __read(cdf::CSimpleSerializer & __is, SeqComment& v, SeqComment__U__);
+	void __write(cdf::CSimpleSerializer & __os, const SeqComment& v, SeqComment__U__);
+
 } // end of namespace Rmi
 #endif // end of __RMI_DATA_STRUCT_DEF_H__
 

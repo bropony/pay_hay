@@ -129,6 +129,16 @@ namespace Rmi
 	};
 	typedef cdf::CHandle<CCommentPostCallback> CCommentPostCallbackPtr;
 
+	class CGetCommentsCallback
+		: public virtual CRmiCallbackBase
+	{
+	public:
+		CGetCommentsCallback(const cdf::CWSContextPtr & context, int msgId);
+
+		void response( const SeqComment & comments);
+	};
+	typedef cdf::CHandle<CGetCommentsCallback> CGetCommentsCallbackPtr;
+
 	class CRmiServer
 		: public virtual cdf::CRefShared
 	{
@@ -168,6 +178,9 @@ namespace Rmi
 	
 		void __commentPost(cdf::CSimpleSerializer & __is, int __msgId, const cdf::CWSContextPtr & context);
 		virtual void commentPost( const std::string & sessionKey, int postId,  const std::string & comments, const CCommentPostCallbackPtr & commentPostCB) = 0;
+	
+		void __getComments(cdf::CSimpleSerializer & __is, int __msgId, const cdf::CWSContextPtr & context);
+		virtual void getComments( const std::string & sessionKey, int postId, const CGetCommentsCallbackPtr & getCommentsCB) = 0;
 	
 		void __call(cdf::CSimpleSerializer & __is, const cdf::CWSContextPtr & context);
 
