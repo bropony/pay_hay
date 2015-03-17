@@ -13,6 +13,7 @@ local t_event_config=
  {   eventId = 32,   event = "endPost",   inParams = "sessionKey:string",   outParams = "postId:int" }, 
  {   eventId = 40,   event = "likePost",   inParams = "sessionKey:string#postId:int",   outParams = "" }, 
  {   eventId = 41,   event = "dislikePost",   inParams = "sessionKey:string#postId:int",   outParams = "" }, 
- {   eventId = 42,   event = "commentPost",   inParams = "sessionKey:string#postId:int#comments:string",   outParams = "" }
+ {   eventId = 42,   event = "commentPost",   inParams = "sessionKey:string#postId:int#comments:string",   outParams = "" }, 
+ {   eventId = 43,   event = "getComments",   inParams = "sessionKey:string#postId:int",   outParams = "comments:SeqComment" }
 }
 return t_event_config
