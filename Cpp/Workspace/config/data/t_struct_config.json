@@ -83,5 +83,19 @@
 		"id" : 102,
 		"name" : "SeqPost",
 		"type" : 2
+	},
+	
+	{
+		"fields" : "userId:int#nickname:string#content:string#commentDt:date",
+		"id" : 103,
+		"name" : "SComment",
+		"type" : 1
+	},
+	
+	{
+		"fields" : "SComment",
+		"id" : 104,
+		"name" : "SeqComment",
+		"type" : 2
 	}
 ]

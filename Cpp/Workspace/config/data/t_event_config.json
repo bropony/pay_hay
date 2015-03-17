@@ -78,5 +78,12 @@
 		"event" : "commentPost",
 		"eventId" : 42,
 		"inParams" : "sessionKey:string#postId:int#comments:string"
+	},
+	
+	{
+		"event" : "getComments",
+		"eventId" : 43,
+		"inParams" : "sessionKey:string#postId:int",
+		"outParams" : "comments:SeqComment"
 	}
 ]
