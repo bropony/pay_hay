@@ -28,5 +28,27 @@ public class ListReader{
 		}
 	}
 
+	public static SComment[] read(SerializeStream __is, SComment[] res){
+		int size = __is.readInt();
+		res = new SComment[size];
+
+		for (int i = 0; i < size; ++i){
+			SComment val = new SComment();
+			val.read(__is);
+			res[i] = val;
+		}
+
+		return res;
+	}
+
+	public static void write(SerializeStream __os, SComment[] v){
+		int size = v.length;
+		__os.write(size);
+
+		for (int i = 0; i < size; i++){
+			v[i].write(__os);
+		}
+	}
+
 }
 

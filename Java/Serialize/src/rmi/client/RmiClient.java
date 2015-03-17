@@ -183,6 +183,20 @@ public class RmiClient{
 			RmiManager.instance().invoke(clientCB__, __msgIdBase, __os);
 		}
 
+		public static void getComments(GetCommentsCallback clientCB__, String sessionKey, int postId){
+			SerializeStream __os = new SerializeStream();
+			__os.startToWrite();
+
+			__msgIdBase++;
+			__os.write(__msgIdBase);
+			__os.write(43);
+
+			__os.write(sessionKey);
+			__os.write(postId);
+
+			RmiManager.instance().invoke(clientCB__, __msgIdBase, __os);
+		}
+
 
 	//Callback definitions
 	public static abstract class LoginCallback extends RmiCallbackBase {
@@ -483,6 +497,33 @@ public class RmiClient{
 		@Override
 		public void __onResponse(SerializeStream __is){
 			onResponse();
+		}
+
+		@Override
+		public void __onError(String what, int code){
+			onError(what, code);
+		}
+
+		@Override
+		public void __onTimeout(){
+			onTimeout();
+		}
+
+	}
+
+	public static abstract class GetCommentsCallback extends RmiCallbackBase {
+		public GetCommentsCallback(){}
+
+		public abstract void onResponse(SComment[] comments);
+		public abstract void onError(String what, int code);
+		public abstract void onTimeout();
+
+		@Override
+		public void __onResponse(SerializeStream __is){
+			SComment[] comments = null;
+			comments = ListReader.read(__is, comments);
+
+			onResponse(comments);
 		}
 
 		@Override
