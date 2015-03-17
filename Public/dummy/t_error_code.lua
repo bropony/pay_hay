@@ -14,6 +14,10 @@ local t_error_code=
  {   errorCode = 20004,   errorName = "Error_userDataError",   errorStr = "用户数据有错，请重新登录" }, 
  {   errorCode = 20005,   errorName = "Error_accountTooShort",   errorStr = "账号长度必须不少于5个字符" }, 
  {   errorCode = 20006,   errorName = "Error_nicknameNeeded",   errorStr = "请设置昵称" }, 
- {   errorCode = 20007,   errorName = "Error_passwdNeeded",   errorStr = "请设置密码" }
+ {   errorCode = 20007,   errorName = "Error_passwdNeeded",   errorStr = "请设置密码" }, 
+ {   errorCode = 20010,   errorName = "Error_avatarImgToLarge",   errorStr = "头像图片太大" }, 
+ {   errorCode = 20011,   errorName = "Error_saveAvatarImgError",   errorStr = "保存头像失败" }, 
+ {   errorCode = 20015,   errorName = "Error_noSuchImg",   errorStr = "没有该图片" }, 
+ {   errorCode = 20020,   errorName = "Error_postNotFound",   errorStr = "该帖子已经不存在" }
 }
 return t_error_code
