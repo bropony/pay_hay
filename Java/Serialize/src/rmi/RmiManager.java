@@ -169,6 +169,9 @@ public class RmiManager implements Runnable{
 	}
 	
 	private void __sendOut(){
+		if (this._outgoings.size() <= 0){
+			return;
+		}
 		
 		if (this._ws == null){
 			System.out.println("Connect to Server");
