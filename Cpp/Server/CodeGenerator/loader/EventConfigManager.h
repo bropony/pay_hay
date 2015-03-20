@@ -22,6 +22,9 @@ namespace cg
 
 		void callbacksToJava(std::ofstream & Java);
 		void methodsToJava(std::ofstream & Java);
+
+		void callbacksToTs(std::ofstream & Ts);
+		void methodsToTs(std::ofstream & Ts);
 	private:
 		bool parseFields(const FieldConfig & fields, SeqField & params, std::set<std::string> & usedNameSet, bool isIn);
 	private:
@@ -31,6 +34,7 @@ namespace cg
 		std::string _outSignature;
 		std::string _cbName;
 		std::string _javaCbName;
+		std::string _tsCbName;
 		SeqField _inParams;
 		SeqField _outParams;
 	};
@@ -44,6 +48,7 @@ namespace cg
 		bool loadConfig(const std::string & configFile);
 		void toCpp(const std::string & cppBase);
 		void toJava(const std::string & javaBase);
+		void toTs(const std::string & tsBase);
 
 	private:
 		void __callToCpp(std::ofstream & Cpp);

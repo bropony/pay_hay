@@ -37,6 +37,7 @@ namespace cg
 		virtual EType getDataType() = 0;
 		virtual void toCpp(std::ostream & Hpp, std::ostream & Cpp) = 0;
 		virtual void toJava(std::ostream & Java) = 0;
+		virtual void toTs(std::ostream & Ts) = 0;
 	};
 	typedef cdf::CHandle<CStructBase> CStructBasePtr;
 	typedef std::vector<CStructBasePtr> SeqStructBase;
@@ -53,6 +54,7 @@ namespace cg
 		virtual EType getDataType(){ return EType::STRUCT; }
 		virtual void toCpp(std::ostream & Hpp, std::ostream & Cpp);
 		virtual void toJava(std::ostream & Java);
+		virtual void toTs(std::ostream & Ts);
 
 	private:
 		std::string _name;
@@ -74,6 +76,8 @@ namespace cg
 		virtual EType getDataType(){ return EType::LIST; }
 		virtual void toCpp(std::ostream & Hpp, std::ostream & Cpp);
 		virtual void toJava(std::ostream & Java);
+		virtual void toTs(std::ostream & Ts);
+
 	private:
 		std::string _name;
 		CTypePtr _elemType;
@@ -95,6 +99,7 @@ namespace cg
 		virtual EType getDataType(){ return EType::ENUM; }
 		virtual void toCpp(std::ostream & Hpp, std::ostream & Cpp);
 		virtual void toJava(std::ostream & Java);
+		virtual void toTs(std::ostream & Ts);
 
 	private:
 		std::string _name;
@@ -110,6 +115,7 @@ namespace cg
 		bool loadConfig(const std::string & configFilePath);
 		void toCpp(const std::string & outCppPath);
 		void toJava(const std::string & outJavaDir);
+		void toTs(const std::string & outTsDir);
 
 	public:
 		static bool parseFields(const std::string & strFields, FieldConfig & fields);

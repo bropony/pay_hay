@@ -19,6 +19,7 @@ CMethod::CMethod(int eventId, const std::string & name)
 
 	_cbName = "C" + _cbName;
 	_cbName += "Callback";
+	_tsCbName = _javaCbName;
 }
 
 CMethod::~CMethod()
@@ -401,6 +402,121 @@ void CMethod::methodsToJava(std::ofstream & Java)
 	Java << ENDL;
 }
 
+void CMethod::callbacksToTs(std::ofstream & Ts)
+{
+	Ts << Ident1 << "//" << _tsCbName << ENDL;
+	Ts << Ident1 << "export class " << _tsCbName << " implements CallbackBase {" << ENDL;
+	Ts << Ident2 << "onResponse: (";
+	bool isFirst = true;
+	for (auto param : _outParams)
+	{
+		if (!isFirst)
+		{
+			Ts << ", ";
+		}
+		else
+		{
+			isFirst = false;
+		}
+
+		Ts << param->getName() << ": " << param->getType()->getTsType();
+	}
+	Ts << ") => void;" << ENDL;
+	Ts << Ident2 << "onError: (what: string, code: number) => void;" << ENDL;
+	Ts << Ident2 << "onTimeout: () => void;" << ENDL;
+	Ts << ENDL;
+
+	Ts << Ident2 << "__onResponse(__is: SimpleSerializer) : void {" << ENDL;
+	for (auto param : _outParams)
+	{
+		Ts << Ident3 << "var " << param->getName() << ": " << param->getType()->getTsType() 
+			<< " = " << param->getType()->getTsDefaultValue() << ";" << ENDL;
+		auto dataType = param->getType()->getType();
+		if (dataType == EType::BASIC)
+		{
+			Ts << Ident3 << param->getName() << " = __is.read(" << param->getType()->getTypeId() << ");" << ENDL;
+		}
+		else if (dataType == EType::LIST)
+		{
+			Ts << Ident3 << param->getName() << " = read" << param->getType()->getName() << "(__is);" << ENDL;
+		}
+		else
+		{
+			Ts << Ident3 << param->getName() << ".__read(__is);" << ENDL;
+		}
+	}
+
+	isFirst = true;
+	Ts << Ident3 << "this.onResponse(";
+	for (auto param : _outParams)
+	{
+		if (!isFirst)
+		{
+			Ts << ", ";
+		}
+		else
+		{
+			isFirst = false;
+		}
+
+		Ts << param->getName();
+	}
+	Ts << ");" << ENDL;
+	Ts << Ident2 << "}" << ENDL;
+	Ts << ENDL;
+
+	Ts << Ident2 << "__onError(what: string, code: number) : void {" << ENDL;
+	Ts << Ident3 << "this.onError(what, code);" << ENDL;
+	Ts << Ident2 << "}" << ENDL;
+	Ts << ENDL;
+
+	Ts << Ident2 << "__onTimeout() : void {" << ENDL;
+	Ts << Ident3 << "this.onTimeout();" << ENDL;
+	Ts << Ident2 << "}" << ENDL;
+
+	Ts << Ident1 << "} // end of " << _tsCbName << ENDL;
+	Ts << ENDL << ENDL;
+}
+
+void CMethod::methodsToTs(std::ofstream & Ts)
+{
+	Ts << Ident2 << "static " << _name << "(__cb: " << _tsCbName;
+	bool isFirst = true;
+	for (auto param : _inParams)
+	{
+		Ts << ", ";
+
+		Ts << param->getName() << ": " << param->getType()->getTsType();
+	}
+	Ts << ") : void {" << ENDL;
+	Ts << Ident3 << "var __os: SimpleSerializer = new SimpleSerializer();" << ENDL;
+	Ts << Ident3 << "__os.startToWrite();" << ENDL;
+	Ts << Ident3 << "Proxy.__msgIdBase += 1;" << ENDL;
+	Ts << Ident3 << "__os.writeInt(Proxy.__msgIdBase);" << ENDL;
+	Ts << Ident3 << "__os.writeInt(" << _eventId << ");" << ENDL;
+	Ts << ENDL;
+	for (auto param : _inParams)
+	{
+		EType dataType = param->getType()->getType();
+		if (dataType == EType::BASIC)
+		{
+			Ts << Ident3 << "__os.write(" << param->getType()->getTypeId() << ", " << param->getName() << ");" << ENDL;
+		}
+		else if (dataType == EType::LIST)
+		{
+			Ts << Ident3 << "write" << param->getType()->getName() << "(__os, " << param->getName() << ");" << ENDL;
+		}
+		else
+		{
+			Ts << Ident3 << param->getName() << ".__write(__os);" << ENDL;
+		}
+	}
+	Ts << ENDL;
+	Ts << Ident3 << "RmiManager.invoke(Proxy.__msgIdBase, __os, __cb);" << ENDL;
+	Ts << Ident2 << "}" << ENDL;
+	Ts << ENDL;
+}
+
 
 //class CEventConfigManager
 CEventConfigManager * CEventConfigManager::instance()
@@ -626,3 +742,44 @@ void CEventConfigManager::toJava(const std::string & javaBase)
 	Java << "}" << ENDL; //end of RmiClient
 }
 
+void CEventConfigManager::toTs(const std::string & tsBase)
+{
+	if (tsBase.empty())
+	{
+		return;
+	}
+
+	std::string outFile = tsBase + "/rmiclient.ts";
+	std::ofstream Ts(outFile);
+	if (!Ts)
+	{
+		CDF_LOG_TRACE("CEventConfigManager::toTs", "Cannot Open " + outFile);
+		return;
+	}
+
+	Ts << "/// <reference path=\"serialize.ts\" />" << ENDL;
+	Ts << "/// <reference path=\"rmidatastruct.ts\" />" << ENDL;
+	Ts << "/// <reference path=\"rmimanager.ts\" />" << ENDL;
+	Ts << ENDL;
+
+	Ts << "module Rmi {" << ENDL;
+	Ts << "//Callbacks" << ENDL;
+	for (auto methodPtr : _methods)
+	{
+		methodPtr->callbacksToTs(Ts);
+	}
+	Ts << ENDL;
+
+	//Client
+	Ts << Ident1 << "//Client Rmi Proxy" << ENDL;
+	Ts << Ident1 << "export class Proxy {" << ENDL;
+	Ts << Ident2 << "static __msgIdBase: number = 0;" << ENDL;
+	Ts << ENDL;
+	for (auto methodPtr : _methods)
+	{
+		methodPtr->methodsToTs(Ts);
+	}
+	Ts << Ident1 << "} // end of Proxy" << ENDL;
+
+	Ts << "}// end of Rmi" << ENDL;
+}

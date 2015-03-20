@@ -63,6 +63,9 @@ namespace cg
 		const std::string getJavaType();
 		const std::string & getNewJavaArray();
 		const std::string & getNewZeroJavaArray();
+		const std::string getTsType();
+		const std::string getTsDefaultValue();
+
 		bool isBasicType(){ return (_type == EType::BASIC); }
 		bool isCompositeType();
 

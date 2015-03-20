@@ -136,6 +136,101 @@ const std::string CType::getJavaType()
 	return _name;
 }
 
+const std::string CType::getTsType()
+{
+	switch (_type)
+	{
+	case EType::BASIC:
+		if (_name == Byte ||
+			_name == Short ||
+			_name == Int ||
+			_name == Long ||
+			_name == Float ||
+			_name == Double)
+		{
+			return "number";
+		}
+		if (_name == Bool)
+		{
+			return "boolean";
+		}
+		if (_name == String)
+		{
+			return "string";
+		}
+		if (_name == Image)
+		{
+			return "ArrayBuffer";
+		}
+		if (_name == Date)
+		{
+			return "Date";
+		}
+		break;
+	case EType::LIST:
+		if (getListBase()->getType() != EType::LIST)
+		{
+			return getListBase()->getTsType() + "[]";
+		}
+		else
+		{
+			return "any[]";
+		}
+		break;
+	case EType::ENUM:
+		return _name;
+		break;
+	default:
+		break;
+	}
+
+	return _name;
+}
+
+const std::string CType::getTsDefaultValue()
+{
+	switch (_type)
+	{
+	case EType::BASIC:
+		if (_name == Byte ||
+			_name == Short ||
+			_name == Int ||
+			_name == Long ||
+			_name == Float ||
+			_name == Double)
+		{
+			return "0";
+		}
+		if (_name == Bool)
+		{
+			return "false";
+		}
+		if (_name == String)
+		{
+			return "\"\"";
+		}
+		if (_name == Image)
+		{
+			return "new ArrayBuffer(0)";
+		}
+		if (_name == Date)
+		{
+			return "new Date()";
+		}
+		break;
+	case EType::LIST:
+		return "[]";
+		break;
+	case EType::STRUCT:
+		return "new " + _name + "()";
+	default:
+		return "null";
+		break;
+	}
+
+	return "null";
+}
+
 const std::string & CType::getNewJavaArray()
 {
 	return _javaNewArrayType;

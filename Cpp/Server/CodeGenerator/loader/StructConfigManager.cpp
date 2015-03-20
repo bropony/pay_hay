@@ -257,6 +257,73 @@ void CStruct::toJava(std::ostream & Java)
 	Java << "}" << ENDL; //end of class
 	Java << ENDL;
 }
+
+void CStruct::toTs(std::ostream & Ts)
+{
+	Ts << Ident1 << "export class " << _name << "{" << ENDL;
+
+	//fields
+	for (auto fieldPtr : _fields)
+	{
+		Ts << Ident2 << fieldPtr->getName() << ": " << fieldPtr->getType()->getTsType() << ";" << ENDL;
+	}
+	Ts << ENDL;
+
+	//construct
+	Ts << Ident2 << "constructor() {" << ENDL;
+	for (auto fieldPtr : _fields)
+	{
+		Ts << Ident3 << "this." << fieldPtr->getName() << " = " << fieldPtr->getType()->getTsDefaultValue() << ";" << ENDL;
+	}
+	Ts << Ident2 << "}" << ENDL;
+	Ts << ENDL;
+
+	//read
+	Ts << Ident2 << "__read(__is: SimpleSerializer) {" << ENDL;
+	for (auto fieldPtr : _fields)
+	{
+		EType dataType = fieldPtr->getType()->getType();
+		if (dataType == EType::BASIC)
+		{
+			Ts << Ident3 << "this." << fieldPtr->getName() << " = __is.read(" << fieldPtr->getType()->getTypeId() << ");" << ENDL;
+		}
+		else if (dataType == EType::LIST)
+		{
+			Ts << Ident3 << "this." << fieldPtr->getName() << " = read" << fieldPtr->getType()->getName() << "(__is);" << ENDL;
+		}
+		else
+		{
+			Ts << Ident3 << "this." << fieldPtr->getName() << ".__read(__is);" << ENDL;
+		}
+	}
+	Ts << Ident2 << "}" << ENDL;
+	Ts << ENDL;
+
+	//write
+	Ts << Ident2 << "__write(__os: SimpleSerializer) {" << ENDL;
+	for (auto fieldPtr : _fields)
+	{
+		EType dataType = fieldPtr->getType()->getType();
+		if (dataType == EType::BASIC)
+		{
+			Ts << Ident3 << "__os.write(" << fieldPtr->getType()->getTypeId() << ", this." << fieldPtr->getName() << ");" << ENDL;
+		}
+		else if (dataType == EType::LIST)
+		{
+			Ts << Ident3 << "write" << fieldPtr->getType()->getName() << "(__os, " << "this." << fieldPtr->getName() << ");" << ENDL;
+		}
+		else
+		{
+			Ts << Ident3 << "this." << fieldPtr->getName() << ".__write(__is);" << ENDL;
+		}
+	}
+	Ts << Ident2 << "}" << ENDL;
+	Ts << ENDL;
+
+	Ts << Ident1 << "} // end of " << _name << ENDL;
+	Ts << ENDL << ENDL;
+}
+
 //CStruct ends
 
 //CList
@@ -414,6 +481,59 @@ void CList::toJava(std::ostream & Java)
 	Java << Ident2 << "}" << ENDL;
 	Java << Ident1 << "}" << ENDL << ENDL;
 }
+
+void CList::toTs(std::ostream & Ts)
+{
+	CTypePtr myType = CTypeManager::instance()->getType(_name);
+	EType baseDataType = myType->getListBase()->getType();
+
+	Ts << Ident1 << "//Read " << _name << ENDL;
+	Ts << Ident1 << "export var read" << _name << " = function (__is: SimpleSerializer): " << myType->getTsType() << "{" << ENDL;
+	Ts << Ident2 << "var size = __is.readInt();" << ENDL;
+	Ts << Ident2 << "var res: " << myType->getTsType() << " = [];" << ENDL;
+	Ts << Ident2 << "for (var i = 0; i < size; i++) {" << ENDL;
+	Ts << Ident3 << "var val: " << myType->getListBase()->getTsType() 
+		<< " = " << myType->getListBase()->getTsDefaultValue() << ";" << ENDL;
+	if (baseDataType == EType::BASIC)
+	{
+		Ts << Ident3 << "val = __is.read(" << myType->getListBase()->getTypeId() << ");" << ENDL;
+	}
+	else if (baseDataType == EType::LIST)
+	{
+		Ts << Ident3 << "val = read" << myType->getListBase()->getName() << "(__is);" << ENDL;
+	}
+	else
+	{
+		Ts << Ident3 << "val.__read(__is);" << ENDL;
+	}
+	Ts << Ident3 << "res.push(val);" << ENDL;
+	Ts << Ident2 << "}" << ENDL;
+	Ts << Ident2 << "return res;" << ENDL;
+	Ts << Ident1 << "}" << ENDL;
+	Ts << ENDL;
+
+	Ts << Ident1 << "//Write " << _name << ENDL;
+	Ts << Ident1 << "export var write" << _name << " = function (__os: SimpleSerializer, data: " << myType->getTsType() << ") {" << ENDL;
+	Ts << Ident2 << "var size = data.length;" << ENDL;
+	Ts << Ident2 << "__os.writeInt(size);" << ENDL;
+	Ts << Ident2 << "for (var i = 0; i < size; i++) {" << ENDL;
+	if (baseDataType == EType::BASIC)
+	{
+		Ts << Ident3 << "__os.write(" << myType->getListBase()->getTypeId() << ", data[i]);" << ENDL;
+	}
+	else if (baseDataType == EType::LIST)
+	{
+		Ts << Ident3 << "write" << myType->getListBase()->getName() << "(__os, data[i]);" << ENDL;
+	}
+	else
+	{
+		Ts << Ident3 << "data[i].__write(__os);" << ENDL;
+	}
+	Ts << Ident2 << "}" << ENDL;
+	Ts << Ident1 << "}" << ENDL;
+	Ts << ENDL << ENDL;
+}
+
 //CList ends
 
 //CEnum
@@ -500,6 +620,18 @@ void CEnum::toJava(std::ostream & Java)
 	Java << "}" << ENDL;
 	Java << ENDL;
 }
+
+void CEnum::toTs(std::ostream & Ts)
+{
+	Ts << Ident1 << "export enum " << _name << "{ " << ENDL;
+	for (auto fPair : _elems)
+	{
+		Ts << Ident2 << fPair.first << " = " << fPair.second << ", " << ENDL;
+	}
+	Ts << Ident1 << "}" << ENDL;
+	Ts << ENDL << ENDL;
+}
+
 //CEnum ends
 
 //Struct Manager
@@ -650,6 +782,34 @@ void CStructManager::toJava(const std::string & outJavaDir)
 	}
 
 	fListReader << "}" << ENDL << ENDL;
+}
+
+void CStructManager::toTs(const std::string & outTsDir)
+{
+	if (outTsDir.empty())
+	{
+		return;
+	}
+
+	std::string outFile = outTsDir + "/rmidatastruct.ts";
+	std::ofstream Ts(outFile);
+	if (!Ts)
+	{
+		CDF_LOG_TRACE("CStructManager::toTs", "Cannot Open " + outFile);
+		return;
+	}
+
+	Ts << "/// <reference path=\"serialize.ts\" />" << ENDL;
+	Ts << ENDL;
+
+	Ts << "module Rmi {" << ENDL;
+
+	for (auto structPtr : _structs)
+	{
+		structPtr->toTs(Ts);
+	}
+
+	Ts << "} //end of module Rmi" << ENDL;
 }
 
 bool CStructManager::parseFields(const std::string & strFields, FieldConfig & fields)
