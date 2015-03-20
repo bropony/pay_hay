@@ -2,7 +2,7 @@
 /// <reference path="serialize.ts" />
 
 module Rmi {
-    interface CallbackBase {
+    export interface CallbackBase {
         __onResponse: (__is: SimpleSerializer) => void;
         __onError: (what: string, code: number) => void;
         __onTimeout: () => void;
@@ -65,26 +65,45 @@ module Rmi {
             console.log("Connection Error: %s", e.message)
         }
 
+        onResponse(buffer: ArrayBuffer) {
+            var __is: SimpleSerializer = new SimpleSerializer(buffer);
+            __is.startToRead();
+            var msgId: number = __is.readInt();
+            var isOk: boolean = __is.readBool();
+
+            console.log("Msg is %d", msgId);
+            var __cb = this._cbs[msgId];
+            if (null == __cb) {
+                return;
+            }
+
+            if (isOk) {
+                console.log("%d is Ok", msgId);
+                __cb.__onResponse(__is);
+            }
+            else {
+                console.log("%d is not Ok", msgId);
+                __cb.__onError(__is.readString(), __is.readInt());
+            }
+
+            delete this._cbs[msgId];
+        }
+
         onMessage(e: MessageEvent) {
             if (typeof (e.data) != 'string') {
-                var __is: SimpleSerializer = new SimpleSerializer(e.data);
-                __is.startToRead();
-                var msgId: number = __is.readInt();
-                var isOk: boolean = __is.readBool();
 
-                var __cb = this._cbs[msgId];
-                if (null == __cb) {
-                    return;
-                }
+                if (e.data instanceof Blob) {
+                    var reader = new FileReader();
+                    reader.onload = function () {
+                        var buffer = reader.result;
 
-                if (isOk) {
-                    __cb.__onResponse(__is);
+                        RmiManager.onResponse(buffer);
+                    };
+                    reader.readAsArrayBuffer(e.data);
                 }
                 else {
-                    __cb.__onError(__is.readString(), __is.readInt());
+                    this.onResponse(e.data);
                 }
-
-                delete this._cbs[msgId];
             }
             else {
                 console.log("onMessage: unprocessed data");
@@ -113,10 +132,9 @@ module Rmi {
                     break;
                 }
 
-                var og = this._ogs[0];
+                var og = this._ogs.shift();
                 this._cbs[og.__msgId] = og.__cb;
                 this._ws.send(og.__os.getBuffer());
-                delete this._ogs[0];
             }
 
             var now = new Date();

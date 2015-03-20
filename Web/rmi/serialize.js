@@ -20,14 +20,17 @@ var Rmi;
                     case 5:
                     case 6:
                     case 7:
+                        // 0xxxxxxx
                         out += String.fromCharCode(c);
                         break;
                     case 12:
                     case 13:
+                        // 110x xxxx   10xx xxxx
                         char2 = array[i++];
                         out += String.fromCharCode(((c & 0x1F) << 6) | (char2 & 0x3F));
                         break;
                     case 14:
+                        // 1110 xxxx  10xx xxxx  10xx xxxx
                         char2 = array[i++];
                         char3 = array[i++];
                         out += String.fromCharCode(((c & 0x0F) << 12) | ((char2 & 0x3F) << 6) | ((char3 & 0x3F) << 0));
@@ -50,6 +53,9 @@ var Rmi;
                 }
                 else {
                     i++;
+                    // UTF-16 encodes 0x10000-0x10FFFF by
+                    // subtracting 0x10000 and splitting the
+                    // 20 bits of 0x0-0xFFFFF into two halves
                     charcode = 0x10000 + (((charcode & 0x3ff) << 10) | (str.charCodeAt(i) & 0x3ff));
                     utf8.push(0xf0 | (charcode >> 18), 0x80 | ((charcode >> 12) & 0x3f), 0x80 | ((charcode >> 6) & 0x3f), 0x80 | (charcode & 0x3f));
                 }
@@ -58,6 +64,22 @@ var Rmi;
         };
         return StringCodec;
     })();
+    var EType = (function () {
+        function EType() {
+        }
+        EType.BYTE = 1;
+        EType.BOOL = 2;
+        EType.SHORT = 3;
+        EType.INT = 4;
+        EType.LONG = 5;
+        EType.FLOAT = 6;
+        EType.DOUBLE = 7;
+        EType.STRING = 8;
+        EType.DATE = 9;
+        EType.IMAGE = 10;
+        return EType;
+    })();
+    Rmi.EType = EType;
     var SimpleSerializer = (function () {
         function SimpleSerializer(data) {
             if (data) {
@@ -104,70 +126,72 @@ var Rmi;
             }
         };
         SimpleSerializer.prototype.read = function (dataType) {
-            if (dataType == "byte") {
+            if (dataType == EType.BYTE) {
                 return this.readByte();
             }
-            if (dataType == "bool") {
+            if (dataType == EType.BOOL) {
                 return this.readBool();
             }
-            if (dataType == "short") {
+            if (dataType == EType.SHORT) {
                 return this.readShort();
             }
-            if (dataType == "int") {
+            if (dataType == EType.INT) {
                 return this.readInt();
             }
-            if (dataType == "long") {
+            if (dataType == EType.LONG) {
                 return this.readLong();
             }
-            if (dataType == "float") {
+            if (dataType == EType.FLOAT) {
                 return this.readFloat();
             }
-            if (dataType == "double") {
+            if (dataType == EType.DOUBLE) {
                 return this.readDouble();
             }
-            if (dataType == "string") {
+            if (dataType == EType.STRING) {
                 return this.readString();
             }
-            if (dataType == "date") {
+            if (dataType == EType.DATE) {
                 return this.readDate();
             }
-            if (dataType == "image") {
+            if (dataType == EType.IMAGE) {
                 return this.readImage();
             }
-            throw "InRead: Unknow Data Type " + dataType;
+            throw "[In SimpleSerializer.read] Unknow Data Type " + dataType;
         };
         SimpleSerializer.prototype.write = function (dataType, data) {
-            if (dataType == "byte") {
+            if (dataType == EType.BYTE) {
                 this.writeByte(data);
             }
-            if (dataType == "bool") {
+            else if (dataType == EType.BOOL) {
                 this.writeBool(data);
             }
-            if (dataType == "short") {
+            else if (dataType == EType.SHORT) {
                 this.writeShort(data);
             }
-            if (dataType == "int") {
+            else if (dataType == EType.INT) {
                 this.writeInt(data);
             }
-            if (dataType == "long") {
+            else if (dataType == EType.LONG) {
                 this.writeLong(data);
             }
-            if (dataType == "float") {
+            else if (dataType == EType.FLOAT) {
                 this.writeFloat(data);
             }
-            if (dataType == "double") {
+            else if (dataType == EType.DOUBLE) {
                 this.writeDouble(data);
             }
-            if (dataType == "string") {
+            else if (dataType == EType.STRING) {
                 this.writeString(data);
             }
-            if (dataType == "date") {
+            else if (dataType == EType.DATE) {
                 this.writeDate(data);
             }
-            if (dataType == "image") {
-                this.writeString(data);
+            else if (dataType == EType.IMAGE) {
+                this.writeImage(data);
             }
-            throw "InRead: Unknow Data Type " + dataType;
+            else {
+                throw "[In SimpleSerializer.write] Unknow Data Type " + dataType;
+            }
         };
         SimpleSerializer.prototype.readByte = function () {
             if (this._pos >= this._buffer.byteLength) {
@@ -336,3 +360,4 @@ var Rmi;
     ;
 })(Rmi || (Rmi = {}));
 ;
+//# sourceMappingURL=serialize.js.map

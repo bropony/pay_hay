@@ -65,6 +65,18 @@
         }
     }
 
+    export class EType {
+        static BYTE = 1;
+        static BOOL = 2;
+        static SHORT = 3;
+        static INT = 4;
+        static LONG = 5;
+        static FLOAT = 6;
+        static DOUBLE = 7;
+        static STRING = 8;
+        static DATE = 9;
+        static IMAGE = 10;
+    }
 
     export class SimpleSerializer {
         private _buffer: ArrayBuffer;
@@ -123,92 +135,84 @@
             }
         }
         
-        read(dataType: string): any | any[]{
-            if (dataType == "byte") {
+        read(dataType: number): any | any[]{
+            if (dataType == EType.BYTE) {
                 return this.readByte();
             }
 
-            if (dataType == "bool") {
+            if (dataType == EType.BOOL) {
                 return this.readBool();
             }
 
-            if (dataType == "short") {
+            if (dataType == EType.SHORT) {
                 return this.readShort();
             }
 
-            if (dataType == "int") {
+            if (dataType == EType.INT) {
                 return this.readInt();
             }
 
-            if (dataType == "long") {
+            if (dataType == EType.LONG) {
                 return this.readLong();
             }
 
-            if (dataType == "float") {
+            if (dataType == EType.FLOAT) {
                 return this.readFloat();
             }
 
-            if (dataType == "double") {
+            if (dataType == EType.DOUBLE) {
                 return this.readDouble();
             }
 
-            if (dataType == "string") {
+            if (dataType == EType.STRING) {
                 return this.readString();
             }
 
-            if (dataType == "date") {
+            if (dataType == EType.DATE) {
                 return this.readDate();
             }
 
-            if (dataType == "image") {
+            if (dataType == EType.IMAGE) {
                 return this.readImage();
             }
 
-            throw "InRead: Unknow Data Type " + dataType;
+            throw "[In SimpleSerializer.read] Unknow Data Type " + dataType;
         }
 
-        write(dataType: string, data: any | any[]) {
-            if (dataType == "byte") {
+        write(dataType: number, data: any | any[]) {
+            if (dataType == EType.BYTE) {
                 this.writeByte(data);
             }
-
-            if (dataType == "bool") {
+            else if (dataType == EType.BOOL) {
                 this.writeBool(data);
             }
-
-            if (dataType == "short") {
+            else if (dataType == EType.SHORT) {
                 this.writeShort(data);
             }
-
-            if (dataType == "int") {
+            else if (dataType == EType.INT) {
                 this.writeInt(data);
             }
-
-            if (dataType == "long") {
+            else if (dataType == EType.LONG) {
                 this.writeLong(data);
             }
-
-            if (dataType == "float") {
+            else if (dataType == EType.FLOAT) {
                 this.writeFloat(data);
             }
-
-            if (dataType == "double") {
+            else if (dataType == EType.DOUBLE) {
                 this.writeDouble(data);
             }
-
-            if (dataType == "string") {
+            else if (dataType == EType.STRING) {
                 this.writeString(data);
             }
-
-            if (dataType == "date") {
+            else if (dataType == EType.DATE) {
                 this.writeDate(data);
             }
-
-            if (dataType == "image") {
-                this.writeString(data);
+            else if (dataType == EType.IMAGE) {
+                this.writeImage(data);
             }
-
-            throw "InRead: Unknow Data Type " + dataType;
+            else {
+                throw "[In SimpleSerializer.write] Unknow Data Type " + dataType;
+            }
         }
 
         readByte():number {
