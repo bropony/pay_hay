@@ -28,6 +28,7 @@
     <TypeScriptCompile Include="rmi\rmidatastruct.ts" />
     <TypeScriptCompile Include="rmi\rmimanager.ts" />
     <TypeScriptCompile Include="rmi\serialize.ts" />
+    <TypeScriptCompile Include="view\home.ts" />
   </ItemGroup>
   <ItemGroup>
     <None Include="web.Debug.config">
@@ -37,6 +38,7 @@
       <DependentUpon>web.config</DependentUpon>
     </None>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">12.0</VisualStudioVersion>
   </PropertyGroup>
