@@ -354,6 +354,31 @@ var Rmi;
                 this.writeUB(ai.get(i));
             }
         };
+        SimpleSerializer.prototype.encrypt = function () {
+            if (this._pos == 0) {
+                return;
+            }
+            var mask = 108;
+            var byteArray = new Int8Array(this._buffer);
+            var maxIdx = this._pos - 1;
+            for (var i = 0; i <= maxIdx; i += 2) {
+                if (i == maxIdx) {
+                    byteArray[i] ^= mask;
+                    return;
+                }
+                var bi = byteArray[i];
+                var bj = byteArray[i + 1];
+                bi ^= mask;
+                bj ^= mask;
+                byteArray[i] = bj;
+                byteArray[i + 1] = bi;
+            }
+        };
+        SimpleSerializer.prototype.decrypt = function () {
+            this._pos = this._buffer.byteLength;
+            this.encrypt();
+            this._pos = 0;
+        };
         return SimpleSerializer;
     })();
     Rmi.SimpleSerializer = SimpleSerializer;

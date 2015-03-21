@@ -24,6 +24,7 @@ var Rmi;
                 return;
             }
             this._ws = new WebSocket(this._url);
+            this._ws.binaryType = "arraybuffer";
             this._ws.onopen = this.onOpen;
             this._ws.onclose = this.onClose;
             this._ws.onerror = this.onError;
@@ -40,10 +41,10 @@ var Rmi;
         };
         _RmiManager_cls.prototype.onResponse = function (buffer) {
             var __is = new Rmi.SimpleSerializer(buffer);
+            __is.decrypt();
             __is.startToRead();
             var msgId = __is.readInt();
             var isOk = __is.readBool();
-            console.log("Msg is %d", msgId);
             var __cb = this._cbs[msgId];
             if (null == __cb) {
                 return;
@@ -69,7 +70,7 @@ var Rmi;
                     reader.readAsArrayBuffer(e.data);
                 }
                 else {
-                    this.onResponse(e.data);
+                    Rmi.RmiManager.onResponse(e.data);
                 }
             }
             else {
@@ -94,6 +95,7 @@ var Rmi;
                     break;
                 }
                 var og = this._ogs.shift();
+                og.__os.encrypt();
                 this._cbs[og.__msgId] = og.__cb;
                 this._ws.send(og.__os.getBuffer());
             }

@@ -47,6 +47,8 @@ module Rmi {
 
             this._ws = new WebSocket(this._url);
 
+            this._ws.binaryType = "arraybuffer";
+
             this._ws.onopen = this.onOpen;
             this._ws.onclose = this.onClose;
             this._ws.onerror = this.onError;
@@ -67,11 +69,11 @@ module Rmi {
 
         onResponse(buffer: ArrayBuffer) {
             var __is: SimpleSerializer = new SimpleSerializer(buffer);
+            __is.decrypt();
             __is.startToRead();
             var msgId: number = __is.readInt();
             var isOk: boolean = __is.readBool();
 
-            console.log("Msg is %d", msgId);
             var __cb = this._cbs[msgId];
             if (null == __cb) {
                 return;
@@ -102,7 +104,7 @@ module Rmi {
                     reader.readAsArrayBuffer(e.data);
                 }
                 else {
-                    this.onResponse(e.data);
+                    RmiManager.onResponse(e.data);
                 }
             }
             else {
@@ -133,6 +135,7 @@ module Rmi {
                 }
 
                 var og = this._ogs.shift();
+                og.__os.encrypt();
                 this._cbs[og.__msgId] = og.__cb;
                 this._ws.send(og.__os.getBuffer());
             }
