@@ -1,0 +1,39 @@
+//登陆或注册成功返回数据
+class SLoginReturn
+{
+    userId: int; //用户ID
+    nickname: string; //昵称
+    avatar: image;   //头像
+    sessionKey: string; //会话密钥
+};
+
+
+//一个帖子的内容
+class SPost
+{
+    postId: int; //
+    title: string; //标题
+    content: string; //正文
+    authorUserId: int; //作者的userId
+    authorAccount: string; //作者账号
+    authorNickname: string; //作者昵称
+    imgIdLIst: SeqInt; //帖中图片Id列表
+    postDt: date; //发帖日期
+    likes: int; //赞的数量
+    dislikes: int; //反赞数量
+    comments: int; //评论的数量
+};
+
+SeqPost = list<SPost>; //帖子列表
+
+
+//一个评论的内容
+class SComment
+{
+    userId: int; //评论者Id
+    nickname: string; //评论者昵称
+    content: string; //评论正文
+    commentDt: date; //评论日期
+};
+
+SeqComment = list<SComment>; //评论列表

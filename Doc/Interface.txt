@@ -1,0 +1,49 @@
+//登陆
+login(in account: string, //账号
+      in passwd: string, //密码
+      out userInfo: SLoginReturn //服务端返回数据
+      );
+
+//注册
+signup(in account: string,
+       in passwd: string,
+       in nickname: string, //昵称
+       out userInfo: SLoginReturn
+       );
+
+//换头像
+changeAvatar(in sessionKey: string, //会话密钥
+             in avatar: image //头像
+            );
+
+
+//用于主页获取帖子
+getPosts(in lastPostId: int, //上次获取到的帖子最新或者最旧的id
+         in forNew: bool, //是刷新还是获取旧的
+         in requsetNum: int, //像获取的数量
+         out postList: SeqPost //服务端返回的结构
+         );
+
+//获取图片
+getImage(in imgId: int, //图片Id
+         out img: image, //图片binary
+         out shortDesc: string //图片的描述
+         );
+
+
+//以下三个方法用于发一个帖子
+//开始发帖
+startPost(in sessionKey: string,
+          in title: string,
+          in content: string);
+
+//帖子中的照片，一张调用一次
+uploadPostImg(in sessionKey: string,
+              in img: image,
+              in descrpt: string, //对照片的描述，若无，传空串
+              out imgId: int);
+
+//传完照片，发帖结束
+endPost(in sessionKey: string,
+        out postId: int //新帖子的id
+        );
