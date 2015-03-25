@@ -29,6 +29,8 @@
     <TypeScriptCompile Include="rmi\rmimanager.ts" />
     <TypeScriptCompile Include="rmi\serialize.ts" />
     <TypeScriptCompile Include="view\home.ts" />
+    <TypeScriptCompile Include="view\login.ts" />
+    <TypeScriptCompile Include="view\viewmanager.ts" />
   </ItemGroup>
   <ItemGroup>
     <None Include="web.Debug.config">

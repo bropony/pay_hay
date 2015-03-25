@@ -9,10 +9,33 @@
     <script src="rmi/rmimanager.js"></script>
     <script src="rmi/rmidatastruct.js"></script>
     <script src="rmi/rmiclient.js"></script>
+    <script src="view/viewmanager.js"></script>
+    <script src="view/home.js"></script>
     <script src="app.js"></script>
 </head>
 <body>
-
-    <div id="content"></div>
+    <header>
+        <table>
+            <tr>
+                <td id="user-entrance" style="text-align:center; width:310px; border:5px">
+                    <code id="a-login" onclick="alert('hey man')">Login</code>
+                    <code id="a-signup" onclick="alert('hey dude')">Signup</code>
+                </td>
+                <td id="td-new-post" style="text-align: center; width: 310px; border: 5px">
+                    <code id="new-post" onclick="alert('new post')">New Post</code>
+                </td>
+                <td id="td-more" style="text-align: center; width: 320px; border: 5px">
+                    <code id="more" onclick="alert('more...')">More...</code>
+                </td>
+            </tr>
+        </table>
+    </header>
+    <div id="login-popup" class="popup-dlg">
+        <a href="#close" title="Close" class="close-popup-dlg">X</a>
+        <label>Account:</label>
+    </div>
+    <section>
+        <div id="content"></div>
+    </section>
 </body>
 </html>

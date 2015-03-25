@@ -112,7 +112,7 @@ var Rmi;
         };
         return _RmiManager_cls;
     })();
-    Rmi.RmiManager = new _RmiManager_cls("ws://112.74.102.141:9600");
+    Rmi.RmiManager = new _RmiManager_cls("ws://112.74.102.141");
     function schedule() {
         Rmi.RmiManager.sendout();
     }

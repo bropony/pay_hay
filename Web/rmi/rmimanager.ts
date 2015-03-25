@@ -153,7 +153,7 @@ module Rmi {
         }
     }
 
-    export var RmiManager: _RmiManager_cls = new _RmiManager_cls("ws://112.74.102.141:9600");
+    export var RmiManager: _RmiManager_cls = new _RmiManager_cls("ws://112.74.102.141");
 
     function schedule() {
         RmiManager.sendout();
