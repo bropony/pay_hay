@@ -15,13 +15,14 @@ var View;
         function LoginCBImpl() {
             _super.apply(this, arguments);
             this.onResponse = function (userInfo) {
+                alert("login success");
                 View.ViewManager.setItem(View.ViewManager.keyUserId, userInfo.userId);
                 View.ViewManager.setItem(View.ViewManager.keyAccount, this.account);
                 View.ViewManager.setItem(View.ViewManager.keyPasswd, this.passwd);
                 View.ViewManager.setItem(View.ViewManager.keyNickname, userInfo.nickname);
                 View.ViewManager.setItem(View.ViewManager.keySessionKey, userInfo.sessionKey);
                 console.log("Login Success");
-                window.location.assign("index.html");
+                //document.body.innerHTML = "Login Success";
             };
             this.onError = function (what, code) {
                 alert("Login Error: " + what);
@@ -37,7 +38,9 @@ var View;
         var username = document.getElementById("username")["value"];
         var passwd = document.getElementById("password")["value"];
         console.log("A:%s, p:%s", username, passwd);
-        Rmi.Proxy.login(new LoginCBImpl(), username, passwd);
+        var cb = new LoginCBImpl();
+        Rmi.Proxy.login(cb, username, passwd);
+        alert("zzzzzzzzzzzzzzz");
     };
 })(View || (View = {}));
 ;

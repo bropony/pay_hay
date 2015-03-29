@@ -6,6 +6,7 @@
 module View {
     class LoginCBImpl extends Rmi.LoginCallback {
         onResponse = function (userInfo: Rmi.SLoginReturn) {
+            alert("login success");
             ViewManager.setItem(ViewManager.keyUserId, userInfo.userId);
             ViewManager.setItem(ViewManager.keyAccount, this.account);
             ViewManager.setItem(ViewManager.keyPasswd, this.passwd);
@@ -13,7 +14,7 @@ module View {
             ViewManager.setItem(ViewManager.keySessionKey, userInfo.sessionKey);
 
             console.log("Login Success");
-            window.location.assign("index.html");
+            //document.body.innerHTML = "Login Success";
         }
 
         onError = function (what: string, code: number) {
@@ -29,8 +30,11 @@ module View {
     export var login = function () {
         var username = document.getElementById("username")["value"];
         var passwd = document.getElementById("password")["value"];
-        
+
         console.log("A:%s, p:%s", username, passwd);
-        Rmi.Proxy.login(new LoginCBImpl(), username, passwd);
+        var cb = new LoginCBImpl();
+        Rmi.Proxy.login(cb, username, passwd);
+
+        alert("zzzzzzzzzzzzzzz");
     }
 };
