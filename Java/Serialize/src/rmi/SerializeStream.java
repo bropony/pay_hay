@@ -2,7 +2,7 @@ package rmi;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
-import java.nio.charset.StandardCharsets;
+//import java.nio.charset.StandardCharsets;
 import java.util.Date;
 
 public class SerializeStream {
@@ -450,8 +450,16 @@ public class SerializeStream {
 	
 	//string
 	public void write(String s){
-		byte[] bytes = s.getBytes(StandardCharsets.UTF_8);
-		write(bytes);
+		//byte[] bytes = s.getBytes(StandardCharsets.UTF_8);
+		//write(bytes);
+		
+		try{
+			byte[] bytes = s.getBytes("UTF-8");
+			write(bytes);
+		}
+		catch (Exception e){
+			e.printStackTrace();
+		}
 	}
 	
 	public void write(String[] sa){
@@ -464,7 +472,15 @@ public class SerializeStream {
 	
 	public String readString(){
 		byte[] bytes = readBytes();
-		String res = new String(bytes, StandardCharsets.UTF_8);
+		//String res = new String(bytes, StandardCharsets.UTF_8);
+		
+		String res = "";
+		try{
+			res = new String(bytes, "UTF-8");
+		}
+		catch (Exception e){
+			e.printStackTrace();
+		}
 		
 		return res;
 	}
