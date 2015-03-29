@@ -20,6 +20,8 @@
   <ItemGroup>
     <Content Include="app.css" />
     <Content Include="index.html" />
+    <Content Include="login.css" />
+    <Content Include="login.html" />
     <Content Include="web.config" />
   </ItemGroup>
   <ItemGroup>

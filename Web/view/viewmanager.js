@@ -10,6 +10,7 @@ var View;
             this.keyNickname = "nickname";
             this.keyPasswd = "passwd";
             this.keySessionKey = "sessionKey";
+            this.keyAvatar = "avatar";
         }
         _ViewManager_cls.prototype.getItem = function (key) {
             return localStorage.getItem(key);
@@ -24,29 +25,32 @@ var View;
             this.passwd = this.getItem(this.keyPasswd);
             this.sessionKey = this.getItem(this.keySessionKey);
             var elem = document.getElementById("user-entrance");
+            if (!elem) {
+                return;
+            }
             if (this.nickname) {
                 elem.innerHTML = '';
-                var hi = document.createElement("code");
+                var hi = document.createElement("a");
                 hi.innerHTML = "Hi " + this.nickname;
-                hi.addEventListener("click", View.ViewManager.onMine);
+                hi.href = "my.html";
                 hi.id = "a-hi";
                 elem.appendChild(hi);
-                var logout = document.createElement("code");
+                var logout = document.createElement("a");
                 logout.innerHTML = "Logout";
-                logout.addEventListener("click", View.ViewManager.onLogout);
+                logout.href = "logout.html";
                 logout.id = "a-logout";
                 elem.appendChild(logout);
             }
             else {
                 elem.innerHTML = '';
-                var login = document.createElement("code");
+                var login = document.createElement("a");
                 login.innerHTML = "Login";
-                login.addEventListener("click", View.ViewManager.onLogin);
+                login.href = "login.html";
                 login.id = "a-login";
                 elem.appendChild(login);
-                var signup = document.createElement("code");
+                var signup = document.createElement("a");
                 signup.innerHTML = "Signup";
-                signup.addEventListener("click", View.ViewManager.onSignup);
+                signup.href = "signup.html";
                 signup.id = "a-signup";
                 elem.appendChild(signup);
             }

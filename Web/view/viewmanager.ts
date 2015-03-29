@@ -9,12 +9,14 @@ module View {
         private nickname: string;
         private passwd: string;
         private sessionKey: string;
+        private avatar: ArrayBuffer;
 
-        private keyUserId = "userId";
-        private keyAccount = "account";
-        private keyNickname = "nickname";
-        private keyPasswd = "passwd";
-        private keySessionKey = "sessionKey";
+        public keyUserId = "userId";
+        public keyAccount = "account";
+        public keyNickname = "nickname";
+        public keyPasswd = "passwd";
+        public keySessionKey = "sessionKey";
+        public keyAvatar = "avatar";
 
         constructor() {
         }
@@ -35,32 +37,36 @@ module View {
             this.sessionKey = this.getItem(this.keySessionKey);
 
             var elem = document.getElementById("user-entrance");
+            if (!elem) {
+                return;
+            }
+
             if (this.nickname) {
                 elem.innerHTML = '';
-                var hi = document.createElement("code");
+                var hi = document.createElement("a");
                 hi.innerHTML = "Hi " + this.nickname;
-                hi.addEventListener("click", ViewManager.onMine);
+                hi.href = "my.html";
                 hi.id = "a-hi";
                 elem.appendChild(hi);
 
-                var logout = document.createElement("code");
+                var logout = document.createElement("a");
                 logout.innerHTML = "Logout";
-                logout.addEventListener("click", ViewManager.onLogout);
+                logout.href = "logout.html";
                 logout.id = "a-logout";
                 elem.appendChild(logout);
             }
             else {
                 elem.innerHTML = '';
 
-                var login = document.createElement("code");
+                var login = document.createElement("a");
                 login.innerHTML = "Login";
-                login.addEventListener("click", ViewManager.onLogin);
+                login.href = "login.html";
                 login.id = "a-login";
                 elem.appendChild(login);
 
-                var signup = document.createElement("code");
+                var signup = document.createElement("a");
                 signup.innerHTML = "Signup";
-                signup.addEventListener("click", ViewManager.onSignup);
+                signup.href = "signup.html";
                 signup.id = "a-signup";
                 elem.appendChild(signup);
             }
