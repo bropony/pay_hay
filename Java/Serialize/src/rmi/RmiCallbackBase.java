@@ -9,6 +9,10 @@ public abstract class RmiCallbackBase {
 	}
 	
 	public boolean isTimeout(long timeout){
+		if (timeout <= 0){
+			return false;
+		}
+		
 		Date now = new Date();
 		
 		if ((now.getTime() - __createDt.getTime()) > timeout){
