@@ -60,6 +60,7 @@ var View;
             alert("onMine");
         };
         _ViewManager_cls.prototype.onLogout = function () {
+            View.ViewManager.setItem(View.ViewManager.keyAccount, '');
             View.ViewManager.setItem(View.ViewManager.keyNickname, '');
             View.ViewManager.setItem(View.ViewManager.keyPasswd, '');
             View.ViewManager.setItem(View.ViewManager.keySessionKey, '');

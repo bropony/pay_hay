@@ -19,6 +19,7 @@ module Rmi {
         private _ws: WebSocket;
         private _cbs: { [index: number]: CallbackBase };
         private _ogs: OutGoing[];
+        private _timeout: number;
 
         constructor(wsUrl: string) {
             this._url = wsUrl;
@@ -26,6 +27,11 @@ module Rmi {
 
             this._cbs = {};
             this._ogs = [];
+            this._timeout = 0;
+        }
+
+        setTimeout(t: number) {
+            this._timeout = t;
         }
 
         isOpen(): boolean {
@@ -140,14 +146,16 @@ module Rmi {
                 this._ws.send(og.__os.getBuffer());
             }
 
-            var now = new Date();
-            for (var msgId in this._cbs) {
-                var cb = this._cbs[msgId];
-                var pushDt = cb["__pushDt"];
-                var diff = now.getTime() - pushDt.getTime();
-                if (diff > 5000) {
-                    cb.__onTimeout();
-                    delete this._cbs[msgId];
+            if (this._timeout > 0) {
+                var now = new Date();
+                for (var msgId in this._cbs) {
+                    var cb = this._cbs[msgId];
+                    var pushDt = cb["__pushDt"];
+                    var diff = now.getTime() - pushDt.getTime();
+                    if (diff > this._timeout) {
+                        cb.__onTimeout();
+                        delete this._cbs[msgId];
+                    }
                 }
             }
         }

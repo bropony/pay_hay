@@ -412,7 +412,8 @@
             var ai = new Uint8Array(ab);
 
             for (var i = 0; i < size; i++) {
-                ai.set(i, this.readUB());
+                //ai.set(i, this.readUB());
+                ai[i] = this.readUB();
             }
 
             return ab;
@@ -424,7 +425,9 @@
 
             var ai = new Uint8Array(img);
             for (var i = 0; i < size; i++) {
-                this.writeUB(ai.get(i));
+                //var b = ai.get(i);
+                var b = ai[i];
+                this.writeUB(b);
             }
         }
 

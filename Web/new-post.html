@@ -5,6 +5,11 @@
     <title>[Pay Hay] New Post</title>
     <link rel="stylesheet" href="login.css" type="text/css" />
     <script src="app.js"></script>
+    <script>
+        window.onload = function () {
+            View.onNewPostLoad();
+        }
+    </script>
 </head>
 <body>
     <div class="container">
@@ -17,10 +22,11 @@
                 <div id="images">
                 </div>
                 <div>
-                    <input type="file" id="add-image" value="Add An Image" onchange="View.addImage();" />
+                    <input type="file" id="add-image" value="Add An Image" onchange="View.addImage();" style="display:none" accept="image/png, image/jpg"/>
+                    <input type="button" value="Add Image" onclick="document.getElementById('add-image').click();" />
                 </div>
                 <div>
-                    <textarea id="content" placeholder="Describe Your Post"></textarea>
+                    <textarea id="details" placeholder="Details Your Post" style="width:100%;min-height:50px;"></textarea>
                 </div>
                 <div>
                     <input type="button" value="Summit" onclick="View.newPost();" />

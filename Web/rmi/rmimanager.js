@@ -9,7 +9,11 @@ var Rmi;
             this._ws = null;
             this._cbs = {};
             this._ogs = [];
+            this._timeout = 0;
         }
+        _RmiManager_cls.prototype.setTimeout = function (t) {
+            this._timeout = t;
+        };
         _RmiManager_cls.prototype.isOpen = function () {
             if (this._ws && this._ws.readyState == WebSocket.OPEN) {
                 return true;
@@ -99,14 +103,16 @@ var Rmi;
                 this._cbs[og.__msgId] = og.__cb;
                 this._ws.send(og.__os.getBuffer());
             }
-            var now = new Date();
-            for (var msgId in this._cbs) {
-                var cb = this._cbs[msgId];
-                var pushDt = cb["__pushDt"];
-                var diff = now.getTime() - pushDt.getTime();
-                if (diff > 5000) {
-                    cb.__onTimeout();
-                    delete this._cbs[msgId];
+            if (this._timeout > 0) {
+                var now = new Date();
+                for (var msgId in this._cbs) {
+                    var cb = this._cbs[msgId];
+                    var pushDt = cb["__pushDt"];
+                    var diff = now.getTime() - pushDt.getTime();
+                    if (diff > this._timeout) {
+                        cb.__onTimeout();
+                        delete this._cbs[msgId];
+                    }
                 }
             }
         };

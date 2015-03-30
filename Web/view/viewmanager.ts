@@ -79,6 +79,7 @@ module View {
         }
         
         onLogout() {
+            ViewManager.setItem(ViewManager.keyAccount, '');
             ViewManager.setItem(ViewManager.keyNickname, '');
             ViewManager.setItem(ViewManager.keyPasswd, '');
             ViewManager.setItem(ViewManager.keySessionKey, '');
