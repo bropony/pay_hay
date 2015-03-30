@@ -22,6 +22,10 @@
     <Content Include="index.html" />
     <Content Include="login.css" />
     <Content Include="login.html" />
+    <Content Include="logout.html" />
+    <Content Include="more.html" />
+    <Content Include="new-post.html" />
+    <Content Include="signup.html" />
     <Content Include="web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -32,6 +36,8 @@
     <TypeScriptCompile Include="rmi\serialize.ts" />
     <TypeScriptCompile Include="view\home.ts" />
     <TypeScriptCompile Include="view\login.ts" />
+    <TypeScriptCompile Include="view\newpost.ts" />
+    <TypeScriptCompile Include="view\signup.ts" />
     <TypeScriptCompile Include="view\viewmanager.ts" />
   </ItemGroup>
   <ItemGroup>

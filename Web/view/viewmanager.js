@@ -39,6 +39,7 @@ var View;
                 logout.innerHTML = "Logout";
                 logout.href = "logout.html";
                 logout.id = "a-logout";
+                //logout.addEventListener("click", ViewManager.onLogout);
                 elem.appendChild(logout);
             }
             else {
@@ -59,7 +60,10 @@ var View;
             alert("onMine");
         };
         _ViewManager_cls.prototype.onLogout = function () {
-            alert("onLogout");
+            View.ViewManager.setItem(View.ViewManager.keyNickname, '');
+            View.ViewManager.setItem(View.ViewManager.keyPasswd, '');
+            View.ViewManager.setItem(View.ViewManager.keySessionKey, '');
+            window.location.href = "index.html";
         };
         _ViewManager_cls.prototype.onLogin = function () {
             var elem = document.getElementById("login-popup");

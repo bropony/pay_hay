@@ -53,6 +53,7 @@ module View {
                 logout.innerHTML = "Logout";
                 logout.href = "logout.html";
                 logout.id = "a-logout";
+                //logout.addEventListener("click", ViewManager.onLogout);
                 elem.appendChild(logout);
             }
             else {
@@ -78,7 +79,11 @@ module View {
         }
         
         onLogout() {
-            alert("onLogout");
+            ViewManager.setItem(ViewManager.keyNickname, '');
+            ViewManager.setItem(ViewManager.keyPasswd, '');
+            ViewManager.setItem(ViewManager.keySessionKey, '');
+
+            window.location.href = "index.html";
         }
 
         onLogin() {

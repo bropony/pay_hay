@@ -10,9 +10,9 @@ var __extends = this.__extends || function (d, b) {
 };
 var View;
 (function (View) {
-    var LoginCBImpl = (function (_super) {
-        __extends(LoginCBImpl, _super);
-        function LoginCBImpl() {
+    var SignupCBImpl = (function (_super) {
+        __extends(SignupCBImpl, _super);
+        function SignupCBImpl() {
             _super.apply(this, arguments);
             this.onResponse = function (userInfo) {
                 View.ViewManager.setItem(View.ViewManager.keyUserId, userInfo.userId);
@@ -20,7 +20,7 @@ var View;
                 View.ViewManager.setItem(View.ViewManager.keyPasswd, this.passwd);
                 View.ViewManager.setItem(View.ViewManager.keyNickname, userInfo.nickname);
                 View.ViewManager.setItem(View.ViewManager.keySessionKey, userInfo.sessionKey);
-                console.log("Login Success");
+                console.log("Signup Success");
                 window.location.href = "index.html";
             };
             this.onError = function (what, code) {
@@ -31,17 +31,21 @@ var View;
                 alert("Login Timeout. Please Retry!");
             };
         }
-        return LoginCBImpl;
-    })(Rmi.LoginCallback);
-    View.login = function () {
+        return SignupCBImpl;
+    })(Rmi.SignupCallback);
+    View.signup = function () {
         var username = document.getElementById("username")["value"];
+        var nickname = document.getElementById("nickname")["value"];
         var passwd = document.getElementById("password")["value"];
-        console.log("A:%s, p:%s", username, passwd);
-        var cb = new LoginCBImpl();
+        var repasswd = document.getElementById("re-password")["value"];
+        if (passwd != repasswd) {
+            alert("Two passwords you input are equivelant!");
+            return;
+        }
+        var cb = new SignupCBImpl();
         cb["account"] = username;
         cb["passwd"] = passwd;
-        Rmi.Proxy.login(cb, username, passwd);
+        Rmi.Proxy.signup(cb, username, passwd, nickname);
     };
 })(View || (View = {}));
-;
-//# sourceMappingURL=login.js.map
+//# sourceMappingURL=signup.js.map

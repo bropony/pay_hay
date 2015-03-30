@@ -18,6 +18,8 @@ function preloadScripts() {
     addScript("view/viewmanager.js");
     addScript("view/home.js");
     addScript("view/login.js");
+    addScript("view/signup.js");
+    addScript("view/newpost.js");
 }
 
 preloadScripts();

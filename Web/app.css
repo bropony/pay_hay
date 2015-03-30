@@ -27,21 +27,31 @@ section {
     overflow:auto;
 }
 
-#a-login, #a-hi {
+#a-login {
     text-decoration:underline;
     color:red;
     margin-right:10px;
+    font-size:150%;
+}
+
+#a-hi {
+    text-decoration:underline;
+    color:green;
+    margin-right:10px;
+    font-size:150%;
 }
 
 #a-signup, #a-logout {
     text-decoration:underline;
     color:red;
     margin-left:10px;
+    font-size:150%;
 }
 
 #new-post, #more{
     text-decoration:underline;
     color:red;
+    font-size:150%;
 }
 
 header.td {

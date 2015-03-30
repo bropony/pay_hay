@@ -4,7 +4,7 @@
 /// <reference path="viewmanager.ts" />
 
 module View {
-    class LoginCBImpl extends Rmi.LoginCallback {
+    class SignupCBImpl extends Rmi.SignupCallback {
         onResponse = function (userInfo: Rmi.SLoginReturn) {
             ViewManager.setItem(ViewManager.keyUserId, userInfo.userId);
             ViewManager.setItem(ViewManager.keyAccount, this.account);
@@ -12,7 +12,7 @@ module View {
             ViewManager.setItem(ViewManager.keyNickname, userInfo.nickname);
             ViewManager.setItem(ViewManager.keySessionKey, userInfo.sessionKey);
 
-            console.log("Login Success");
+            console.log("Signup Success");
             window.location.href = "index.html";
         }
 
@@ -26,14 +26,21 @@ module View {
         }
     }
 
-    export var login = function () {
+    export var signup = function () {
         var username = document.getElementById("username")["value"];
+        var nickname = document.getElementById("nickname")["value"];
         var passwd = document.getElementById("password")["value"];
+        var repasswd = document.getElementById("re-password")["value"];
 
-        console.log("A:%s, p:%s", username, passwd);
-        var cb = new LoginCBImpl();
+        if (passwd != repasswd) {
+            alert("Two passwords you input are equivelant!");
+            return;
+        }
+
+        var cb = new SignupCBImpl();
         cb["account"] = username;
         cb["passwd"] = passwd;
-        Rmi.Proxy.login(cb, username, passwd);
+
+        Rmi.Proxy.signup(cb, username, passwd, nickname);
     }
-};
+}
