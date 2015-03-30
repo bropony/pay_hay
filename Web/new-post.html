@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>[Pay Hay] New Post</title>
+    <link rel="stylesheet" href="login.css" type="text/css" />
+    <script src="app.js"></script>
+</head>
+<body>
+    <div class="container">
+        <section id="content">
+            <form>
+                <h1>New Post</h1>
+                <div>
+                    <input type="text" placeholder="Title" required="" id="title" />
+                </div>
+                <div id="images">
+                </div>
+                <div>
+                    <input type="file" id="add-image" value="Add An Image" onchange="View.addImage();" />
+                </div>
+                <div>
+                    <textarea id="content" placeholder="Describe Your Post"></textarea>
+                </div>
+                <div>
+                    <input type="button" value="Summit" onclick="View.newPost();" />
+                </div>
+            </form><!-- form -->
+        </section><!-- content -->
+    </div><!-- container -->
+</body>
+</html>
