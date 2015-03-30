@@ -26,4 +26,9 @@ preloadScripts();
 
 window.onload = () => {
     View.ViewManager.init();
+
+    var postList = document.getElementById("post-list");
+    if (postList) {
+        View.loadNewPost();
+    }
 };

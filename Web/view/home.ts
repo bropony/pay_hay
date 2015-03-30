@@ -3,7 +3,6 @@
 /// <reference path="../rmi/rmimanager.ts" /> 
 
 module View {
-    export class HomeScene {
-        private postList: Rmi.SPost[];
+    export var loadNewPost = function () {
     }
 }

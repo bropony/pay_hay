@@ -3,11 +3,7 @@
 /// <reference path="../rmi/rmimanager.ts" /> 
 var View;
 (function (View) {
-    var HomeScene = (function () {
-        function HomeScene() {
-        }
-        return HomeScene;
-    })();
-    View.HomeScene = HomeScene;
+    View.loadNewPost = function () {
+    };
 })(View || (View = {}));
 //# sourceMappingURL=home.js.map

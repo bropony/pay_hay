@@ -22,5 +22,9 @@ function preloadScripts() {
 preloadScripts();
 window.onload = function () {
     View.ViewManager.init();
+    var postList = document.getElementById("post-list");
+    if (postList) {
+        View.loadNewPost();
+    }
 };
 //# sourceMappingURL=app.js.map
