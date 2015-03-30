@@ -12,14 +12,14 @@ header, footer {
     height:5%;
     width:100%;
     padding:0;
-    width:640px;
+    width:1024px;
     margin-left:auto;
     margin-right:auto;
 }
 
 section {
     height:95%; 
-    width:640px;
+    width:1024px;
     margin-left:auto;
     margin-right:auto;
     background-color:lightblue; 
