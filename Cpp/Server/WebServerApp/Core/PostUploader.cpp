@@ -19,7 +19,7 @@ void CPostUploader::startPost(int userId, const std::string & title, const std::
 	{
 		endPost(found->first, found->second.postDt);
 
-		_mapPostInst.erase(found);
+		_mapPostInst.erase(userId);
 	}
 
 	CPostInst postInst;
