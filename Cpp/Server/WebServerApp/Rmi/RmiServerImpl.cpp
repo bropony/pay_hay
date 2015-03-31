@@ -7,6 +7,7 @@
 
 #include "User/UserManager.h"
 #include "User/UserHelper.h"
+#include "Helper/Util.h"
 
 using namespace Rmi;
 using namespace WebServerApp;
@@ -14,8 +15,10 @@ using namespace WebServerApp;
 void CRmiServerImpl::login(const std::string & account, const std::string & passwd, const CLoginCallbackPtr & loginCB)
 {
 	CUserPtr user = CUserManager::instance()->findUser(account); 
+	std::string hashedPasswd = CUtil::encryptPassword(passwd);
+
 	if (NULL == user ||
-		!user->isPasswdMatched(passwd))
+		!user->isPasswdMatched(hashedPasswd))
 	{
 		CErrorCodeManager::throwException("Error_accountOrPasswd");
 	}
@@ -60,7 +63,9 @@ void CRmiServerImpl::signup(const std::string & account, const std::string & pas
 		CErrorCodeManager::throwException("Error_nicknameUsed");
 	}
 
-	CUserPtr user = CUserManager::instance()->createUser(account, nickname, passwd);
+	std::string hashedPasswd = CUtil::encryptPassword(passwd);
+
+	CUserPtr user = CUserManager::instance()->createUser(account, nickname, hashedPasswd);
 
 	SLoginReturn userInfo;
 	userInfo.userId = user->getUserId();

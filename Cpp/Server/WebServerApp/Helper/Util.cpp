@@ -1,4 +1,6 @@
 #include "Helper/Util.h"
+#include "framework/encrypt/hashencrypt.h"
+#include "framework/util/stringfun.h"
 
 #include <cstdlib>
 #include <assert.h>
@@ -406,4 +408,22 @@ void CUtil::getOldList(const std::vector<int> & inList, unsigned maxSize, int la
 			}
 		}
 	}
+}
+
+const std::string CUtil::encryptPassword(const std::string & passwd)
+{
+	char buf[512] = { 0 };
+	int len = 0;
+	char * fmt = "ph%s";
+
+	len = cdf_snprintf(
+		buf,
+		sizeof(buf)-1,
+		fmt,
+		passwd.c_str()
+		);
+
+	std::string res = cdf::CStrFun::to_lower(cdf::CMd5Encrypt().hash(buf, len).c_str());
+
+	return res;
 }

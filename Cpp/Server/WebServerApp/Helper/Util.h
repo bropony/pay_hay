@@ -170,6 +170,9 @@ namespace WebServerApp
 		*/
 		static void getNewList(const std::vector<int> & inList, unsigned maxNum, int lastVal, std::vector<int> & outList);
 		static void getOldList(const std::vector<int> & inList, unsigned maxNum, int lastVal, std::vector<int> & outList);
+
+		// encrypt passwords
+		static const std::string encryptPassword(const std::string & passwd);
 	};
 }
 #endif
