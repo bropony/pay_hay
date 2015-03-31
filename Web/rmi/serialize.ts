@@ -391,15 +391,15 @@
                 throw "Serializing Error";
             }
 
-            var secs = this.readLong();
-            var res = new Date(secs * 1000);
+            var mills = this.readLong();
+            var res = new Date(mills);
 
             return res;
         }
 
         writeDate(dt: Date) {
-            var secs = dt.getTime() / 1000;
-            this.writeLong(secs);
+            var mills = dt.getTime();
+            this.writeLong(mills);
         }
 
         readImage(): ArrayBuffer {

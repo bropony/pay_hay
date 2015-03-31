@@ -56,7 +56,7 @@ module View {
             var uri = URL.createObjectURL(blob);
             if (this._firstImg) {
                 var summary = document.getElementById("s" + this._postId);
-                summary.style.backgroundImage = uri;
+                summary.style.backgroundImage = "url(" + uri + ")";
             }
             else {
                 var imgDiv = document.getElementById("i" + this._postId);
@@ -94,7 +94,7 @@ module View {
         author.innerHTML = post.authorNickname;
         summary.appendChild(author);
         var postDt = document.createElement("h3");
-        postDt.innerHTML = post.postDt.toLocaleDateString();
+        postDt.innerHTML = post.postDt.toDateString();
         summary.appendChild(postDt);
         details.appendChild(summary);
 

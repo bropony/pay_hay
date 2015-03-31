@@ -54,11 +54,11 @@ var Rmi;
                 return;
             }
             if (isOk) {
-                console.log("%d is Ok", msgId);
+                //console.log("%d is Ok", msgId);
                 __cb.__onResponse(__is);
             }
             else {
-                console.log("%d is not Ok", msgId);
+                //console.log("%d is not Ok", msgId);
                 __cb.__onError(__is.readString(), __is.readInt());
             }
             delete this._cbs[msgId];

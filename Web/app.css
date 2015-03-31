@@ -65,8 +65,16 @@ details{
 
 summary{
     width:100%;
-    height:auto;
+    height:500px;
+    color:green;
 
     background-color:gray;
     background-size:cover;
+}
+
+img {
+    height: auto;
+    width:100%;
+    border:dashed;
+    margin-top:4px;
 }
