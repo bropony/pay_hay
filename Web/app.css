@@ -57,3 +57,16 @@ section {
 header.td {
     width: 33%;
 }
+
+details{
+    width:100%;
+    height:auto;
+}
+
+summary{
+    width:100%;
+    height:auto;
+
+    background-color:brown;
+    background-size:cover;
+}

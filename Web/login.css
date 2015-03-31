@@ -271,3 +271,15 @@ form:after {
 	background-position: 0 -135px;
 	color: #00aeef;
 }
+
+img {
+    height: auto;
+    width:100%;
+    border:dashed;
+    margin-top:4px;
+}
+
+summary{
+    background-color:brown;
+    background-size:cover;
+}

@@ -29,6 +29,7 @@ window.onload = () => {
 
     var postList = document.getElementById("post-list");
     if (postList) {
+        console.log("loading posts...");
         View.loadNewPost();
     }
 };
