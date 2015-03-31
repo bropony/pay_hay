@@ -268,13 +268,27 @@ var Rmi;
             if (this._pos >= this._buffer.byteLength) {
                 throw "Serializing Error";
             }
-            var res = this._dataView.getFloat64(this._pos, true);
+            //var res = this._dataView.getFloat64(this._pos, true);
+            var lower = this._dataView.getUint32(this._pos, true);
+            var higher = this._dataView.getInt32(this._pos + 4, true);
+            var res = 0;
+            if (higher > 0) {
+                res = higher * Math.pow(2, 32) + lower;
+            }
+            else {
+                res = higher * Math.pow(2, 32) - lower;
+            }
             this._pos += 8;
             return res;
         };
         SimpleSerializer.prototype.writeLong = function (data) {
             this.increSize(8);
-            this._dataView.setFloat64(this._pos, data, true);
+            var base = Math.pow(2, 32);
+            var higher = Math.floor(data / base);
+            var lower = Math.floor(Math.abs(data) % base);
+            //this._dataView.setFloat64(this._pos, lower, true);
+            this._dataView.setUint32(this._pos, lower, true);
+            this._dataView.setInt32(this._pos + 4, higher, true);
             this._pos += 8;
         };
         SimpleSerializer.prototype.readFloat = function () {
