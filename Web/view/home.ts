@@ -36,6 +36,7 @@ module View {
         }
 
         onTimeout = function () {
+            console.log("Load Post Timeout");
         }
     }
 
@@ -112,6 +113,8 @@ module View {
     }
 
     export var loadNewPost = function () {
+        console.log("loading posts from server: %d", lastNewPostId);
+
         var cb = new LoadPostCBImpl();
         Rmi.Proxy.getPosts(cb, lastNewPostId, true, 10);
     }

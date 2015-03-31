@@ -4,9 +4,15 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>[Pay Hay] New Post</title>
     <link rel="stylesheet" href="login.css" type="text/css" />
-    <script src="app.js"></script>
-    <script>
+    <script src="rmi/serialize.js"></script>
+    <script src="rmi/rmimanager.js"></script>
+    <script src="rmi/rmidatastruct.js"></script>
+    <script src="rmi/rmiclient.js"></script>
+    <script src="view/viewmanager.js"></script>
+    <script src="view/newpost.js"></script>
+<script>
         window.onload = function () {
+            View.ViewManager.init();
             View.onNewPostLoad();
         }
     </script>

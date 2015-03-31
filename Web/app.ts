@@ -16,20 +16,14 @@ function preloadScripts() {
     addScript("rmi/rmidatastruct.js");
     addScript("rmi/rmiclient.js");
     addScript("view/viewmanager.js");
-    addScript("view/home.js");
-    addScript("view/login.js");
-    addScript("view/signup.js");
-    addScript("view/newpost.js");
+    //addScript("view/home.js");
+    //addScript("view/login.js");
+    //addScript("view/signup.js");
+    //addScript("view/newpost.js");
 }
 
 preloadScripts();
 
-window.onload = () => {
-    View.ViewManager.init();
-
-    var postList = document.getElementById("post-list");
-    if (postList) {
-        console.log("loading posts...");
-        View.loadNewPost();
-    }
-};
+//window.onload = () => {
+//    View.ViewManager.init();
+//};

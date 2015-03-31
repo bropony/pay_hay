@@ -6,7 +6,18 @@
     <meta charset="utf-8" />
     <title>Pay Hay</title>
     <link rel="stylesheet" href="app.css" type="text/css" />
-    <script src="app.js"></script>
+    <script src="rmi/serialize.js"></script>
+    <script src="rmi/rmimanager.js" ></script>
+    <script src="rmi/rmidatastruct.js"></script>
+    <script src="rmi/rmiclient.js"></script>
+    <script src="view/viewmanager.js"></script>
+    <script src="view/home.js"></script>
+<script>
+        window.onload = function () {
+           View.ViewManager.init();
+           View.loadNewPost();
+        }
+    </script>
 </head>
 <body>
     <header>

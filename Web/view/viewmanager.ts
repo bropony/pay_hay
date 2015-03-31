@@ -97,4 +97,5 @@ module View {
     }
 
     export var ViewManager: _ViewManager_cls = new _ViewManager_cls();
+    ViewManager.init();
 }

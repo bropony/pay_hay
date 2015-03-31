@@ -3,13 +3,23 @@
 <head>
     <!--<base href="www.payhay.xyz/" />-->
     <meta charset="utf-8" />
-    <title>[Pay Hay] login</title>
     <link rel="stylesheet" href="login.css" type="text/css" />
-    <script src="app.js"></script>
+    <title>[Pay Hay] login</title>
+    <script src="rmi/serialize.js"></script>
+    <script src="rmi/rmimanager.js"></script>
+    <script src="rmi/rmidatastruct.js"></script>
+    <script src="rmi/rmiclient.js"></script>
+    <script src="view/viewmanager.js"></script>
+    <script src="view/login.js"></script>
+<script>
+        window.onload = function () {
+            View.ViewManager.init();
+        }
+    </script>
 </head>
 <body>
     <div class="container">
-        <section id="main-content">
+        <section id="content">
             <form  >
                 <h1>Login</h1>
                 <div>

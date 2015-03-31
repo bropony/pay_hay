@@ -5,9 +5,14 @@
     <title>
         [Pay Hay] logout
     </title>
-    <script src="app.js"></script>
+    <script src="rmi/serialize.js"></script>
+    <script src="rmi/rmimanager.js"></script>
+    <script src="rmi/rmidatastruct.js"></script>
+    <script src="rmi/rmiclient.js"></script>
+    <script src="view/viewmanager.js"></script>
     <script>
         window.onload = function () {
+            View.ViewManager.init();
             View.ViewManager.onLogout();
         }
     </script>

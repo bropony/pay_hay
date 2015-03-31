@@ -75,5 +75,6 @@ var View;
         return _ViewManager_cls;
     })();
     View.ViewManager = new _ViewManager_cls();
+    View.ViewManager.init();
 })(View || (View = {}));
 //# sourceMappingURL=viewmanager.js.map

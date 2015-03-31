@@ -38,6 +38,7 @@ var View;
                 alert("Exp: " + what);
             };
             this.onTimeout = function () {
+                console.log("Load Post Timeout");
             };
         }
         return LoadPostCBImpl;
@@ -104,6 +105,7 @@ var View;
         }
     };
     View.loadNewPost = function () {
+        console.log("loading posts from server: %d", lastNewPostId);
         var cb = new LoadPostCBImpl();
         Rmi.Proxy.getPosts(cb, lastNewPostId, true, 10);
     };
