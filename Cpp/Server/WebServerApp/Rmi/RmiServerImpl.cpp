@@ -97,8 +97,11 @@ void CRmiServerImpl::changeAvatar(const std::string & sessionKey, const std::str
 void CRmiServerImpl::getPosts(int lastPostId, bool forNew, int requestNum, const CGetPostsCallbackPtr & getPostsCB)
 {
 	Message::Public::SeqInt postIdList;
-
+	Rmi::SeqPost posts;
 	CPostManager::instance()->getPostIdList(lastPostId, forNew, postIdList);
+	CPostManager::instance()->getPostList(postIdList, posts);
+
+	getPostsCB->response(posts);
 }
 
 void CRmiServerImpl::getImage(int imgId, const CGetImageCallbackPtr & getImageCB)
