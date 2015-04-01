@@ -33,7 +33,7 @@ module View {
         var repasswd = document.getElementById("re-password")["value"];
 
         if (passwd != repasswd) {
-            alert("Two passwords you input are equivelant!");
+            alert("Two passwords you input are NOT equivelant!");
             return;
         }
 

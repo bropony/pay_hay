@@ -39,7 +39,7 @@ var View;
         var passwd = document.getElementById("password")["value"];
         var repasswd = document.getElementById("re-password")["value"];
         if (passwd != repasswd) {
-            alert("Two passwords you input are equivelant!");
+            alert("Two passwords you input are NOT equivelant!");
             return;
         }
         var cb = new SignupCBImpl();
