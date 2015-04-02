@@ -33,6 +33,7 @@ namespace Rmi
 		int userId;
 		std::string nickname;
 		std::string avatar;
+		int avatarImgId;
 		std::string sessionKey;
 
 		SLoginReturn();

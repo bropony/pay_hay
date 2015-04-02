@@ -5,6 +5,7 @@
 #include "User.h"
 #include "Helper/Util.h"
 #include "Db/DaoManager.h"
+#include "Resource/ImageManager.h"
 
 using namespace WebServerApp;
 
@@ -41,6 +42,14 @@ const std::string & CUser::getNickname()
 
 const std::string & CUser::getAvatar()
 {
+	if (_avatar.empty() && _tUser.avatar > 0)
+	{
+		CImagePtr avatarImg = CImageManager::instance()->findImage(_tUser.avatar);
+		if (NULL != avatarImg)
+		{
+			_avatar = avatarImg->getImgBin();
+		}
+	}
 	return _avatar;
 }
 
