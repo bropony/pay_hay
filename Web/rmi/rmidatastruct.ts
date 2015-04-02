@@ -203,12 +203,14 @@ module Rmi {
 		userId: number;
 		nickname: string;
 		avatar: ArrayBuffer;
+		avatarImgId: number;
 		sessionKey: string;
 
 		constructor() {
 			this.userId = 0;
 			this.nickname = "";
 			this.avatar = new ArrayBuffer(0);
+			this.avatarImgId = 0;
 			this.sessionKey = "";
 		}
 
@@ -216,6 +218,7 @@ module Rmi {
 			this.userId = __is.read(4);
 			this.nickname = __is.read(8);
 			this.avatar = __is.read(10);
+			this.avatarImgId = __is.read(4);
 			this.sessionKey = __is.read(8);
 		}
 
@@ -223,6 +226,7 @@ module Rmi {
 			__os.write(4, this.userId);
 			__os.write(8, this.nickname);
 			__os.write(10, this.avatar);
+			__os.write(4, this.avatarImgId);
 			__os.write(8, this.sessionKey);
 		}
 
