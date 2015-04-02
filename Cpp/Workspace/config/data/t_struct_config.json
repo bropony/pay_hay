@@ -65,7 +65,7 @@
 	},
 	
 	{
-		"fields" : "userId:int#nickname:string#avatar:image#sessionKey:string",
+		"fields" : "userId:int#nickname:string#avatar:image#avatarImgId:int#sessionKey:string",
 		"id" : 100,
 		"name" : "SLoginReturn",
 		"type" : 1
