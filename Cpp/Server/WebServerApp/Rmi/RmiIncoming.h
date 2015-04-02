@@ -14,6 +14,8 @@ namespace Rmi
 			const std::string & data,
 			websocketpp::frame::opcode::value operCode);
 
+		virtual const std::string & getImage(int imgId, std::string & imgType);
+
 		void setRmiServer(const CRmiServerPtr & rmiServer);
 
 	private:
