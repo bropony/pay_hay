@@ -11,7 +11,7 @@ local t_struct_config=
  {   id = 7,   name = "SeqDouble",   type = 2,   fields = "double",   descr = "" }, 
  {   id = 8,   name = "SeqLong",   type = 2,   fields = "long",   descr = "" }, 
  {   id = 9,   name = "SeqImage",   type = 2,   fields = "image",   descr = "" }, 
- {   id = 100,   name = "SLoginReturn",   type = 1,   fields = "userId:int#nickname:string#avatar:image#sessionKey:string",   descr = "" }, 
+ {   id = 100,   name = "SLoginReturn",   type = 1,   fields = "userId:int#nickname:string#avatar:image#avatarImgId:int#sessionKey:string",   descr = "" }, 
  {   id = 101,   name = "SPost",   type = 1,   fields = "postId:int#title:string#content:string#authorUserId:int#authorAccount:string#authorNickname:string#imgIdList:SeqInt#postDt:date#likes:int#dislikes:int#comments:int",   descr = "" }, 
  {   id = 102,   name = "SeqPost",   type = 2,   fields = "SPost",   descr = "" }, 
  {   id = 103,   name = "SComment",   type = 1,   fields = "userId:int#nickname:string#content:string#commentDt:date",   descr = "" }, 
