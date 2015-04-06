@@ -1,3 +1,13 @@
+SeqInt; //int list
+SeqString; //string list
+SeqDate; // date list
+SeqBool; //bool list
+SeqByte; //byte list
+SeqShort; // short list
+SeqDouble; // double list
+SeqLong; // long list
+SeqImage; //image list
+
 //登陆或注册成功返回数据
 class SLoginReturn
 {

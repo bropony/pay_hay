@@ -21,7 +21,7 @@ changeAvatar(in sessionKey: string, //会话密钥
 getPosts(in lastPostId: int, //上次获取到的帖子最新或者最旧的id
          in forNew: bool, //是刷新还是获取旧的
          in requsetNum: int, //像获取的数量
-         out postList: SeqPost //服务端返回的结构
+         out postList: SeqPost //服务端返回的结果
          );
 
 //获取图片
@@ -29,6 +29,13 @@ getImage(in imgId: int, //图片Id
          out img: image, //图片binary
          out shortDesc: string //图片的描述
          );
+
+//获取本人的POST
+getMyyPosts(in sessionKey: string, //会话密钥
+            in lastPostId: int, // 上次获取到的帖子最新或者最旧的id
+            in forNew: bool, // 是刷新还是获取旧的
+            out postList: SeqPost // 服务端返回的结果
+            );
 
 
 //以下三个方法用于发一个帖子
@@ -47,3 +54,28 @@ uploadPostImg(in sessionKey: string,
 endPost(in sessionKey: string,
         out postId: int //新帖子的id
         );
+
+
+//赞
+likePost(in sessionKey:string, //会话密钥
+         in postId: int //post id
+         ); 
+
+//喷
+dislikePost(in sessionKey: string, //会话密钥
+            in postId: int //post id
+         ); 
+
+
+//评论
+commentPost(in sessionKey: string, //会话密钥
+            in postId: int //post id
+            in comment: string //评论的内容
+            );
+
+
+//获取帖子的评论
+getComments(in sessionKey: string, //会话密钥
+            in postId: int, //post id
+            out comments: SeqComment //结果
+            );
