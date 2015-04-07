@@ -10,6 +10,7 @@ public class SPost{
 	public int authorUserId;
 	public String authorAccount;
 	public String authorNickname;
+	public int authorAvatarImgId;
 	public int[] imgIdList;
 	public Date postDt;
 	public int likes;
@@ -23,6 +24,7 @@ public class SPost{
 		authorUserId = 0;
 		authorAccount = "";
 		authorNickname = "";
+		authorAvatarImgId = 0;
 		imgIdList = new int[0];
 		postDt = new Date();
 		likes = 0;
@@ -36,6 +38,7 @@ public class SPost{
 		authorUserId = __is.read(authorUserId);
 		authorAccount = __is.read(authorAccount);
 		authorNickname = __is.read(authorNickname);
+		authorAvatarImgId = __is.read(authorAvatarImgId);
 		imgIdList = __is.read(imgIdList);
 		postDt = __is.read(postDt);
 		likes = __is.read(likes);
@@ -49,6 +52,7 @@ public class SPost{
 		__os.write(authorUserId);
 		__os.write(authorAccount);
 		__os.write(authorNickname);
+		__os.write(authorAvatarImgId);
 		__os.write(imgIdList);
 		__os.write(postDt);
 		__os.write(likes);
