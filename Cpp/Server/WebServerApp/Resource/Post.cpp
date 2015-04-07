@@ -51,6 +51,7 @@ void CPost::postToClient(Rmi::SPost & post)
 	{
 		post.authorAccount = userPtr->getAccount();
 		post.authorNickname = userPtr->getNickname();
+		post.authorAvatarImgId = userPtr->getAvatarImgId();
 	}
 
 	Json::Value jsImgList;

@@ -43,6 +43,7 @@ SPost::SPost()
 ,authorUserId()
 ,authorAccount()
 ,authorNickname()
+,authorAvatarImgId()
 ,imgIdList()
 ,postDt()
 ,likes()
@@ -63,6 +64,7 @@ void SPost::__read(cdf::CSimpleSerializer & __is)
 	__is.read(authorUserId);
 	__is.read(authorAccount);
 	__is.read(authorNickname);
+	__is.read(authorAvatarImgId);
 	__is.read(imgIdList); 
 	__is.read(postDt);
 	__is.read(likes);
@@ -78,6 +80,7 @@ void SPost::__write(cdf::CSimpleSerializer & __os) const
 	__os.write(authorUserId);
 	__os.write(authorAccount);
 	__os.write(authorNickname);
+	__os.write(authorAvatarImgId);
 	__os.write(imgIdList); 
 	__os.write(postDt);
 	__os.write(likes);

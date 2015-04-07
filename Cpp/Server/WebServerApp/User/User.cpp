@@ -53,6 +53,11 @@ const std::string & CUser::getAvatar()
 	return _avatar;
 }
 
+int CUser::getAvatarImgId()
+{
+	return _tUser.avatar;
+}
+
 void CUser::updateAvatar(int imgId, const std::string & avatarImg)
 {
 	_tUser.avatar = imgId;

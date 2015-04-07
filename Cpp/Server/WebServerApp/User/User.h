@@ -23,6 +23,7 @@ namespace WebServerApp
 		const std::string & getNickname();
 
 		const std::string & getAvatar();
+		int getAvatarImgId();
 		void updateAvatar(int imgId, const std::string & avatarImg);
 
 		//—È÷§

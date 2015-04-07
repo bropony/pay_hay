@@ -51,6 +51,7 @@ namespace Rmi
 		int authorUserId;
 		std::string authorAccount;
 		std::string authorNickname;
+		int authorAvatarImgId;
 		SeqInt imgIdList;
 		cdf::CDateTime postDt;
 		int likes;
