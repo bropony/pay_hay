@@ -27,6 +27,7 @@ class SPost
     authorUserId: int; //作者的userId
     authorAccount: string; //作者账号
     authorNickname: string; //作者昵称
+    authorAvatarImgId: int; //作者头像ID
     imgIdLIst: SeqInt; //帖中图片Id列表
     postDt: date; //发帖日期
     likes: int; //赞的数量
