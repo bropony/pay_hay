@@ -29,6 +29,12 @@ getImage(in imgId: int, //图片Id
          out img: image, //图片binary
          out shortDesc: string //图片的描述
          );
+/**************
+* 获取图片的途径有两种,一种是调用 getImage 方法
+* 另一种是通过http途径获取,url为http://www.payhay.xyz/image/<imageId>/
+* imageId为图片的imgId. 例如如果图片的imgId为1,那么它的图片url就是 http://www.payhay.xyz/image/1/
+*/
+
 
 //获取本人的POST
 getMyyPosts(in sessionKey: string, //会话密钥
