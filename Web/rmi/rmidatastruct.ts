@@ -240,6 +240,7 @@ module Rmi {
 		authorUserId: number;
 		authorAccount: string;
 		authorNickname: string;
+		authorAvatarImgId: number;
 		imgIdList: number[];
 		postDt: Date;
 		likes: number;
@@ -253,6 +254,7 @@ module Rmi {
 			this.authorUserId = 0;
 			this.authorAccount = "";
 			this.authorNickname = "";
+			this.authorAvatarImgId = 0;
 			this.imgIdList = [];
 			this.postDt = new Date();
 			this.likes = 0;
@@ -267,6 +269,7 @@ module Rmi {
 			this.authorUserId = __is.read(4);
 			this.authorAccount = __is.read(8);
 			this.authorNickname = __is.read(8);
+			this.authorAvatarImgId = __is.read(4);
 			this.imgIdList = readSeqInt(__is);
 			this.postDt = __is.read(9);
 			this.likes = __is.read(4);
@@ -281,6 +284,7 @@ module Rmi {
 			__os.write(4, this.authorUserId);
 			__os.write(8, this.authorAccount);
 			__os.write(8, this.authorNickname);
+			__os.write(4, this.authorAvatarImgId);
 			writeSeqInt(__os, this.imgIdList);
 			__os.write(9, this.postDt);
 			__os.write(4, this.likes);
