@@ -45,7 +45,9 @@ var Rmi;
         function ChangeAvatarCallback() {
         }
         ChangeAvatarCallback.prototype.__onResponse = function (__is) {
-            this.onResponse();
+            var avatarImgId = 0;
+            avatarImgId = __is.read(4);
+            this.onResponse(avatarImgId);
         };
         ChangeAvatarCallback.prototype.__onError = function (what, code) {
             this.onError(what, code);

@@ -50,12 +50,14 @@ module Rmi {
 
 	//ChangeAvatarCallback
 	export class ChangeAvatarCallback implements CallbackBase {
-		onResponse: () => void;
+		onResponse: (avatarImgId: number) => void;
 		onError: (what: string, code: number) => void;
 		onTimeout: () => void;
 
 		__onResponse(__is: SimpleSerializer) : void {
-			this.onResponse();
+			var avatarImgId: number = 0;
+			avatarImgId = __is.read(4);
+			this.onResponse(avatarImgId);
 		}
 
 		__onError(what: string, code: number) : void {
