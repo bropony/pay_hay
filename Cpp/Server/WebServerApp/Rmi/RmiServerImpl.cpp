@@ -96,7 +96,7 @@ void CRmiServerImpl::changeAvatar(const std::string & sessionKey, const std::str
 	user->updateAvatar(imgPtr->getTUserImg().imgId, imgPtr->getImgBin());
 	user->updateToDb();
 
-	changeAvatarCB->response();
+	changeAvatarCB->response(imgPtr->getTUserImg().imgId);
 }
 
 void CRmiServerImpl::getPosts(int lastPostId, bool forNew, int requestNum, const CGetPostsCallbackPtr & getPostsCB)

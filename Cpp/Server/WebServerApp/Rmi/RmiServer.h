@@ -35,7 +35,7 @@ namespace Rmi
 	public:
 		CChangeAvatarCallback(const cdf::CWSContextPtr & context, int msgId);
 
-		void response();
+		void response(int avatarImgId);
 	};
 	typedef cdf::CHandle<CChangeAvatarCallback> CChangeAvatarCallbackPtr;
 

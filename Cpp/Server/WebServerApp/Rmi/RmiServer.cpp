@@ -46,7 +46,7 @@ CChangeAvatarCallback::CChangeAvatarCallback(const cdf::CWSContextPtr & context,
 {
 }
 
-void CChangeAvatarCallback::response()
+void CChangeAvatarCallback::response(int avatarImgId)
 {
 	cdf::CSimpleSerializer __os;
 	__os.startToWrite();
@@ -54,6 +54,7 @@ void CChangeAvatarCallback::response()
 	__os.write(_msgId);
 	__os.write(true);
 
+	__os.write(avatarImgId);
 
 	__response(__os);
 }
