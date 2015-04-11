@@ -18,7 +18,8 @@
 	{
 		"event" : "changeAvatar",
 		"eventId" : 3,
-		"inParams" : "sessionKey:string#avatar:image"
+		"inParams" : "sessionKey:string#avatar:image",
+		"outParams" : "avatarImgId:int"
 	},
 	
 	{
