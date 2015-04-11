@@ -256,13 +256,16 @@ public class RmiClient{
 	public static abstract class ChangeAvatarCallback extends RmiCallbackBase {
 		public ChangeAvatarCallback(){}
 
-		public abstract void onResponse();
+		public abstract void onResponse(int avatarImgId);
 		public abstract void onError(String what, int code);
 		public abstract void onTimeout();
 
 		@Override
 		public void __onResponse(SerializeStream __is){
-			onResponse();
+			int avatarImgId = 0;
+			avatarImgId = __is.read(avatarImgId);
+
+			onResponse(avatarImgId);
 		}
 
 		@Override
