@@ -4,7 +4,7 @@ local t_event_config=
 {
  {   eventId = 1,   event = "login",   inParams = "account:string#passwd:string",   outParams = "userInfo:SLoginReturn" }, 
  {   eventId = 2,   event = "signup",   inParams = "account:string#passwd:string#nickname:string",   outParams = "userInfo:SLoginReturn" }, 
- {   eventId = 3,   event = "changeAvatar",   inParams = "sessionKey:string#avatar:image",   outParams = "" }, 
+ {   eventId = 3,   event = "changeAvatar",   inParams = "sessionKey:string#avatar:image",   outParams = "avatarImgId:int" }, 
  {   eventId = 20,   event = "getPosts",   inParams = "lastPostId:int#forNew:bool#requestNum:int",   outParams = "postList:SeqPost" }, 
  {   eventId = 21,   event = "getImage",   inParams = "imgId:int",   outParams = "img:image#shortDesc:string" }, 
  {   eventId = 22,   event = "getMyPosts",   inParams = "sessionKey:string#lastPostId:int#forNew:bool",   outParams = "postList:SeqPost" }, 
