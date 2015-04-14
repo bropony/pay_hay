@@ -701,6 +701,11 @@ void CEventConfigManager::__callToCpp(std::ofstream & Cpp)
 
 void CEventConfigManager::toJava(const std::string & javaBase)
 {
+	if (javaBase.empty())
+	{
+		return;
+	}
+
 	std::string javaFile = javaBase + "/RmiClient.java";
 	std::ofstream Java(javaFile);
 	if (!Java)

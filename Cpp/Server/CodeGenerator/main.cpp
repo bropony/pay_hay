@@ -17,7 +17,12 @@ int main(int argc, char ** argv)
 	std::string structConfigFile = "../config/data/t_struct_config.json";
 	std::string eventConfigFile = "../config/data/t_event_config.json";
 	std::string cppBase = "../../Server/WebServerApp/Rmi";
-	std::string javaBase = argv[1];
+	std::string javaBase;
+	if (argc > 1)
+	{
+		javaBase = argv[1];
+	}
+
 	std::string tsBase = "";
 	if (argc > 2)
 	{
