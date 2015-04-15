@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" />
-    <title>[Pay Hay] login</title>
+    <title>[Pay Hay] sign up</title>
 
     <link rel="stylesheet" href="/css/layout.css" type="text/css" />
     <link rel="stylesheet" href="/css/login.css" type="text/css" />
@@ -13,25 +13,25 @@
     <script src="/js/rmi/rmiclient.js"></script>
     <script src="/js/user/usermanager.js"></script>
     <script src="/js/view/util.js"></script>
-    <script src="/js/view/login.js"></script>
+    <script src="/js/view/signup.js"></script>
 </head>
 <body>
     <div class="container">
         <section id="content">
-            <h1>登录</h1>
+            <h1>注册</h1>
             <div>
                 <input type="text" placeholder="Username" required="" id="username" />
+                <input type="text" placeholder="Nickname" required="" id="nickname" />
             </div>
             <div>
                 <input type="password" placeholder="Password" required="" id="password" />
+                <input type="password" placeholder="Repeat Password" required="" id="re-password" />
             </div>
             <div>
-                <input type="button" value="登录" onclick="View.login();" />
-                <a href="#">忘记密码？</a>
-                <a href="/scene/signup.html">注册</a>
+                <input type="button" value="注册" onclick="View.signup();" />
+                <a href="login.html">已经拥有注册账号？</a>
             </div>
         </section><!-- content -->
     </div><!-- container -->
 </body>
 </html>
-
