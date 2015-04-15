@@ -110,28 +110,31 @@ var View;
             //content
             var content = document.createElement("article");
             content.innerHTML = post.content;
+            content.className = "post-content";
+            fieldSet.appendChild(content);
             for (var i = 0; i < post.imgIdList.length; ++i) {
                 var image = document.createElement("img");
                 image.src = this.getImgUrl(post.imgIdList[i]);
                 image.id = "" + post.imgIdList[i];
+                image.className = "post-img";
                 fieldSet.appendChild(image);
             }
             var social = document.createElement("div");
             social.className = "social";
             fieldSet.appendChild(social);
-            var likes = document.createElement("span");
+            var likes = document.createElement("div");
             likes.className = "likes";
             likes.id = "" + postId;
             likes.innerHTML = "" + post.likes;
             likes.onclick = this.onLike;
             social.appendChild(likes);
-            var dislikes = document.createElement("span");
+            var dislikes = document.createElement("div");
             dislikes.className = "dislikes";
             dislikes.id = "" + postId;
             dislikes.innerHTML = "" + post.dislikes;
             dislikes.onclick = this.onDislike;
             social.appendChild(dislikes);
-            var comments = document.createElement("span");
+            var comments = document.createElement("div");
             comments.className = "comments";
             comments.id = "" + postId;
             comments.innerHTML = "" + post.comments;

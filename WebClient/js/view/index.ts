@@ -42,7 +42,9 @@ module View {
 
                 var logoutLink = document.createElement("a");
                 logoutLink.onclick = logout;
+                logoutLink.id = "logout";
                 logoutLink.innerHTML = "登出";
+                logoutLink.href = "#logout";
                 htmlNode.appendChild(logoutLink);
             }
         }
@@ -86,6 +88,11 @@ module View {
             var cb = new LoadPostCBImpl(refresh);
 
             Rmi.Proxy.getPosts(cb, PostManager.getLastPostId(refresh), refresh, 10);
+        }
+
+        export function onIndexLoad() {
+            init();
+            loadPosts(true);
         }
     }
 }

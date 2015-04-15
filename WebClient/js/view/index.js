@@ -41,7 +41,9 @@ var View;
                 htmlNode.appendChild(myEntrance);
                 var logoutLink = document.createElement("a");
                 logoutLink.onclick = logout;
+                logoutLink.id = "logout";
                 logoutLink.innerHTML = "登出";
+                logoutLink.href = "#logout";
                 htmlNode.appendChild(logoutLink);
             }
         }
@@ -79,6 +81,11 @@ var View;
             Rmi.Proxy.getPosts(cb, View.PostManager.getLastPostId(refresh), refresh, 10);
         }
         Index.loadPosts = loadPosts;
+        function onIndexLoad() {
+            init();
+            loadPosts(true);
+        }
+        Index.onIndexLoad = onIndexLoad;
     })(Index = View.Index || (View.Index = {}));
 })(View || (View = {}));
 //# sourceMappingURL=index.js.map
