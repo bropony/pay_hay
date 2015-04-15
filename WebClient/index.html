@@ -5,10 +5,15 @@
     <meta charset="utf-8" />
     <title>[Pay Hay] Welcome to Pay Hay</title>
     <link rel="stylesheet" href="/css/layout.css" type="text/css" />
-    <script src="/js/include.js"></script>
+    <script src="/js/rmi/serialize.js"></script>
+    <script src="/js/rmi/rmimanager.js"></script>
+    <script src="/js/rmi/rmidatastruct.js"></script>
+    <script src="/js/rmi/rmiclient.js"></script>
+    <script src="/js/user/usermanager.js"></script>
+    <script src="/js/view/postmanager.js"></script>
+    <script src="/js/view/index.js"></script>
     <script type="text/javascript">
-        Main.initIndexHtmlScripts();
-        window.onload = Main.onIndexLoad;
+        window.onload = View.Index.onIndexLoad;
     </script>
 </head>
 <body>
