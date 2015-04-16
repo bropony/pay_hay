@@ -60,6 +60,10 @@ Message::Db::Tables::TUserPost::operator!=(const TUserPost& __rhs) const
     {
         return true;
     }
+    if(imgStatus != __rhs.imgStatus)
+    {
+        return true;
+    }
     if(nlike != __rhs.nlike)
     {
         return true;
@@ -126,6 +130,14 @@ Message::Db::Tables::TUserPost::operator<(const TUserPost& __rhs) const
     {
         return false;
     }
+    if(imgStatus < __rhs.imgStatus)
+    {
+        return true;
+    }
+    else if(__rhs.imgStatus < imgStatus)
+    {
+        return false;
+    }
     if(nlike < __rhs.nlike)
     {
         return true;
@@ -179,6 +191,7 @@ Message::Db::Tables::TUserPost::__write(cdf::CSerializeStream& __os) const
     __os.write(title);
     __os.write(content);
     __os.write(imgList);
+    __os.write(imgStatus);
     __os.write(nlike);
     __os.write(ndislike);
     __os.write(ncomment);
@@ -193,6 +206,7 @@ Message::Db::Tables::TUserPost::__read(cdf::CSerializeStream& __is)
     __is.read(title);
     __is.read(content);
     __is.read(imgList);
+    __is.read(imgStatus);
     __is.read(nlike);
     __is.read(ndislike);
     __is.read(ncomment);
@@ -215,6 +229,10 @@ Message::Db::Tables::TUserPost::__update(const TUserPost& __rhs)
     if( imgList != __rhs.imgList ) 
     {
         imgList = __rhs.imgList;
+    }
+    if( imgStatus != __rhs.imgStatus ) 
+    {
+        imgStatus = __rhs.imgStatus;
     }
     nlike = __rhs.nlike;
     ndislike = __rhs.ndislike;

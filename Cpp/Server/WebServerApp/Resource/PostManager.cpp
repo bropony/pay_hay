@@ -71,6 +71,29 @@ const CPostPtr CPostManager::createPost(int userId, const std::string & title,
 	return postPtr;
 }
 
+const CPostPtr CPostManager::createPost(int userId, const std::string & title, const std::string & content, int imgNum)
+{
+	Message::Db::Tables::TUserPost tPost;
+	tPost.userId = userId;
+	tPost.title = title;
+	tPost.content = content;
+	tPost.postDt = cdf::CDateTime();
+
+	Json::Value jsStatus;
+	for (int i = 0; i < imgNum; ++i)
+	{
+		jsStatus[std::to_string(i)] = 0;
+	}
+
+	tPost.imgStatus = jsStatus.toFastString();
+
+	CPostPtr postPtr = new CPost(tPost);
+	CDaoManager::instance()->getIUserPostDao()->updateUserPost(postPtr->getTUserPost());
+	addPost(postPtr);
+
+	return postPtr;
+}
+
 void CPostManager::addPost(const CPostPtr & post)
 {
 	int postId = post->getTUserPost().postId;

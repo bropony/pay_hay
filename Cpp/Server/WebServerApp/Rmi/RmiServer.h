@@ -139,6 +139,26 @@ namespace Rmi
 	};
 	typedef cdf::CHandle<CGetCommentsCallback> CGetCommentsCallbackPtr;
 
+	class CStartPostExCallback
+		: public virtual CRmiCallbackBase
+	{
+	public:
+		CStartPostExCallback(const cdf::CWSContextPtr & context, int msgId);
+
+		void response(int postId);
+	};
+	typedef cdf::CHandle<CStartPostExCallback> CStartPostExCallbackPtr;
+
+	class CUploadPostImgExCallback
+		: public virtual CRmiCallbackBase
+	{
+	public:
+		CUploadPostImgExCallback(const cdf::CWSContextPtr & context, int msgId);
+
+		void response(int imgId);
+	};
+	typedef cdf::CHandle<CUploadPostImgExCallback> CUploadPostImgExCallbackPtr;
+
 	class CRmiServer
 		: public virtual cdf::CRefShared
 	{
@@ -181,6 +201,12 @@ namespace Rmi
 	
 		void __getComments(cdf::CSimpleSerializer & __is, int __msgId, const cdf::CWSContextPtr & context);
 		virtual void getComments( const std::string & sessionKey, int postId, const CGetCommentsCallbackPtr & getCommentsCB) = 0;
+	
+		void __startPostEx(cdf::CSimpleSerializer & __is, int __msgId, const cdf::CWSContextPtr & context);
+		virtual void startPostEx( const std::string & sessionKey,  const std::string & title,  const std::string & content, int imgNum, const CStartPostExCallbackPtr & startPostExCB) = 0;
+	
+		void __uploadPostImgEx(cdf::CSimpleSerializer & __is, int __msgId, const cdf::CWSContextPtr & context);
+		virtual void uploadPostImgEx( const std::string & sessionKey,  const std::string & img,  const std::string & descrpt, int postId, int index, const CUploadPostImgExCallbackPtr & uploadPostImgExCB) = 0;
 	
 		void __call(cdf::CSimpleSerializer & __is, const cdf::CWSContextPtr & context);
 

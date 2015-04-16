@@ -120,7 +120,7 @@ bool Dao::Impl::CUserPostDaoImplBase::update( const Message::Db::Tables::TUserPo
     }
     stmt->prepare( (_updateBase + " where post_id = ?").c_str() );
     __writeTUserPost( v , stmt );
-    stmt->setInt( 9 , v.postId );
+    stmt->setInt( 10 , v.postId );
     return stmt->executeUpdate() > 0;
 }
 
@@ -233,19 +233,19 @@ long64_t Dao::Impl::CUserPostDaoImplBase::remove( const cdf::dao::SeqCmpNode& cm
 }
 
 
-const int Dao::Impl::CUserPostDaoImplBase::_columnCount = 9;
+const int Dao::Impl::CUserPostDaoImplBase::_columnCount = 10;
 
 const std::string Dao::Impl::CUserPostDaoImplBase::_selectBase = 
-"select post_id,user_id,title,content,img_list,nlike,ndislike,"
-"ncomment,post_dt from t_user_post";
+"select post_id,user_id,title,content,img_list,img_status,nlike,"
+"ndislike,ncomment,post_dt from t_user_post";
 
 const std::string Dao::Impl::CUserPostDaoImplBase::_updateBase = 
 "update t_user_post set user_id=?,title=?,content=?,img_list=?,"
-"nlike=?,ndislike=?,ncomment=?,post_dt=?";
+"img_status=?,nlike=?,ndislike=?,ncomment=?,post_dt=?";
 
 const std::string Dao::Impl::CUserPostDaoImplBase::_insertBase = 
-"insert into t_user_post ( user_id,title,content,img_list,nlike,"
-"ndislike,ncomment,post_dt) values (?,?,?,?,?,?,?,?)";
+"insert into t_user_post ( user_id,title,content,img_list,img_status,"
+"nlike,ndislike,ncomment,post_dt) values (?,?,?,?,?,?,?,?,?)";
 
 const std::string Dao::Impl::CUserPostDaoImplBase::_deleteBase = 
 "delete from t_user_post";
@@ -257,10 +257,11 @@ void Dao::Impl::CUserPostDaoImplBase::__readTUserPost( Message::Db::Tables::TUse
     outV.title = rs->getString( 3 );
     outV.content = rs->getString( 4 );
     outV.imgList = rs->getString( 5 );
-    outV.nlike = rs->getInt( 6 );
-    outV.ndislike = rs->getInt( 7 );
-    outV.ncomment = rs->getInt( 8 );
-    outV.postDt = rs->getDate( 9 );
+    outV.imgStatus = rs->getString( 6 );
+    outV.nlike = rs->getInt( 7 );
+    outV.ndislike = rs->getInt( 8 );
+    outV.ncomment = rs->getInt( 9 );
+    outV.postDt = rs->getDate( 10 );
 }
 
 void Dao::Impl::CUserPostDaoImplBase::__writeTUserPost( const Message::Db::Tables::TUserPost& inV , cdf::CStatement* stmt )
@@ -269,10 +270,11 @@ void Dao::Impl::CUserPostDaoImplBase::__writeTUserPost( const Message::Db::Table
     stmt->setString( 2 , inV.title );
     stmt->setString( 3 , inV.content );
     stmt->setString( 4 , inV.imgList );
-    stmt->setInt( 5 , inV.nlike );
-    stmt->setInt( 6 , inV.ndislike );
-    stmt->setInt( 7 , inV.ncomment );
-    stmt->setDate( 8 , inV.postDt );
+    stmt->setString( 5 , inV.imgStatus );
+    stmt->setInt( 6 , inV.nlike );
+    stmt->setInt( 7 , inV.ndislike );
+    stmt->setInt( 8 , inV.ncomment );
+    stmt->setDate( 9 , inV.postDt );
 }
 
 Dao::Impl::CUserPostCached* Dao::Impl::CUserPostDaoImplBase::getCached()

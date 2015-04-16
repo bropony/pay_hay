@@ -27,6 +27,7 @@ namespace Dao
         const static std::string _title;
         const static std::string _content;
         const static std::string _imgList;
+        const static std::string _imgStatus;
         const static std::string _nlike;
         const static std::string _ndislike;
         const static std::string _ncomment;

@@ -247,6 +247,44 @@ void CGetCommentsCallback::response( const SeqComment & comments)
 }
 
 
+CStartPostExCallback::CStartPostExCallback(const cdf::CWSContextPtr & context, int msgId)
+:CRmiCallbackBase(context, msgId)
+{
+}
+
+void CStartPostExCallback::response(int postId)
+{
+	cdf::CSimpleSerializer __os;
+	__os.startToWrite();
+
+	__os.write(_msgId);
+	__os.write(true);
+
+	__os.write(postId);
+
+	__response(__os);
+}
+
+
+CUploadPostImgExCallback::CUploadPostImgExCallback(const cdf::CWSContextPtr & context, int msgId)
+:CRmiCallbackBase(context, msgId)
+{
+}
+
+void CUploadPostImgExCallback::response(int imgId)
+{
+	cdf::CSimpleSerializer __os;
+	__os.startToWrite();
+
+	__os.write(_msgId);
+	__os.write(true);
+
+	__os.write(imgId);
+
+	__response(__os);
+}
+
+
 void CRmiServer::__login(cdf::CSimpleSerializer & __is, int __msgId, const cdf::CWSContextPtr & context)
 {
 	std::string account;
@@ -415,6 +453,45 @@ void CRmiServer::__getComments(cdf::CSimpleSerializer & __is, int __msgId, const
 	getComments(sessionKey, postId, __cb);
 }
 
+void CRmiServer::__startPostEx(cdf::CSimpleSerializer & __is, int __msgId, const cdf::CWSContextPtr & context)
+{
+	std::string sessionKey;
+	__is.read(sessionKey);
+
+	std::string title;
+	__is.read(title);
+
+	std::string content;
+	__is.read(content);
+
+	int imgNum = 0;
+	__is.read(imgNum);
+
+	CStartPostExCallbackPtr __cb = new CStartPostExCallback(context, __msgId);
+	startPostEx(sessionKey, title, content, imgNum, __cb);
+}
+
+void CRmiServer::__uploadPostImgEx(cdf::CSimpleSerializer & __is, int __msgId, const cdf::CWSContextPtr & context)
+{
+	std::string sessionKey;
+	__is.read(sessionKey);
+
+	std::string img;
+	__is.read(img);
+
+	std::string descrpt;
+	__is.read(descrpt);
+
+	int postId = 0;
+	__is.read(postId);
+
+	int index = 0;
+	__is.read(index);
+
+	CUploadPostImgExCallbackPtr __cb = new CUploadPostImgExCallback(context, __msgId);
+	uploadPostImgEx(sessionKey, img, descrpt, postId, index, __cb);
+}
+
 void CRmiServer::__call(cdf::CSimpleSerializer & __is, const cdf::CWSContextPtr & context)
 {
 	int __msgId = 0;
@@ -472,6 +549,12 @@ void CRmiServer::__call(cdf::CSimpleSerializer & __is, const cdf::CWSContextPtr 
 			break;
 		case 43:
 			__getComments(__is, __msgId, context);
+			break;
+		case 44:
+			__startPostEx(__is, __msgId, context);
+			break;
+		case 45:
+			__uploadPostImgEx(__is, __msgId, context);
 			break;
 		default:
 			WebServerApp::CErrorCodeManager::throwException("Error_NotRegisterdRmiCall");

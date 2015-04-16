@@ -24,6 +24,7 @@ TUserPostCached::dbDescribeComponents(FASTDB_NS::dbFieldDescriptor*)
         *FASTDB_NS::dbDescribeField(new FASTDB_NS::dbFieldDescriptor("title", (char*)&title-(char*)this , sizeof( title ), 0 ), title),
         *FASTDB_NS::dbDescribeField(new FASTDB_NS::dbFieldDescriptor("content", (char*)&content-(char*)this , sizeof( content ), 0 ), content),
         *FASTDB_NS::dbDescribeField(new FASTDB_NS::dbFieldDescriptor("img_list", (char*)&imgList-(char*)this , sizeof( imgList ), 0 ), imgList),
+        *FASTDB_NS::dbDescribeField(new FASTDB_NS::dbFieldDescriptor("img_status", (char*)&imgStatus-(char*)this , sizeof( imgStatus ), 0 ), imgStatus),
         *FASTDB_NS::dbDescribeField(new FASTDB_NS::dbFieldDescriptor("nlike", (char*)&nlike-(char*)this , sizeof( nlike ), 0 ), nlike),
         *FASTDB_NS::dbDescribeField(new FASTDB_NS::dbFieldDescriptor("ndislike", (char*)&ndislike-(char*)this , sizeof( ndislike ), 0 ), ndislike),
         *FASTDB_NS::dbDescribeField(new FASTDB_NS::dbFieldDescriptor("ncomment", (char*)&ncomment-(char*)this , sizeof( ncomment ), 0 ), ncomment),
@@ -40,6 +41,7 @@ TUserPostCached::__update( const Message::Db::Tables::TUserPost& t )
     title = t.title;
     content = t.content;
     imgList = t.imgList;
+    imgStatus = t.imgStatus;
     nlike = t.nlike;
     ndislike = t.ndislike;
     ncomment = t.ncomment;
@@ -58,6 +60,7 @@ TUserPostCached::__save( Message::Db::Tables::TUserPost& t ) const
     t.title = title;
     t.content = content;
     t.imgList = imgList;
+    t.imgStatus = imgStatus;
     t.nlike = nlike;
     t.ndislike = ndislike;
     t.ncomment = ncomment;
@@ -378,6 +381,10 @@ void Dao::Impl::CUserPostCached::load( cdf::CStatement* stmt )
             cmpNode.setString( "" );
         }
         else if ( getNagtiveCheck() == "img_list" )
+        {
+            cmpNode.setString( "" );
+        }
+        else if ( getNagtiveCheck() == "img_status" )
         {
             cmpNode.setString( "" );
         }
@@ -763,6 +770,16 @@ void Dao::Impl::CUserPostCached::__update(
                 throw cdf::CException( exp.c_str() , cdf::ExceptionCodeDB );
             }
             v.imgList = iter->getString();
+            continue;
+        }
+        if( iter->getColumnName() == "img_status" )
+        {
+            if( iter->getDataType() != cdf::TYPE_STRING )
+            {
+                std::string exp = "table name:t_user_post column name:" + iter->getColumnName() + " type error";
+                throw cdf::CException( exp.c_str() , cdf::ExceptionCodeDB );
+            }
+            v.imgStatus = iter->getString();
             continue;
         }
         if( iter->getColumnName() == "nlike" )

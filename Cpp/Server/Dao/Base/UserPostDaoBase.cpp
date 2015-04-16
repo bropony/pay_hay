@@ -12,6 +12,7 @@ const std::string Dao::IUserPostDaoBase::_userId = "user_id";
 const std::string Dao::IUserPostDaoBase::_title = "title";
 const std::string Dao::IUserPostDaoBase::_content = "content";
 const std::string Dao::IUserPostDaoBase::_imgList = "img_list";
+const std::string Dao::IUserPostDaoBase::_imgStatus = "img_status";
 const std::string Dao::IUserPostDaoBase::_nlike = "nlike";
 const std::string Dao::IUserPostDaoBase::_ndislike = "ndislike";
 const std::string Dao::IUserPostDaoBase::_ncomment = "ncomment";

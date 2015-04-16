@@ -31,7 +31,14 @@ void CPost::postToJs(Json::Value & js)
 
 	Json::Value jsImgList;
 	jsImgList.parse(_tUserPost.imgList);
-	js["imgList"] = jsImgList;
+	for (unsigned i = 0; i < jsImgList.size(); i++)
+	{
+		int imgId = jsImgList[i].asInt();
+		if (imgId > 0)
+		{
+			js["imgList"].append(imgId);
+		}
+	}
 
 	js["nlike"] = _tUserPost.nlike;
 	js["ndislike"] = _tUserPost.ndislike;
@@ -58,7 +65,11 @@ void CPost::postToClient(Rmi::SPost & post)
 	jsImgList.parse(_tUserPost.imgList);
 	for (unsigned i = 0; i < jsImgList.size(); i++)
 	{
-		post.imgIdList.push_back(jsImgList[i].asInt());
+		int imgId = jsImgList[i].asInt();
+		if (imgId > 0)
+		{
+			post.imgIdList.push_back(imgId);
+		}
 	}
 
 	post.likes = _tUserPost.nlike;

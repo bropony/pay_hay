@@ -223,3 +223,86 @@ void CRmiServerImpl::getComments(const std::string & sessionKey, int postId, con
 	Rmi::SeqComment comments;
 	CCommentManager::instance()->getCommentsByPostId(postId, comments);
 }
+
+void CRmiServerImpl::startPostEx(const std::string & sessionKey,
+	const std::string & title, 
+	const std::string & content, 
+	int imgNum, 
+	const CStartPostExCallbackPtr & startPostExCB)
+{
+	if (imgNum < 0 || imgNum > 10)
+	{
+		CErrorCodeManager::throwException("Error_imgNumInvalid");
+	}
+
+	CUserPtr user = CUserHelper::getUser(startPostExCB, sessionKey);
+
+	CPostPtr postPtr = CPostManager::instance()->createPost(user->getUserId(), title, content, imgNum);
+
+	startPostExCB->response(postPtr->getTUserPost().postId);
+}
+
+void CRmiServerImpl::uploadPostImgEx(const std::string & sessionKey,
+	const std::string & img, 
+	const std::string & descrpt, 
+	int postId,
+	int index, 
+	const CUploadPostImgExCallbackPtr & uploadPostImgExCB)
+{
+	CUserPtr user = CUserHelper::getUser(uploadPostImgExCB, sessionKey);
+
+	CPostPtr postPtr = CPostManager::instance()->findPost(postId);
+
+	if (NULL == postPtr)
+	{
+		CErrorCodeManager::throwException("Error_postNotFound");
+	}
+
+	Json::Value jsStatus;
+	jsStatus.parse(postPtr->getTUserPost().imgStatus);
+	if (jsStatus.isNull() || jsStatus.empty())
+	{
+		CErrorCodeManager::throwException("Error_allImgUploaded");
+	}
+
+	std::string key = std::to_string(index);
+	if (jsStatus[key].isNull())
+	{
+		CErrorCodeManager::throwException("Error_postImgIndexError");
+	}
+
+	int imgId = jsStatus[key].asInt();
+	if (imgId > 0)
+	{
+		uploadPostImgExCB->response(imgId);
+		return;
+	}
+
+	CImagePtr imgPtr = CImageManager::instance()->createImage(descrpt, img);
+	imgId = imgPtr->getTUserImg().imgId;
+
+	jsStatus[key] = imgId;
+
+	Json::Value jsImgList;
+	jsImgList.parse(postPtr->getTUserPost().imgList);
+	jsImgList.append(imgId);
+
+	if (jsImgList.size() == jsStatus.size())
+	{
+		postPtr->getTUserPost().imgStatus = "";
+		Json::Value jsNewList;
+		for (unsigned i = 0; i < jsStatus.size(); i++)
+		{
+			std::string jsKey = std::to_string(i);
+			jsNewList.append(jsStatus[jsKey].asInt());
+		}
+		postPtr->getTUserPost().imgList = jsNewList.toFastString();
+	}
+	else
+	{
+		postPtr->getTUserPost().imgStatus = jsStatus.toFastString();
+		postPtr->getTUserPost().imgList = jsImgList.toFastString();
+	}
+
+	uploadPostImgExCB->response(imgId);
+}

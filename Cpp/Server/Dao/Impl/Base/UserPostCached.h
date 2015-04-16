@@ -22,6 +22,7 @@ namespace Dao
             std::string title;
             std::string content;
             std::string imgList;
+            std::string imgStatus;
             int nlike;
             int ndislike;
             int ncomment;

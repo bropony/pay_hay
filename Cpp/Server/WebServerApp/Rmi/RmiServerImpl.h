@@ -22,6 +22,8 @@ namespace Rmi
 		virtual void dislikePost(const std::string & sessionKey, int postId, const CDislikePostCallbackPtr & dislikePostCB);
 		virtual void commentPost(const std::string & sessionKey, int postId, const std::string & comments, const CCommentPostCallbackPtr & commentPostCB);
 		virtual void getComments(const std::string & sessionKey, int postId, const CGetCommentsCallbackPtr & getCommentsCB);
+		virtual void startPostEx(const std::string & sessionKey, const std::string & title, const std::string & content, int imgNum, const CStartPostExCallbackPtr & startPostExCB);
+		virtual void uploadPostImgEx(const std::string & sessionKey, const std::string & img, const std::string & descrpt, int postId, int index, const CUploadPostImgExCallbackPtr & uploadPostImgExCB);
 
 	};
 }

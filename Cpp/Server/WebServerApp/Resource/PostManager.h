@@ -17,6 +17,8 @@ namespace WebServerApp
 		
 		const CPostPtr createPost(int userId, const std::string & title, 
 			const std::string & content, const Message::Public::SeqInt & imgIdList, const cdf::CDateTime & postDt);
+		const CPostPtr createPost(int userId, const std::string & title, const std::string & content, int imgNum);
+
 		void addPost(const CPostPtr & post);
 
 		void getPostIdList(int lastPostId, bool forNewPosts, Message::Public::SeqInt & postIdList);
