@@ -4,6 +4,10 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>[Pay Hay] New Post</title>
 
+    <link rel="stylesheet" href="/css/layout.css" type="text/css" />
+    <link rel="stylesheet" href="/css/login.css" type="text/css" />
+    <link rel="stylesheet" href="/css/newpost.css" type="text/css" />
+
     <script src="/js/rmi/serialize.js"></script>
     <script src="/js/rmi/rmimanager.js"></script>
     <script src="/js/rmi/rmidatastruct.js"></script>
@@ -15,6 +19,25 @@
     </script>
 </head>
 <body>
-
+    <div class="container">
+        <section id="content">
+            <h1>New Post</h1>
+            <div>
+                <input type="text" placeholder="Title" required="" id="title" />
+            </div>
+            <div id="images">
+            </div>
+            <div>
+                <input type="file" id="add-image" value="Add An Image" onchange="View.NewPost.addImage();" style="display:none" accept="image/png image/jpg" />
+                <input type="button" value="添加图片" onclick="document.getElementById('add-image').click();" />
+            </div>
+            <div>
+                <textarea id="details" placeholder="Details Your Post" style="width:100%;min-height:50px;"></textarea>
+            </div>
+            <div>
+                <input type="button" value="提交" onclick="View.NewPost.newPost();" />
+            </div>
+        </section><!-- content -->
+    </div><!-- container -->
 </body>
 </html>
