@@ -197,6 +197,39 @@ public class RmiClient{
 			RmiManager.instance().invoke(clientCB__, __msgIdBase, __os);
 		}
 
+		public static void startPostEx(StartPostExCallback clientCB__, String sessionKey, String title, String content, int imgNum){
+			SerializeStream __os = new SerializeStream();
+			__os.startToWrite();
+
+			__msgIdBase++;
+			__os.write(__msgIdBase);
+			__os.write(44);
+
+			__os.write(sessionKey);
+			__os.write(title);
+			__os.write(content);
+			__os.write(imgNum);
+
+			RmiManager.instance().invoke(clientCB__, __msgIdBase, __os);
+		}
+
+		public static void uploadPostImgEx(UploadPostImgExCallback clientCB__, String sessionKey, byte[] img, String descrpt, int postId, int index){
+			SerializeStream __os = new SerializeStream();
+			__os.startToWrite();
+
+			__msgIdBase++;
+			__os.write(__msgIdBase);
+			__os.write(45);
+
+			__os.write(sessionKey);
+			__os.write(img);
+			__os.write(descrpt);
+			__os.write(postId);
+			__os.write(index);
+
+			RmiManager.instance().invoke(clientCB__, __msgIdBase, __os);
+		}
+
 
 	//Callback definitions
 	public static abstract class LoginCallback extends RmiCallbackBase {
@@ -527,6 +560,60 @@ public class RmiClient{
 			comments = ListReader.read(__is, comments);
 
 			onResponse(comments);
+		}
+
+		@Override
+		public void __onError(String what, int code){
+			onError(what, code);
+		}
+
+		@Override
+		public void __onTimeout(){
+			onTimeout();
+		}
+
+	}
+
+	public static abstract class StartPostExCallback extends RmiCallbackBase {
+		public StartPostExCallback(){}
+
+		public abstract void onResponse(int postId);
+		public abstract void onError(String what, int code);
+		public abstract void onTimeout();
+
+		@Override
+		public void __onResponse(SerializeStream __is){
+			int postId = 0;
+			postId = __is.read(postId);
+
+			onResponse(postId);
+		}
+
+		@Override
+		public void __onError(String what, int code){
+			onError(what, code);
+		}
+
+		@Override
+		public void __onTimeout(){
+			onTimeout();
+		}
+
+	}
+
+	public static abstract class UploadPostImgExCallback extends RmiCallbackBase {
+		public UploadPostImgExCallback(){}
+
+		public abstract void onResponse(int imgId);
+		public abstract void onError(String what, int code);
+		public abstract void onTimeout();
+
+		@Override
+		public void __onResponse(SerializeStream __is){
+			int imgId = 0;
+			imgId = __is.read(imgId);
+
+			onResponse(imgId);
 		}
 
 		@Override
