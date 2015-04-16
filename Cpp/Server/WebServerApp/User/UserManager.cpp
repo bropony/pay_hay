@@ -118,11 +118,10 @@ const CUserPtr CUserManager::createUser(const std::string & account, const std::
 	CDF_LOG_DEBUG("Now: " << tUser.createDt.getTotalDay());
 
 	CUserPtr newUser = new CUser(tUser);
+	newUser->updateToDb();
 	addUser(newUser);
 
 	updateUserSessionKey(newUser);
-
-	newUser->updateToDb();
 
 	return newUser;
 }
