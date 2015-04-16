@@ -45,6 +45,7 @@ var View;
         _PostManager_Cls_.prototype.getPassedTime = function (dt) {
             var now = new Date();
             var passedMills = now.getTime() - dt.getTime();
+            passedMills = passedMills > 0 ? passedMills : 0;
             var secs = Math.floor(passedMills / 1000);
             var mins = Math.floor(secs / 60);
             var hrs = Math.floor(mins / 60);

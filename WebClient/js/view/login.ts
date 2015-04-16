@@ -24,6 +24,7 @@ module View {
             userManager.nickname = userInfo.nickname;
             userManager.sessionKey = userInfo.sessionKey;
             userManager.avatar = userInfo.avatar;
+            userManager.avatarImgId = userInfo.avatarImgId;
 
             console.log("Login Success");
             window.location.href = "/index.html";

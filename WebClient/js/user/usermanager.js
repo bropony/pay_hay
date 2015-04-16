@@ -11,6 +11,7 @@ var User;
             this.keyPasswd = "passwd";
             this.keySessionKey = "sessionKey";
             this.keyAvatar = "avatar";
+            this.keyAvatarImgId = "avatarImgId";
         }
         _UserManager_Cls_.prototype.getItem = function (key) {
             return localStorage.getItem(key);
@@ -84,6 +85,17 @@ var User;
             enumerable: true,
             configurable: true
         });
+        Object.defineProperty(_UserManager_Cls_.prototype, "avatarImgId", {
+            get: function () {
+                return this._avatarImgId;
+            },
+            set: function (imgId) {
+                this._avatarImgId = imgId;
+                this.setItem(this.keyAvatarImgId, imgId);
+            },
+            enumerable: true,
+            configurable: true
+        });
         _UserManager_Cls_.prototype.init = function () {
             this._account = this.getItem(this.keyAccount);
             this._userId = this.getItem(this.keyUserId);
@@ -91,6 +103,7 @@ var User;
             this._passwd = this.getItem(this.keyPasswd);
             this._sessionKey = this.getItem(this.keySessionKey);
             this._avatar = this.getItem(this.keyAvatar);
+            this._avatarImgId = this.getItem(this.keyAvatarImgId);
         };
         _UserManager_Cls_.prototype.clear = function () {
             this.userId = 0;

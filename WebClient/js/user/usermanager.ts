@@ -10,6 +10,7 @@ module User {
         private _passwd: string;
         private _sessionKey: string;
         private _avatar: ArrayBuffer;
+        private _avatarImgId: number;
 
         public keyUserId = "userId";
         public keyAccount = "account";
@@ -17,6 +18,7 @@ module User {
         public keyPasswd = "passwd";
         public keySessionKey = "sessionKey";
         public keyAvatar = "avatar";
+        public keyAvatarImgId = "avatarImgId";
 
         getItem(key: string) {
             return localStorage.getItem(key);
@@ -80,6 +82,15 @@ module User {
             this.setItem(this.keyAvatar, at);
         }
 
+        get avatarImgId() {
+            return this._avatarImgId;
+        }
+
+        set avatarImgId(imgId: number) {
+            this._avatarImgId = imgId;
+            this.setItem(this.keyAvatarImgId, imgId);
+        }
+
         init() {
             this._account = this.getItem(this.keyAccount);
             this._userId = this.getItem(this.keyUserId);
@@ -87,6 +98,7 @@ module User {
             this._passwd = this.getItem(this.keyPasswd);
             this._sessionKey = this.getItem(this.keySessionKey);
             this._avatar = this.getItem(this.keyAvatar);
+            this._avatarImgId = this.getItem(this.keyAvatarImgId);
         }
 
         clear() {
