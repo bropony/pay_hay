@@ -1,0 +1,24 @@
+﻿.container{
+    width:100%;
+}
+
+#content{
+    width:100%;
+}
+
+.new-post-img{
+    width:80%;
+    margin-left:auto;
+    margin-right:auto;
+    margin-top:10px;
+    margin-bottom:10px;
+    border-top-width:5px;
+    border-bottom-width:5px;
+    border-top-style:ridge;
+    border-bottom-style:ridge;
+    border-color:green;
+}
+
+#content input[type="button"]{
+    margin-left:45%;
+}

@@ -2,9 +2,32 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title></title>
+    <title>[Pay Hay] Me</title>
+    <link rel="stylesheet" href="/css/layout.css" type="text/css" />
+    <link rel="stylesheet" href="/css/my-info.css" type="text/css" />
+
+    <script src="/js/rmi/serialize.js"></script>
+    <script src="/js/rmi/rmimanager.js"></script>
+    <script src="/js/rmi/rmidatastruct.js"></script>
+    <script src="/js/rmi/rmiclient.js"></script>
+    <script src="/js/user/usermanager.js"></script>
+    <script src="/js/view/myinfo.js"></script>
+    <script type="text/javascript">
+        window.onload = View.MyInfo.onLoad;
+    </script>
 </head>
 <body>
-
+    <header>
+        <a id="home-link" href="/index.html" class="header-a">返回主页</a>
+        <a id="new-post-link" href="/scene/new-post.html" class="header-a">发表分享</a>
+    </header>
+    <div id="content">
+        <div id="basics">
+            <img id="avatar" src="/res/default-avatar.png" title="点击更换头像" onclick="document.getElementById('avatar-selector').click();"/>
+            <div id="account"></div>
+            <div id="nickname"></div>
+            <input type="file" id="avatar-selector" accept="image/png image/jpg" style="display:none" onchange="View.MyInfo.avatarSelected();"/>
+        </div>
+    </div>
 </body>
 </html>

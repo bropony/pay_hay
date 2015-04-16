@@ -21,6 +21,7 @@
     <Content Include="css\home.css" />
     <Content Include="css\layout.css" />
     <Content Include="css\login.css" />
+    <Content Include="css\my-info.css" />
     <Content Include="css\newpost.css" />
     <Content Include="res\comment.jpg" />
     <Content Include="res\default-avatar.png" />
@@ -43,6 +44,7 @@
     <TypeScriptCompile Include="js\user\usermanager.ts" />
     <TypeScriptCompile Include="js\view\index.ts" />
     <TypeScriptCompile Include="js\view\login.ts" />
+    <TypeScriptCompile Include="js\view\myinfo.ts" />
     <TypeScriptCompile Include="js\view\newpost.ts" />
     <TypeScriptCompile Include="js\view\postmanager.ts" />
     <TypeScriptCompile Include="js\view\signup.ts" />

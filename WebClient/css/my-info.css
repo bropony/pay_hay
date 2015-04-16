@@ -1,0 +1,49 @@
+﻿header{
+    border-bottom-style:solid;
+    border-bottom-color:gray;
+    margin-bottom:10px;
+}
+
+.header-a{
+    text-decoration:none;
+    text-shadow:5px 5px 5px #808080;
+    padding-left:5%;
+    padding-right:5%;
+}
+
+#content{
+    width:100%;
+    text-align:center;
+}
+
+#basics{
+    margin-left:auto;
+    margin-right:auto;
+    width:400px;
+}
+
+#avatar{
+    width:100px;
+    height:100px;
+    border-radius:50px;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+#account, #nickname{
+    font-size:larger;
+    color:#ffffff;
+    background-color:#81807d;
+    text-shadow:5px 5px 5px 5px;
+    width:auto;
+}
+
+#account:before{
+    content:"账号: ";
+    font-size:larger;
+}
+
+#nickname:before{
+    content:"昵称: ";
+    font-size:larger;
+}
