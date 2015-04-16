@@ -13,6 +13,7 @@ module Message
                 string title;
                 string content;
                 string imgList;
+                string imgStatus;
                 int nlike;
                 int ndislike;
                 int ncomment;
