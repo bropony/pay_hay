@@ -18,6 +18,7 @@ local t_error_code=
  {   errorCode = 20010,   errorName = "Error_avatarImgToLarge",   errorStr = "头像图片太大" }, 
  {   errorCode = 20011,   errorName = "Error_saveAvatarImgError",   errorStr = "保存头像失败" }, 
  {   errorCode = 20015,   errorName = "Error_noSuchImg",   errorStr = "没有该图片" }, 
- {   errorCode = 20020,   errorName = "Error_postNotFound",   errorStr = "该帖子已经不存在" }
+ {   errorCode = 20020,   errorName = "Error_postNotFound",   errorStr = "该帖子已经不存在" }, 
+ {   errorCode = 20025,   errorName = "Error_imgNumInvalid",   errorStr = "图片数量必须在0到10之间" }
 }
 return t_error_code
