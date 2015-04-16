@@ -85,3 +85,20 @@ getComments(in sessionKey: string, //会话密钥
             in postId: int, //post id
             out comments: SeqComment //结果
             );
+
+//新的发贴接口
+//开始发贴
+startPostEx(in sesionKey: string, //会话密钥
+            in title: string,  //标题
+            in content: string, //内容
+            in imgNum: int,   //该贴子包含的图片数量
+            out postId: int   //帖子的ID
+            );
+//发送帖子图片
+uploadPostImgEx(in sessionKey:string, //会话密钥
+                in img: image, //图片二进制内容
+                in descrpt: string, //简单描述(若无,传空串)
+                in postId: int, //对应帖子的ID
+                in index: int,  //对应贴子图片的 序号(从0开始)
+                out imgId: int  //图片ID
+                );
