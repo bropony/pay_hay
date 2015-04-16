@@ -97,6 +97,13 @@ module User {
             this.avatar = null;
             this.sessionKey = "";
         }
+
+        hasLogin(): boolean {
+            if (this._account && this._nickname) {
+                return true;
+            }
+            return false;
+        }
     }
 
     export var UserManager = new _UserManager_Cls_();

@@ -284,6 +284,50 @@ module Rmi {
 	} // end of GetCommentsCallback
 
 
+	//StartPostExCallback
+	export class StartPostExCallback implements CallbackBase {
+		onResponse: (postId: number) => void;
+		onError: (what: string, code: number) => void;
+		onTimeout: () => void;
+
+		__onResponse(__is: SimpleSerializer) : void {
+			var postId: number = 0;
+			postId = __is.read(4);
+			this.onResponse(postId);
+		}
+
+		__onError(what: string, code: number) : void {
+			this.onError(what, code);
+		}
+
+		__onTimeout() : void {
+			this.onTimeout();
+		}
+	} // end of StartPostExCallback
+
+
+	//UploadPostImgExCallback
+	export class UploadPostImgExCallback implements CallbackBase {
+		onResponse: (imgId: number) => void;
+		onError: (what: string, code: number) => void;
+		onTimeout: () => void;
+
+		__onResponse(__is: SimpleSerializer) : void {
+			var imgId: number = 0;
+			imgId = __is.read(4);
+			this.onResponse(imgId);
+		}
+
+		__onError(what: string, code: number) : void {
+			this.onError(what, code);
+		}
+
+		__onTimeout() : void {
+			this.onTimeout();
+		}
+	} // end of UploadPostImgExCallback
+
+
 
 	//Client Rmi Proxy
 	export class Proxy {
@@ -458,6 +502,37 @@ module Rmi {
 
 			__os.write(8, sessionKey);
 			__os.write(4, postId);
+
+			RmiManager.invoke(Proxy.__msgIdBase, __os, __cb);
+		}
+
+		static startPostEx(__cb: StartPostExCallback, sessionKey: string, title: string, content: string, imgNum: number) : void {
+			var __os: SimpleSerializer = new SimpleSerializer();
+			__os.startToWrite();
+			Proxy.__msgIdBase += 1;
+			__os.writeInt(Proxy.__msgIdBase);
+			__os.writeInt(44);
+
+			__os.write(8, sessionKey);
+			__os.write(8, title);
+			__os.write(8, content);
+			__os.write(4, imgNum);
+
+			RmiManager.invoke(Proxy.__msgIdBase, __os, __cb);
+		}
+
+		static uploadPostImgEx(__cb: UploadPostImgExCallback, sessionKey: string, img: ArrayBuffer, descrpt: string, postId: number, index: number) : void {
+			var __os: SimpleSerializer = new SimpleSerializer();
+			__os.startToWrite();
+			Proxy.__msgIdBase += 1;
+			__os.writeInt(Proxy.__msgIdBase);
+			__os.writeInt(45);
+
+			__os.write(8, sessionKey);
+			__os.write(10, img);
+			__os.write(8, descrpt);
+			__os.write(4, postId);
+			__os.write(4, index);
 
 			RmiManager.invoke(Proxy.__msgIdBase, __os, __cb);
 		}

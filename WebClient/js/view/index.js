@@ -31,7 +31,7 @@ var View;
             htmlNode.appendChild(signupLink);
         }
         function init() {
-            if (userManager.account && userManager.nickname) {
+            if (userManager.hasLogin()) {
                 var htmlNode = document.getElementById("user-center");
                 htmlNode.innerHTML = '';
                 var myEntrance = document.createElement("a");

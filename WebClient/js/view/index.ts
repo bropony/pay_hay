@@ -30,7 +30,7 @@ module View {
         }
 
         export function init() {
-            if (userManager.account && userManager.nickname) {
+            if (userManager.hasLogin()) {
                 var htmlNode = document.getElementById("user-center");
                 htmlNode.innerHTML = '';
 

@@ -18,6 +18,7 @@
     <IISExpressUseClassicPipelineMode />
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="css\home.css" />
     <Content Include="css\layout.css" />
     <Content Include="css\login.css" />
     <Content Include="res\comment.jpg" />
@@ -28,6 +29,7 @@
     <Content Include="scene\login.html" />
     <Content Include="index.html" />
     <Content Include="scene\my-info.html" />
+    <Content Include="scene\new-post.html" />
     <Content Include="scene\signup.html" />
     <Content Include="web.config" />
   </ItemGroup>
@@ -40,6 +42,7 @@
     <TypeScriptCompile Include="js\user\usermanager.ts" />
     <TypeScriptCompile Include="js\view\index.ts" />
     <TypeScriptCompile Include="js\view\login.ts" />
+    <TypeScriptCompile Include="js\view\newpost.ts" />
     <TypeScriptCompile Include="js\view\postmanager.ts" />
     <TypeScriptCompile Include="js\view\signup.ts" />
     <TypeScriptCompile Include="js\view\util.ts" />

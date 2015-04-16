@@ -100,6 +100,12 @@ var User;
             this.avatar = null;
             this.sessionKey = "";
         };
+        _UserManager_Cls_.prototype.hasLogin = function () {
+            if (this._account && this._nickname) {
+                return true;
+            }
+            return false;
+        };
         return _UserManager_Cls_;
     })();
     User.UserManager = new _UserManager_Cls_();
