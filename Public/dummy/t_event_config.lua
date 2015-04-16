@@ -14,6 +14,8 @@ local t_event_config=
  {   eventId = 40,   event = "likePost",   inParams = "sessionKey:string#postId:int",   outParams = "" }, 
  {   eventId = 41,   event = "dislikePost",   inParams = "sessionKey:string#postId:int",   outParams = "" }, 
  {   eventId = 42,   event = "commentPost",   inParams = "sessionKey:string#postId:int#comments:string",   outParams = "" }, 
- {   eventId = 43,   event = "getComments",   inParams = "sessionKey:string#postId:int",   outParams = "comments:SeqComment" }
+ {   eventId = 43,   event = "getComments",   inParams = "sessionKey:string#postId:int",   outParams = "comments:SeqComment" }, 
+ {   eventId = 44,   event = "startPostEx",   inParams = "sessionKey:string#title:string#content:string#imgNum:int",   outParams = "postId:int" }, 
+ {   eventId = 45,   event = "uploadPostImgEx",   inParams = "sessionKey:string#img:image#descrpt:string#index:int",   outParams = "imgId:int" }
 }
 return t_event_config
