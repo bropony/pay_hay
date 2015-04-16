@@ -101,5 +101,11 @@
 		"errorCode" : 20020,
 		"errorName" : "Error_postNotFound",
 		"errorStr" : "该帖子已经不存在"
+	},
+	
+	{
+		"errorCode" : 20025,
+		"errorName" : "Error_imgNumInvalid",
+		"errorStr" : "图片数量必须在0到10之间"
 	}
 ]

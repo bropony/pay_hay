@@ -86,5 +86,19 @@
 		"eventId" : 43,
 		"inParams" : "sessionKey:string#postId:int",
 		"outParams" : "comments:SeqComment"
+	},
+	
+	{
+		"event" : "startPostEx",
+		"eventId" : 44,
+		"inParams" : "sessionKey:string#title:string#content:string#imgNum:int",
+		"outParams" : "postId:int"
+	},
+	
+	{
+		"event" : "uploadPostImgEx",
+		"eventId" : 45,
+		"inParams" : "sessionKey:string#img:image#descrpt:string#postId:int#index:int",
+		"outParams" : "imgId:int"
 	}
 ]
