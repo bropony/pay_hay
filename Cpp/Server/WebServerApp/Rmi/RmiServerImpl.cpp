@@ -304,5 +304,7 @@ void CRmiServerImpl::uploadPostImgEx(const std::string & sessionKey,
 		postPtr->getTUserPost().imgList = jsImgList.toFastString();
 	}
 
+	postPtr->updateToDb();
+
 	uploadPostImgExCB->response(imgId);
 }
