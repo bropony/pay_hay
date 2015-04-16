@@ -28,9 +28,6 @@ module View {
 
             console.log("Login Success");
             window.location.href = "/index.html";
-
-            console.log("Signup Success");
-            window.location.href = "index.html";
         }
 
         onError = function (what: string, code: number) {

@@ -25,8 +25,6 @@ var View;
                 userManager.avatar = userInfo.avatar;
                 console.log("Login Success");
                 window.location.href = "/index.html";
-                console.log("Signup Success");
-                window.location.href = "index.html";
             };
             this.onError = function (what, code) {
                 alert("Login Error: " + what);

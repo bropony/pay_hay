@@ -232,6 +232,42 @@ var Rmi;
         return GetCommentsCallback;
     })();
     Rmi.GetCommentsCallback = GetCommentsCallback; // end of GetCommentsCallback
+    //StartPostExCallback
+    var StartPostExCallback = (function () {
+        function StartPostExCallback() {
+        }
+        StartPostExCallback.prototype.__onResponse = function (__is) {
+            var postId = 0;
+            postId = __is.read(4);
+            this.onResponse(postId);
+        };
+        StartPostExCallback.prototype.__onError = function (what, code) {
+            this.onError(what, code);
+        };
+        StartPostExCallback.prototype.__onTimeout = function () {
+            this.onTimeout();
+        };
+        return StartPostExCallback;
+    })();
+    Rmi.StartPostExCallback = StartPostExCallback; // end of StartPostExCallback
+    //UploadPostImgExCallback
+    var UploadPostImgExCallback = (function () {
+        function UploadPostImgExCallback() {
+        }
+        UploadPostImgExCallback.prototype.__onResponse = function (__is) {
+            var imgId = 0;
+            imgId = __is.read(4);
+            this.onResponse(imgId);
+        };
+        UploadPostImgExCallback.prototype.__onError = function (what, code) {
+            this.onError(what, code);
+        };
+        UploadPostImgExCallback.prototype.__onTimeout = function () {
+            this.onTimeout();
+        };
+        return UploadPostImgExCallback;
+    })();
+    Rmi.UploadPostImgExCallback = UploadPostImgExCallback; // end of UploadPostImgExCallback
     //Client Rmi Proxy
     var Proxy = (function () {
         function Proxy() {
@@ -368,6 +404,31 @@ var Rmi;
             __os.writeInt(43);
             __os.write(8, sessionKey);
             __os.write(4, postId);
+            Rmi.RmiManager.invoke(Proxy.__msgIdBase, __os, __cb);
+        };
+        Proxy.startPostEx = function (__cb, sessionKey, title, content, imgNum) {
+            var __os = new Rmi.SimpleSerializer();
+            __os.startToWrite();
+            Proxy.__msgIdBase += 1;
+            __os.writeInt(Proxy.__msgIdBase);
+            __os.writeInt(44);
+            __os.write(8, sessionKey);
+            __os.write(8, title);
+            __os.write(8, content);
+            __os.write(4, imgNum);
+            Rmi.RmiManager.invoke(Proxy.__msgIdBase, __os, __cb);
+        };
+        Proxy.uploadPostImgEx = function (__cb, sessionKey, img, descrpt, postId, index) {
+            var __os = new Rmi.SimpleSerializer();
+            __os.startToWrite();
+            Proxy.__msgIdBase += 1;
+            __os.writeInt(Proxy.__msgIdBase);
+            __os.writeInt(45);
+            __os.write(8, sessionKey);
+            __os.write(10, img);
+            __os.write(8, descrpt);
+            __os.write(4, postId);
+            __os.write(4, index);
             Rmi.RmiManager.invoke(Proxy.__msgIdBase, __os, __cb);
         };
         Proxy.__msgIdBase = 0;
