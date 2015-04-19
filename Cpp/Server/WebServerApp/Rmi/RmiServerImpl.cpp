@@ -30,6 +30,7 @@ void CRmiServerImpl::login(const std::string & account, const std::string & pass
 	userInfo.nickname = user->getNickname();
 	userInfo.sessionKey = user->getSessionKey();
 	userInfo.avatar = user->getAvatar();
+	userInfo.avatarImgId = user->getAvatarImgId();
 
 	loginCB->response(userInfo);
 
@@ -72,6 +73,7 @@ void CRmiServerImpl::signup(const std::string & account, const std::string & pas
 	userInfo.nickname = user->getNickname();
 	userInfo.sessionKey = user->getSessionKey();
 	userInfo.avatar = user->getAvatar();
+	userInfo.avatarImgId = user->getAvatarImgId();
 
 	signupCB->response(userInfo);
 
