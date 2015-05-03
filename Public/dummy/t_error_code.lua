@@ -19,6 +19,8 @@ local t_error_code=
  {   errorCode = 20011,   errorName = "Error_saveAvatarImgError",   errorStr = "保存头像失败" }, 
  {   errorCode = 20015,   errorName = "Error_noSuchImg",   errorStr = "没有该图片" }, 
  {   errorCode = 20020,   errorName = "Error_postNotFound",   errorStr = "该帖子已经不存在" }, 
- {   errorCode = 20025,   errorName = "Error_imgNumInvalid",   errorStr = "图片数量必须在0到10之间" }
+ {   errorCode = 20025,   errorName = "Error_imgNumInvalid",   errorStr = "图片数量必须在0到10之间" }, 
+ {   errorCode = 20026,   errorName = "Error_allImgUploaded",   errorStr = "所有图片已经上传完毕" }, 
+ {   errorCode = 20027,   errorName = "Error_postImgIndexError",   errorStr = "图片索引错误" }
 }
 return t_error_code
