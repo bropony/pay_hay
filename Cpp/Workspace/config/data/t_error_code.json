@@ -107,5 +107,17 @@
 		"errorCode" : 20025,
 		"errorName" : "Error_imgNumInvalid",
 		"errorStr" : "图片数量必须在0到10之间"
+	},
+	
+	{
+		"errorCode" : 20026,
+		"errorName" : "Error_allImgUploaded",
+		"errorStr" : "所有图片已经上传完毕"
+	},
+	
+	{
+		"errorCode" : 20027,
+		"errorName" : "Error_postImgIndexError",
+		"errorStr" : "图片索引错误"
 	}
 ]

@@ -86,7 +86,7 @@
 	},
 	
 	{
-		"fields" : "userId:int#nickname:string#content:string#commentDt:date",
+		"fields" : "userId:int#nickname:string#avatarImgId:int#content:string#commentDt:date",
 		"id" : 103,
 		"name" : "SComment",
 		"type" : 1
