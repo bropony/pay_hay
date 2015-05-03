@@ -266,18 +266,21 @@ var Rmi;
         function SComment() {
             this.userId = 0;
             this.nickname = "";
+            this.avatarImgId = 0;
             this.content = "";
             this.commentDt = new Date();
         }
         SComment.prototype.__read = function (__is) {
             this.userId = __is.read(4);
             this.nickname = __is.read(8);
+            this.avatarImgId = __is.read(4);
             this.content = __is.read(8);
             this.commentDt = __is.read(9);
         };
         SComment.prototype.__write = function (__os) {
             __os.write(4, this.userId);
             __os.write(8, this.nickname);
+            __os.write(4, this.avatarImgId);
             __os.write(8, this.content);
             __os.write(9, this.commentDt);
         };
