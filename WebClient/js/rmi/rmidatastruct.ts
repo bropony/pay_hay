@@ -320,12 +320,14 @@ module Rmi {
 	export class SComment{
 		userId: number;
 		nickname: string;
+		avatarImgId: number;
 		content: string;
 		commentDt: Date;
 
 		constructor() {
 			this.userId = 0;
 			this.nickname = "";
+			this.avatarImgId = 0;
 			this.content = "";
 			this.commentDt = new Date();
 		}
@@ -333,6 +335,7 @@ module Rmi {
 		__read(__is: SimpleSerializer) {
 			this.userId = __is.read(4);
 			this.nickname = __is.read(8);
+			this.avatarImgId = __is.read(4);
 			this.content = __is.read(8);
 			this.commentDt = __is.read(9);
 		}
@@ -340,6 +343,7 @@ module Rmi {
 		__write(__os: SimpleSerializer) {
 			__os.write(4, this.userId);
 			__os.write(8, this.nickname);
+			__os.write(4, this.avatarImgId);
 			__os.write(8, this.content);
 			__os.write(9, this.commentDt);
 		}
