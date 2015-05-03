@@ -74,6 +74,7 @@ namespace Rmi
 	{
 		int userId;
 		std::string nickname;
+		int avatarImgId;
 		std::string content;
 		cdf::CDateTime commentDt;
 

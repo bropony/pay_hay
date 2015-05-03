@@ -117,6 +117,7 @@ void __write(cdf::CSimpleSerializer & __os, const SeqPost& v, SeqPost__U__)
 SComment::SComment()
 :userId()
 ,nickname()
+,avatarImgId()
 ,content()
 ,commentDt()
 {
@@ -130,6 +131,7 @@ void SComment::__read(cdf::CSimpleSerializer & __is)
 {
 	__is.read(userId);
 	__is.read(nickname);
+	__is.read(avatarImgId);
 	__is.read(content);
 	__is.read(commentDt);
 }
@@ -138,6 +140,7 @@ void SComment::__write(cdf::CSimpleSerializer & __os) const
 {
 	__os.write(userId);
 	__os.write(nickname);
+	__os.write(avatarImgId);
 	__os.write(content);
 	__os.write(commentDt);
 }

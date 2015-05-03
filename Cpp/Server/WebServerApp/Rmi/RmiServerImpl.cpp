@@ -224,6 +224,8 @@ void CRmiServerImpl::getComments(const std::string & sessionKey, int postId, con
 
 	Rmi::SeqComment comments;
 	CCommentManager::instance()->getCommentsByPostId(postId, comments);
+
+	getCommentsCB->response(comments);
 }
 
 void CRmiServerImpl::startPostEx(const std::string & sessionKey,
