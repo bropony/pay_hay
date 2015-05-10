@@ -40,6 +40,7 @@ const CCommentPtr CCommentManager::createComment(int postId, int fromUserId, con
 	tComment.fromUserId = fromUserId;
 	tComment.fromNickname = fromNickName;
 	tComment.commentDt = cdf::CDateTime();
+	tComment.content = connent;
 
 	CDaoManager::instance()->getIUserCommentDao()->updateUserComment(tComment);
 
