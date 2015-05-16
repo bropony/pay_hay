@@ -102,3 +102,8 @@ uploadPostImgEx(in sessionKey:string, //会话密钥
                 in index: int,  //对应贴子图片的 序号(从0开始)
                 out imgId: int  //图片ID
                 );
+
+//会话是否有效
+isSessionKeyValid(in sessionKey:string, //会话密钥
+                  out bool res //true--会话还有效，false--会话过期
+                  );
