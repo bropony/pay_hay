@@ -230,6 +230,19 @@ public class RmiClient{
 			RmiManager.instance().invoke(clientCB__, __msgIdBase, __os);
 		}
 
+		public static void isSessionKeyValid(IsSessionKeyValidCallback clientCB__, String sessionKey){
+			SerializeStream __os = new SerializeStream();
+			__os.startToWrite();
+
+			__msgIdBase++;
+			__os.write(__msgIdBase);
+			__os.write(50);
+
+			__os.write(sessionKey);
+
+			RmiManager.instance().invoke(clientCB__, __msgIdBase, __os);
+		}
+
 
 	//Callback definitions
 	public static abstract class LoginCallback extends RmiCallbackBase {
@@ -614,6 +627,33 @@ public class RmiClient{
 			imgId = __is.read(imgId);
 
 			onResponse(imgId);
+		}
+
+		@Override
+		public void __onError(String what, int code){
+			onError(what, code);
+		}
+
+		@Override
+		public void __onTimeout(){
+			onTimeout();
+		}
+
+	}
+
+	public static abstract class IsSessionKeyValidCallback extends RmiCallbackBase {
+		public IsSessionKeyValidCallback(){}
+
+		public abstract void onResponse(boolean res);
+		public abstract void onError(String what, int code);
+		public abstract void onTimeout();
+
+		@Override
+		public void __onResponse(SerializeStream __is){
+			boolean res = false;
+			res = __is.read(res);
+
+			onResponse(res);
 		}
 
 		@Override
