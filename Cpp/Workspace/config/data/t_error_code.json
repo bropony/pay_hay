@@ -119,5 +119,11 @@
 		"errorCode" : 20027,
 		"errorName" : "Error_postImgIndexError",
 		"errorStr" : "图片索引错误"
+	},
+	
+	{
+		"errorCode" : 20028,
+		"errorName" : "Error_commentEmpty",
+		"errorStr" : "评论不能为空"
 	}
 ]
