@@ -268,6 +268,24 @@ var Rmi;
         return UploadPostImgExCallback;
     })();
     Rmi.UploadPostImgExCallback = UploadPostImgExCallback; // end of UploadPostImgExCallback
+    //IsSessionKeyValidCallback
+    var IsSessionKeyValidCallback = (function () {
+        function IsSessionKeyValidCallback() {
+        }
+        IsSessionKeyValidCallback.prototype.__onResponse = function (__is) {
+            var res = false;
+            res = __is.read(2);
+            this.onResponse(res);
+        };
+        IsSessionKeyValidCallback.prototype.__onError = function (what, code) {
+            this.onError(what, code);
+        };
+        IsSessionKeyValidCallback.prototype.__onTimeout = function () {
+            this.onTimeout();
+        };
+        return IsSessionKeyValidCallback;
+    })();
+    Rmi.IsSessionKeyValidCallback = IsSessionKeyValidCallback; // end of IsSessionKeyValidCallback
     //Client Rmi Proxy
     var Proxy = (function () {
         function Proxy() {
@@ -429,6 +447,15 @@ var Rmi;
             __os.write(8, descrpt);
             __os.write(4, postId);
             __os.write(4, index);
+            Rmi.RmiManager.invoke(Proxy.__msgIdBase, __os, __cb);
+        };
+        Proxy.isSessionKeyValid = function (__cb, sessionKey) {
+            var __os = new Rmi.SimpleSerializer();
+            __os.startToWrite();
+            Proxy.__msgIdBase += 1;
+            __os.writeInt(Proxy.__msgIdBase);
+            __os.writeInt(50);
+            __os.write(8, sessionKey);
             Rmi.RmiManager.invoke(Proxy.__msgIdBase, __os, __cb);
         };
         Proxy.__msgIdBase = 0;

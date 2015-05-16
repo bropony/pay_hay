@@ -328,6 +328,28 @@ module Rmi {
 	} // end of UploadPostImgExCallback
 
 
+	//IsSessionKeyValidCallback
+	export class IsSessionKeyValidCallback implements CallbackBase {
+		onResponse: (res: boolean) => void;
+		onError: (what: string, code: number) => void;
+		onTimeout: () => void;
+
+		__onResponse(__is: SimpleSerializer) : void {
+			var res: boolean = false;
+			res = __is.read(2);
+			this.onResponse(res);
+		}
+
+		__onError(what: string, code: number) : void {
+			this.onError(what, code);
+		}
+
+		__onTimeout() : void {
+			this.onTimeout();
+		}
+	} // end of IsSessionKeyValidCallback
+
+
 
 	//Client Rmi Proxy
 	export class Proxy {
@@ -533,6 +555,18 @@ module Rmi {
 			__os.write(8, descrpt);
 			__os.write(4, postId);
 			__os.write(4, index);
+
+			RmiManager.invoke(Proxy.__msgIdBase, __os, __cb);
+		}
+
+		static isSessionKeyValid(__cb: IsSessionKeyValidCallback, sessionKey: string) : void {
+			var __os: SimpleSerializer = new SimpleSerializer();
+			__os.startToWrite();
+			Proxy.__msgIdBase += 1;
+			__os.writeInt(Proxy.__msgIdBase);
+			__os.writeInt(50);
+
+			__os.write(8, sessionKey);
 
 			RmiManager.invoke(Proxy.__msgIdBase, __os, __cb);
 		}
