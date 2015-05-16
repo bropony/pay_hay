@@ -285,6 +285,25 @@ void CUploadPostImgExCallback::response(int imgId)
 }
 
 
+CIsSessionKeyValidCallback::CIsSessionKeyValidCallback(const cdf::CWSContextPtr & context, int msgId)
+:CRmiCallbackBase(context, msgId)
+{
+}
+
+void CIsSessionKeyValidCallback::response(bool res)
+{
+	cdf::CSimpleSerializer __os;
+	__os.startToWrite();
+
+	__os.write(_msgId);
+	__os.write(true);
+
+	__os.write(res);
+
+	__response(__os);
+}
+
+
 void CRmiServer::__login(cdf::CSimpleSerializer & __is, int __msgId, const cdf::CWSContextPtr & context)
 {
 	std::string account;
@@ -492,6 +511,15 @@ void CRmiServer::__uploadPostImgEx(cdf::CSimpleSerializer & __is, int __msgId, c
 	uploadPostImgEx(sessionKey, img, descrpt, postId, index, __cb);
 }
 
+void CRmiServer::__isSessionKeyValid(cdf::CSimpleSerializer & __is, int __msgId, const cdf::CWSContextPtr & context)
+{
+	std::string sessionKey;
+	__is.read(sessionKey);
+
+	CIsSessionKeyValidCallbackPtr __cb = new CIsSessionKeyValidCallback(context, __msgId);
+	isSessionKeyValid(sessionKey, __cb);
+}
+
 void CRmiServer::__call(cdf::CSimpleSerializer & __is, const cdf::CWSContextPtr & context)
 {
 	int __msgId = 0;
@@ -555,6 +583,9 @@ void CRmiServer::__call(cdf::CSimpleSerializer & __is, const cdf::CWSContextPtr 
 			break;
 		case 45:
 			__uploadPostImgEx(__is, __msgId, context);
+			break;
+		case 50:
+			__isSessionKeyValid(__is, __msgId, context);
 			break;
 		default:
 			WebServerApp::CErrorCodeManager::throwException("Error_NotRegisterdRmiCall");

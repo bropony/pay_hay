@@ -159,6 +159,16 @@ namespace Rmi
 	};
 	typedef cdf::CHandle<CUploadPostImgExCallback> CUploadPostImgExCallbackPtr;
 
+	class CIsSessionKeyValidCallback
+		: public virtual CRmiCallbackBase
+	{
+	public:
+		CIsSessionKeyValidCallback(const cdf::CWSContextPtr & context, int msgId);
+
+		void response(bool res);
+	};
+	typedef cdf::CHandle<CIsSessionKeyValidCallback> CIsSessionKeyValidCallbackPtr;
+
 	class CRmiServer
 		: public virtual cdf::CRefShared
 	{
@@ -207,6 +217,9 @@ namespace Rmi
 	
 		void __uploadPostImgEx(cdf::CSimpleSerializer & __is, int __msgId, const cdf::CWSContextPtr & context);
 		virtual void uploadPostImgEx( const std::string & sessionKey,  const std::string & img,  const std::string & descrpt, int postId, int index, const CUploadPostImgExCallbackPtr & uploadPostImgExCB) = 0;
+	
+		void __isSessionKeyValid(cdf::CSimpleSerializer & __is, int __msgId, const cdf::CWSContextPtr & context);
+		virtual void isSessionKeyValid( const std::string & sessionKey, const CIsSessionKeyValidCallbackPtr & isSessionKeyValidCB) = 0;
 	
 		void __call(cdf::CSimpleSerializer & __is, const cdf::CWSContextPtr & context);
 

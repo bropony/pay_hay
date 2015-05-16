@@ -317,3 +317,12 @@ void CRmiServerImpl::uploadPostImgEx(const std::string & sessionKey,
 
 	uploadPostImgExCB->response(imgId);
 }
+
+void CRmiServerImpl::isSessionKeyValid(const std::string & sessionKey, const CIsSessionKeyValidCallbackPtr & isSessionKeyValidCB)
+{
+	CUserPtr user = CUserHelper::getUser(isSessionKeyValidCB, sessionKey);
+
+	bool res = (user != NULL);
+
+	isSessionKeyValidCB->response(res);
+}
