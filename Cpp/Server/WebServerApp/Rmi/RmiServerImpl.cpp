@@ -214,6 +214,11 @@ void CRmiServerImpl::commentPost(const std::string & sessionKey, int postId,
 		CErrorCodeManager::throwException("Error_postNotFound");
 	}
 
+	if (comments.empty())
+	{
+		CErrorCodeManager::throwException("Error_commentEmpty");
+	}
+
 	CCommentManager::instance()->createComment(postId, user->getUserId(), user->getNickname(), comments);
 	commentPostCB->response();
 }
