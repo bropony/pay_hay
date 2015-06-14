@@ -220,6 +220,10 @@ void CRmiServerImpl::commentPost(const std::string & sessionKey, int postId,
 	}
 
 	CCommentManager::instance()->createComment(postId, user->getUserId(), user->getNickname(), comments);
+
+	postPtr->getTUserPost().ncomment += 1;
+	postPtr->updateToDb();
+
 	commentPostCB->response();
 }
 
