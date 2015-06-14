@@ -100,5 +100,12 @@
 		"eventId" : 45,
 		"inParams" : "sessionKey:string#img:image#descrpt:string#postId:int#index:int",
 		"outParams" : "imgId:int"
+	},
+	
+	{
+		"event" : "isSessionKeyValid",
+		"eventId" : 50,
+		"inParams" : "sessionKey:string",
+		"outParams" : "res:bool"
 	}
 ]
